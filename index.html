@@ -1,1 +1,1776 @@
-```html <!DOCTYPE html> <html lang="ru"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> <title>Идём! — Куда пойти с детьми от 0 до 17 лет</title> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"> <style> /* ================= БАЗОВЫЕ СТИЛИ (БЕЗ ВНЕШНИХ CDN) ================= */ *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; } :root { --brand: #ff6b4a; --brand-hover: #f05330; --brand-light: #fff3f0; --brand-border: #ffd8cf; --bg: #f8fafc; --surface: #ffffff; --text: #0f172a; --text-muted: #64748b; --text-sub: #94a3b8; --border: #e2e8f0; --radius-lg: 20px; --radius-md: 14px; --radius-sm: 10px; --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06); } body { font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.5; padding-bottom: 84px; -webkit-tap-highlight-color: transparent; } .container { max-width: 1040px; margin: 0 auto; padding: 0 16px; } /* ШАПКА */ header { position: sticky; top: 0; z-index: 50; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); } .header-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; } .brand-logo-wrap { display: flex; align-items: center; gap: 10px; cursor: pointer; text-decoration: none; } .logo-box { width: 42px; height: 42px; border-radius: 12px; background: var(--brand-light); border: 1px solid var(--brand-border); display: flex; align-items: center; justify-content: center; overflow: hidden; } .logo-box img { width: 100%; height: 100%; object-fit: contain; padding: 2px; } .brand-name { font-size: 20px; font-weight: 800; color: var(--text); line-height: 1.1; } .brand-name span { color: var(--brand); } .brand-tagline { font-size: 11px; font-weight: 600; color: var(--text-muted); } /* ВЕРХНЯЯ ДЕСКТОП-НАВИГАЦИЯ */ .top-nav { display: none; gap: 6px; } @media (min-width: 768px) { .top-nav { display: flex; } } .nav-btn { background: transparent; border: none; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: all 0.15s ease; } .nav-btn:hover { color: var(--brand); background: var(--brand-light); } .nav-btn.active { color: var(--brand); background: var(--brand-light); } .header-actions { display: flex; align-items: center; gap: 8px; } .btn-action-search { display: none; align-items: center; gap: 6px; background: var(--brand); color: white; border: none; padding: 8px 16px; border-radius: var(--radius-sm); font-weight: 700; font-size: 13px; cursor: pointer; transition: background 0.15s; } @media (min-width: 600px) { .btn-action-search { display: inline-flex; } } .btn-action-search:hover { background: var(--brand-hover); } /* СЕКЦИИ И ЭКРАНЫ */ .view-screen { display: none; animation: fadeIn 0.2s ease forwards; } .view-screen.active { display: block; } @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } } /* HERO СЕКЦИЯ */ .hero-section { padding: 32px 0 24px; } .badge-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; background: var(--brand-light); border: 1px solid var(--brand-border); color: var(--brand); font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 14px; } .hero-title { font-size: 28px; font-weight: 800; line-height: 1.25; color: var(--text); margin-bottom: 12px; letter-spacing: -0.5px; } @media (min-width: 640px) { .hero-title { font-size: 38px; } } .hero-title span { color: var(--brand); } .hero-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; max-width: 680px; margin-bottom: 20px; } /* ПОИСКОВАЯ ПЛАШКА */ .search-bar-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 6px; display: flex; flex-direction: column; gap: 6px; box-shadow: var(--shadow); } @media (min-width: 600px) { .search-bar-box { flex-direction: row; align-items: center; } } .search-input-wrap { flex: 1; display: flex; align-items: center; gap: 10px; padding: 8px 12px; } .search-input-wrap input { width: 100%; border: none; outline: none; font-size: 14px; font-weight: 600; color: var(--text); background: transparent; } .search-bar-box button { background: var(--brand); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.15s; white-space: nowrap; } .search-bar-box button:hover { background: var(--brand-hover); } /* ЧИПСЫ ТЕГОВ */ .chips-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 12px; font-size: 12px; } .chip-btn { background: var(--surface); border: 1px solid var(--border); padding: 6px 12px; border-radius: 10px; font-size: 12px; font-weight: 600; color: var(--text); cursor: pointer; transition: all 0.15s; } .chip-btn:hover, .chip-btn.active { border-color: var(--brand); background: var(--brand-light); color: var(--brand); } /* СЕКЦИИ КОНТЕНТА */ .section-wrap { margin-top: 32px; } .section-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 16px; gap: 12px; } .section-title { font-size: 20px; font-weight: 800; color: var(--text); } .section-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; } /* ПАСПОРТ КОМФОРТА СЕТКА */ .comfort-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; } @media (min-width: 600px) { .comfort-grid { grid-template-columns: repeat(3, 1fr); } } @media (min-width: 900px) { .comfort-grid { grid-template-columns: repeat(6, 1fr); } } .comfort-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 10px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; } .comfort-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--brand-light); color: var(--brand); display: flex; align-items: center; justify-content: center; margin-bottom: 2px; } .comfort-title { font-size: 12px; font-weight: 800; color: var(--text); } .comfort-note { font-size: 10px; color: var(--text-muted); } /* КАРТОЧКИ МЕСТ */ .cards-grid { display: grid; grid-template-columns: 1fr; gap: 14px; } @media (min-width: 640px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } } @media (min-width: 960px) { .cards-grid { grid-template-columns: repeat(3, 1fr); } } .place-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; cursor: pointer; display: flex; flex-direction: column; box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: transform 0.15s, box-shadow 0.15s; } .place-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); } .place-img-box { height: 160px; background: #e2e8f0; position: relative; } .place-img-box img { width: 100%; height: 100%; object-fit: cover; } .place-match-badge { position: absolute; top: 10px; left: 10px; background: rgba(255, 255, 255, 0.95); color: var(--brand); font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 8px; } .place-price-badge { position: absolute; bottom: 10px; right: 10px; background: rgba(15, 23, 42, 0.85); color: white; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px; } .place-content { padding: 14px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; } .place-cat { font-size: 10px; font-weight: 800; color: var(--text-sub); text-transform: uppercase; } .place-name { font-size: 15px; font-weight: 800; color: var(--text); margin-top: 2px; } .place-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; } .tag-tiny { font-size: 10px; background: #f1f5f9; color: #475569; padding: 2px 6px; border-radius: 6px; font-weight: 600; } .place-footer-btn { margin-top: 12px; padding-top: 10px; border-top: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; color: var(--brand); font-size: 12px; font-weight: 800; } /* ВИДЕО РИЛСЫ */ .reels-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; } @media (min-width: 600px) { .reels-grid { grid-template-columns: repeat(3, 1fr); } } @media (min-width: 900px) { .reels-grid { grid-template-columns: repeat(6, 1fr); } } .reel-card { aspect-ratio: 9/16; border-radius: var(--radius-md); overflow: hidden; position: relative; background: #0f172a; cursor: pointer; } .reel-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: transform 0.2s; } .reel-card:hover img { transform: scale(1.04); } .reel-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%, rgba(0,0,0,0.3) 100%); padding: 10px; display: flex; flex-direction: column; justify-content: space-between; color: white; } .play-btn-circle { width: 28px; height: 28px; border-radius: 50%; background: rgba(255, 255, 255, 0.25); display: flex; align-items: center; justify-content: center; } .reel-caption { font-size: 11px; font-weight: 700; line-height: 1.3; } .reel-author { font-size: 9px; opacity: 0.8; margin-top: 2px; } /* ФОРМА И ФИЛЬТРЫ В ПОИСКЕ */ .filter-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; box-shadow: var(--shadow); margin-bottom: 20px; } .filter-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 14px; } @media (min-width: 640px) { .filter-grid { grid-template-columns: repeat(3, 1fr); } } .field-group label { display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; } .field-group select, .field-group input { width: 100%; padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: #f8fafc; font-size: 13px; font-weight: 600; color: var(--text); outline: none; } .field-group select:focus, .field-group input:focus { border-color: var(--brand); } /* ПРОФИЛЬ КАБИНЕТ */ .profile-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow); } .profile-card h3 { font-size: 17px; font-weight: 800; margin-bottom: 4px; } .profile-card p { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; } .btn-save { background: var(--brand); color: white; border: none; padding: 10px 20px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 800; cursor: pointer; margin-top: 14px; } /* ФИКСИРОВАННОЕ НИЖНЕЕ СТРОЧНОЕ МЕНЮ */ #bottomNavbar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(12px); border-top: 1px solid var(--border); padding: 6px 12px 10px; box-shadow: 0 -4px 16px rgba(0,0,0,0.04); } .tabbar-container { max-width: 480px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 6px; } .tab-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6px 4px; border-radius: 12px; border: none; background: transparent; color: #64748b; cursor: pointer; user-select: none; transition: all 0.15s ease; } .tab-item svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; } .tab-item span { font-size: 11px; font-weight: 700; margin-top: 3px; } .tab-item.active { color: var(--brand); background: var(--brand-light); } .tab-item:active { transform: scale(0.94); } </style> </head> <body> <!-- ==================== ШАПКА ==================== --> <header> <div class="container header-inner"> <!-- ЛОГОТИП --> <div class="brand-logo-wrap" onclick="window.navTo('home')"> <div class="logo-box"> <img src="Logo.png" alt="Идём!" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=100&auto=format&fit=crop&q=60';"> </div> <div> <div class="brand-name">Идём<span>!</span></div> <div class="brand-tagline">куда пойти с детьми</div> </div> </div> <!-- ВЕРХНЕЕ МЕНЮ (ПК) --> <nav class="top-nav"> <button class="nav-btn active" data-view="home" onclick="window.navTo('home')">Главная</button> <button class="nav-btn" data-view="catalog" onclick="window.navTo('catalog')">Поиск мест</button> <button class="nav-btn" data-view="reels" onclick="window.navTo('reels')">Смотри, что нашла!</button> <button class="nav-btn" data-view="cabinet" onclick="window.navTo('cabinet')">Кабинет</button> </nav> <!-- ПРАВАЯ КНОПКА --> <div class="header-actions"> <button class="btn-action-search" onclick="window.navTo('catalog')"> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> Найти места </button> </div> </div> </header> <!-- ==================== 1. ЭКРАН: ГЛАВНАЯ ==================== --> <main id="view-home" class="view-screen active"> <div class="container"> <section class="hero-section"> <div class="badge-pill"> <span style="width:7px; height:7px; background:var(--brand); border-radius:50%; display:inline-block;"></span> Для родителей детей от 0 до 17 лет </div> <h1 class="hero-title">Куда пойти с ребёнком прямо сейчас — <span>быстро и с комфортом</span></h1> <p class="hero-desc"> Проверенные места города с честным расчётом совпадения по возрасту, интересам и времени в пути. Больше никаких сюрпризов у ступенек — в каждом месте есть подробный «Паспорт комфорта». </p> <!-- Поисковый блок --> <div class="search-bar-box"> <div class="search-input-wrap"> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> <input type="text" id="homeSearchQuery" placeholder="Например: кафе с игровой зоной или скалодром..." onkeyup="if(event.key==='Enter') window.navTo('catalog')"> </div> <button onclick="window.navTo('catalog')">Смотреть места</button> </div> <div class="chips-row"> <span style="color:var(--text-sub); font-weight:600;">Быстрый выбор:</span> <button class="chip-btn" onclick="window.navTo('catalog')">☕ Кофе для мамы</button> <button class="chip-btn" onclick="window.navTo('catalog')">🤫 Тихий сон в коляске</button> <button class="chip-btn" onclick="window.navTo('catalog')">🧗 Скалодром и батуты</button> <button class="chip-btn" onclick="window.navTo('catalog')">🎨 Творчество</button> </div> </section> <!-- Паспорт комфорта --> <section class="section-wrap" style="background:white; padding:24px 16px; border-radius:var(--radius-lg); border:1px solid var(--border);"> <div style="text-align:center; max-width:540px; margin:0 auto 20px;"> <h2 class="section-title">«Паспорт комфорта» каждого места</h2> <p class="section-sub">Узнайте все бытовые детали заранее, чтобы прогулка была легкой и приятной.</p> </div> <div class="comfort-grid"> <div class="comfort-card"> <div class="comfort-icon">♿</div> <div class="comfort-title">Пандус и лифт</div> <div class="comfort-note">С коляской без ступенек</div> </div> <div class="comfort-card"> <div class="comfort-icon">👶</div> <div class="comfort-title">Пеленальная</div> <div class="comfort-note">Чистый столик и салфетки</div> </div> <div class="comfort-card"> <div class="comfort-icon">🤫</div> <div class="comfort-title">Тихий час</div> <div class="comfort-note">Без громкой музыки</div> </div> <div class="comfort-card"> <div class="comfort-icon">🪑</div> <div class="comfort-title">Стульчики</div> <div class="comfort-note">Удобное кормление</div> </div> <div class="comfort-card"> <div class="comfort-icon">⚡</div> <div class="comfort-title">Wi-Fi и розетки</div> <div class="comfort-note">Для старших детей</div> </div> <div class="comfort-card"> <div class="comfort-icon">🍲</div> <div class="comfort-title">Детское меню</div> <div class="comfort-note">Полезно и без сахара</div> </div> </div> </section> <!-- Места по возрасту --> <section class="section-wrap"> <div class="section-head"> <div> <h2 class="section-title">Подборки по возрасту ребёнка</h2> <p class="section-sub">От малышей до подростков</p> </div> <div style="display:flex; gap:6px; overflow-x:auto;"> <button class="chip-btn active" id="tabAge0" onclick="window.renderPlacesByAge(0, 6, this)">0–6 лет</button> <button class="chip-btn" onclick="window.renderPlacesByAge(7, 12, this)">7–12 лет</button> <button class="chip-btn" onclick="window.renderPlacesByAge(13, 17, this)">13–17 лет</button> </div> </div> <div id="homeCardsGrid" class="cards-grid"></div> </section> <!-- Reels блок --> <section class="section-wrap" style="background:#0f172a; padding:24px 16px; border-radius:var(--radius-lg); color:white;"> <div class="section-head"> <div> <span style="color:var(--brand); font-size:10px; font-weight:800; text-transform:uppercase;">Видео от родителей</span> <h2 class="section-title" style="color:white; margin-top:2px;">«Смотри, что нашла!»</h2> </div> <button class="nav-btn" style="color:var(--brand);" onclick="window.navTo('reels')">Все ролики →</button> </div> <div id="homeReelsGrid" class="reels-grid"></div> </section> </div> </main> <!-- ==================== 2. ЭКРАН: ПОИСК И КАТАЛОГ ==================== --> <main id="view-catalog" class="view-screen"> <div class="container" style="padding-top:20px;"> <div class="filter-panel"> <h2 class="section-title">Каталог мест с расчётом совпадения</h2> <p class="section-sub">Фильтруйте по возрасту, району и бюджету визита</p> <div class="filter-grid"> <div class="field-group"> <label>Возраст ребёнка:</label> <select id="filterAge" onchange="window.filterCatalog()"> <option value="all">Любой возраст (0–17 лет)</option> <option value="toddler">0–3 года (малыши в колясках)</option> <option value="preschool">4–6 лет (дошкольники)</option> <option value="school">7–12 лет (школьники)</option> <option value="teen">13–17 лет (подростки)</option> </select> </div> <div class="field-group"> <label>Район:</label> <select id="filterDistrict" onchange="window.filterCatalog()"> <option value="all">Все районы</option> <option value="Центр">Центр</option> <option value="Запад">Запад</option> <option value="Север">Север</option> <option value="Юг">Юг</option> <option value="Восток">Восток</option> </select> </div> <div class="field-group"> <label>Макс. стоимость билета (₽):</label> <input type="number" id="filterPrice" placeholder="Любая" oninput="window.filterCatalog()"> </div> </div> </div> <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;"> <span id="catalogCount" style="font-size:13px; font-weight:700; color:var(--text-muted);">Найдено мест: 8</span> <span style="font-size:11px; color:var(--text-sub);">Сортировка: по совпадению %</span> </div> <div id="catalogGrid" class="cards-grid"></div> </div> </main> <!-- ==================== 3. ЭКРАН: СМОТРИ, ЧТО НАШЛА! (REELS) ==================== --> <main id="view-reels" class="view-screen"> <div class="container" style="padding-top:20px;"> <div style="text-align:center; max-width:540px; margin:0 auto 20px;"> <h2 class="section-title" style="font-size:26px;">«Смотри, что нашла!»</h2> <p class="section-sub">Короткие видеообзоры от мам: как проехать с коляской, есть ли очереди и где вкусный кофе.</p> </div> <div id="fullReelsGrid" class="reels-grid"></div> </div> </main> <!-- ==================== 4. ЭКРАН: КАБИНЕТ ==================== --> <main id="view-cabinet" class="view-screen"> <div class="container" style="padding-top:20px; max-width:680px;"> <div class="profile-card"> <h3>Профиль родителя</h3> <p>Настройки для персонализации рекомендаций</p> <div class="field-group"> <label>Ваше имя</label> <input type="text" id="userName" value="Анна"> </div> <div class="field-group" style="margin-top:10px;"> <label>Основной район прогулок</label> <select id="userDistrict"> <option value="Центр" selected>Центр</option> <option value="Север">Север</option> <option value="Юг">Юг</option> <option value="Запад">Запад</option> <option value="Восток">Восток</option> </select> </div> <button class="btn-save" onclick="alert('Данные профиля сохранены!')">Сохранить</button> </div> <div class="profile-card"> <h3>Дети (для точного матчинга)</h3> <p>Добавьте возраст для фильтрации мест</p> <div style="background:#f8fafc; padding:12px; border-radius:12px; border:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;"> <div> <div style="font-size:13px; font-weight:800;">Алина, 6 лет</div> <div style="font-size:11px; color:var(--text-muted);">Интересы: Творчество, Тихие игры</div> </div> <span style="font-size:11px; background:var(--brand-light); color:var(--brand); padding:3px 8px; border-radius:6px; font-weight:700;">Активен</span> </div> </div> <div class="profile-card" style="background:linear-gradient(135deg, var(--brand) 0%, #f97316 100%); color:white;"> <h3 style="color:white;">Копилка заботы</h3> <p style="color:rgba(255,255,255,0.9);">Баланс: 850 баллов (≈ 850 ₽ на подарки у партнёров)</p> <button style="background:white; color:var(--brand); border:none; padding:8px 16px; border-radius:10px; font-weight:800; font-size:12px; cursor:pointer;" onclick="alert('Обменяйте баллы на кофе в кафе «Улитка» или билеты в музей!')"> Как потратить баллы? </button> </div> </div> </main> <!-- ==================== 5. ЭКРАН: КАРТОЧКА МЕСТА (ДЕТАЛИ) ==================== --> <main id="view-details" class="view-screen"> <div class="container" style="padding-top:20px; max-width:760px;"> <button class="chip-btn" onclick="window.navTo('catalog')" style="margin-bottom:14px;"> ← Назад к списку </button> <div id="placeDetailBox" class="profile-card" style="padding:0; overflow:hidden;"></div> </div> </main> <!-- ==================== ФИКСИРОВАННОЕ НИЖНЕЕ СТРОЧНОЕ МЕНЮ (100% КЛИКАБЕЛЬНО) ==================== --> <nav id="bottomNavbar"> <div class="tabbar-container"> <button class="tab-item active" data-view="home" onclick="window.navTo('home')"> <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> <span>Главная</span> </button> <button class="tab-item" data-view="catalog" onclick="window.navTo('catalog')"> <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> <span>Поиск</span> </button> <button class="tab-item" data-view="reels" onclick="window.navTo('reels')"> <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> <span>Смотри</span> </button> <button class="tab-item" data-view="cabinet" onclick="window.navTo('cabinet')"> <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> <span>Кабинет</span> </button> </div> </nav> <!-- ==================== АВТОНОМНЫЙ JAVASCRIPT ==================== --> <script> // БАЗА ДАННЫХ const PLACES = [ { id: "p1", name: "Семейное кафе «Улитка»", cat: "Кафе", district: "Центр", minAge: 0, maxAge: 6, price: 800, match: 98, img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&auto=format&fit=crop&q=80", desc: "Уютное кафе с тихой детской комнатой, пандусом и эко-игрушками из дерева." }, { id: "p2", name: "Парк «Тихая аллея»", cat: "Парк", district: "Запад", minAge: 0, maxAge: 12, price: 0, match: 94, img: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&auto=format&fit=crop&q=80", desc: "Широкие дорожки для колясок, сосны и безопасные песочницы." }, { id: "p3", name: "Игровой центр «Облачко»", cat: "Игровой центр", district: "Север", minAge: 2, maxAge: 7, price: 900, match: 91, img: "https://images.unsplash.com/photo-1566454544259-f4b94c3d758c?w=600&auto=format&fit=crop&q=80", desc: "Сухой бассейн, лабиринт и мягкие модули для активных игр." }, { id: "p4", name: "Театр «Бэби-сцена»", cat: "Театр", district: "Центр", minAge: 1, maxAge: 6, price: 1200, match: 95, img: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=600&auto=format&fit=crop&q=80", desc: "Интерактивные спектакли для самых маленьких на мягких подушках." }, { id: "p5", name: "Скалодром «Вертикаль»", cat: "Спорт", district: "Юг", minAge: 7, maxAge: 16, price: 1000, match: 96, img: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600&auto=format&fit=crop&q=80", desc: "Трассы разного уровня с инструктором, автостраховкой и розетками для родителей." }, { id: "p6", name: "Музей занимательных наук", cat: "Музей", district: "Центр", minAge: 6, maxAge: 15, price: 700, match: 92, img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=600&auto=format&fit=crop&q=80", desc: "Все экспонаты можно трогать руками, запускать молнии и ставить опыты." }, { id: "p7", name: "Коворкинг «Лофт 21»", cat: "Коворкинг", district: "Восток", minAge: 12, maxAge: 17, price: 500, match: 89, img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&auto=format&fit=crop&q=80", desc: "Быстрый Wi-Fi, розетки у каждого столика, настолки и фильтр-кофе." }, { id: "p8", name: "Скейт-парк «Рэйл»", cat: "Экстрим", district: "Юг", minAge: 10, maxAge: 17, price: 0, match: 93, img: "https://images.unsplash.com/photo-1520045884218-a66e9b324e7e?w=600&auto=format&fit=crop&q=80", desc: "Бетонная чаша и перила для скейтов, самокатов и BMX." } ]; const REELS = [ { id: "r1", pId: "p1", title: "Тихая комната для сна", author: "Настя, мама Миши", img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&auto=format&fit=crop&q=80" }, { id: "r2", pId: "p5", title: "Дочь 8 лет на вершине!", author: "Ольга", img: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=400&auto=format&fit=crop&q=80" }, { id: "r3", pId: "p2", title: "Удобные дорожки с коляской", author: "Елена", img: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=400&auto=format&fit=crop&q=80" }, { id: "r4", pId: "p7", title: "Сын с кодом, я с рафом", author: "Мария", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&auto=format&fit=crop&q=80" }, { id: "r5", pId: "p3", title: "Сухой бассейн — час тишины", author: "Ирина", img: "https://images.unsplash.com/photo-1566454544259-f4b94c3d758c?w=400&auto=format&fit=crop&q=80" }, { id: "r6", pId: "p6", title: "Опыты с сухим льдом 🔥", author: "Татьяна", img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=400&auto=format&fit=crop&q=80" } ]; // ГЛОБАЛЬНАЯ НАВИГАЦИЯ window.navTo = function(screenId) { // Переключаем секцию document.querySelectorAll('.view-screen').forEach(el => el.classList.remove('active')); const target = document.getElementById('view-' + screenId); if (target) target.classList.add('active'); // Подсвечиваем нижнее меню document.querySelectorAll('.tab-item').forEach(btn => { btn.classList.toggle('active', btn.dataset.view === screenId); }); // Подсвечиваем верхнее меню document.querySelectorAll('.nav-btn').forEach(btn => { btn.classList.toggle('active', btn.dataset.view === screenId); }); window.scrollTo(0, 0); }; // ГЕНЕРАЦИЯ КАРТОЧЕК function getCardHtml(p) { return ` <div class="place-card" onclick="window.openDetail('${p.id}')"> <div class="place-img-box"> <img src="${p.img}" alt="${p.name}"> <div class="place-match-badge">${p.match}% совпадение</div> <div class="place-price-badge">${p.price === 0 ? 'Бесплатно' : p.price + ' ₽'}</div> </div> <div class="place-content"> <div> <div class="place-cat">${p.cat} · ${p.district}</div> <div class="place-name">${p.name}</div> <div class="place-tags"> <span class="tag-tiny">Пандус</span> <span class="tag-tiny">Пеленальная</span> <span class="tag-tiny">От ${p.minAge} до ${p.maxAge} лет</span> </div> </div> <div class="place-footer-btn"> <span>Паспорт комфорта</span> <span>→</span> </div> </div> </div> `; } function getReelHtml(r) { return ` <div class="reel-card" onclick="window.openDetail('${r.pId}')"> <img src="${r.img}"> <div class="reel-overlay"> <div class="play-btn-circle">▶</div> <div> <div class="reel-caption">${r.title}</div> <div class="reel-author">${r.author}</div> </div> </div> </div> `; } // РЕНДЕР ГЛАВНОЙ window.renderPlacesByAge = function(min, max, btn) { if (btn) { btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active')); btn.classList.add('active'); } const filtered = PLACES.filter(p => p.minAge <= max && p.maxAge >= min); document.getElementById('homeCardsGrid').innerHTML = filtered.map(getCardHtml).join(''); }; // ФИЛЬТРАЦИЯ КАТАЛОГА window.filterCatalog = function() { const ageVal = document.getElementById('filterAge').value; const distVal = document.getElementById('filterDistrict').value; const priceVal = Number(document.getElementById('filterPrice').value) || 0; let res = PLACES.filter(p => { if (distVal !== 'all' && p.district !== distVal) return false; if (priceVal > 0 && p.price > priceVal) return false; if (ageVal === 'toddler' && p.minAge > 3) return false; if (ageVal === 'preschool' && (p.maxAge < 4 || p.minAge > 6)) return false; if (ageVal === 'school' && (p.maxAge < 7 || p.minAge > 12)) return false; if (ageVal === 'teen' && p.maxAge < 13) return false; return true; }); document.getElementById('catalogCount').innerText = `Найдено мест: ${res.length}`; document.getElementById('catalogGrid').innerHTML = res.map(getCardHtml).join(''); }; // ДЕТАЛЬНАЯ КАРТОЧКА window.openDetail = function(pId) { const p = PLACES.find(item => item.id === pId); if (!p) return; document.getElementById('placeDetailBox').innerHTML = ` <div style="height:240px; background:#0f172a; position:relative;"> <img src="${p.img}" style="width:100%; height:100%; object-fit:cover;"> <div style="position:absolute; bottom:12px; left:12px; background:var(--brand); color:white; font-size:11px; font-weight:800; padding:4px 10px; border-radius:8px;"> ${p.match}% совпадение под ваш возраст </div> </div> <div style="padding:20px;"> <div style="display:flex; justify-content:space-between; align-items:flex-start;"> <div> <div class="place-cat">${p.cat} · Район «${p.district}»</div> <h2 style="font-size:22px; font-weight:800; margin-top:2px;">${p.name}</h2> <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">Возраст: от ${p.minAge} до ${p.maxAge} лет</div> </div> <div style="text-align:right;"> <div style="font-size:20px; font-weight:800; color:var(--text);">${p.price === 0 ? 'Бесплатно' : p.price + ' ₽'}</div> <div style="font-size:10px; color:var(--text-sub);">входной билет</div> </div> </div> <p style="font-size:13px; color:var(--text); margin-top:14px; line-height:1.6; background:#f8fafc; padding:12px; border-radius:12px; border:1px solid var(--border);"> ${p.desc} </p> <div style="margin-top:20px; border-top:1px solid var(--border); padding-top:16px;"> <div style="font-size:13px; font-weight:800; margin-bottom:10px;">«Паспорт комфорта» локации</div> <div class="comfort-grid"> <div class="comfort-card" style="padding:10px;"><div class="comfort-icon">♿</div><div class="comfort-title">Пандус</div><div class="comfort-note">Есть</div></div> <div class="comfort-card" style="padding:10px;"><div class="comfort-icon">👶</div><div class="comfort-title">Пеленальная</div><div class="comfort-note">Есть</div></div> <div class="comfort-card" style="padding:10px;"><div class="comfort-icon">🪑</div><div class="comfort-title">Стульчики</div><div class="comfort-note">В наличии</div></div> </div> </div> <div style="margin-top:20px; display:flex; gap:10px;"> <button class="btn-action-search" style="display:inline-flex; padding:12px 20px; font-size:13px;" onclick="alert('Маршрут строится в Яндекс Картах...')"> 📍 Построить маршрут </button> <button class="chip-btn" style="padding:12px 18px;" onclick="alert('Место сохранено в закладки!')"> ⭐ В закладки </button> </div> </div> `; window.navTo('details'); }; // ПЕРВИЧНАЯ ИНИЦИАЛИЗАЦИЯ window.renderPlacesByAge(0, 6, document.getElementById('tabAge0')); document.getElementById('homeReelsGrid').innerHTML = REELS.slice(0, 6).map(getReelHtml).join(''); document.getElementById('fullReelsGrid').innerHTML = REELS.map(getReelHtml).join(''); window.filterCatalog(); </script> </body> </html> ```
+<!DOCTYPE html>
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Идём! — куда пойти с детьми</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&amp;family=Nunito:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --primary: #ae3115;
+  --primary-container: #ff6b4a;
+  --primary-light: #ffe7e1;
+  --secondary: #0b6b55;
+  --secondary-container: #a1f3d6;
+  --surface: #f6f9ff;
+  --surface-white: #ffffff;
+  --surface-container: #e8eff7;
+  --on-surface: #151c22;
+  --muted: #6f7884;
+  --border: #e1e8f2;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--on-surface);
+  font-family: 'Plus Jakarta Sans', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding-bottom: 92px;
+  -webkit-tap-highlight-color: transparent;
+}
+a { text-decoration: none; color: inherit; }
+.container { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+
+/* ШАПКА */
+.topbar {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(246, 249, 255, 0.94);
+  backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.brand-logo-wrap {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+}
+.brand-icon {
+  width: 38px; height: 38px; border-radius: 12px;
+  background: linear-gradient(135deg, #ff6b4a, #ae3115);
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 900; font-size: 20px;
+  box-shadow: 0 4px 10px rgba(255, 107, 74, 0.35);
+}
+.brand-title {
+  font-size: 20px; font-weight: 800; letter-spacing: -0.5px;
+  color: #151c22;
+}
+.brand-tag {
+  font-size: 11px; font-weight: 700; color: #ff6b4a; background: #ffe7e1;
+  padding: 2px 7px; border-radius: 6px; margin-left: 2px;
+}
+.topbar-btn {
+  width: 42px; height: 42px; border-radius: 14px;
+  background: #ffffff; border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: var(--on-surface); cursor: pointer;
+  transition: all 0.2s;
+}
+.topbar-btn:active { transform: scale(0.96); }
+
+/* НИЖНИЙ ТАББАР */
+.tabbar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-around;
+  padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
+  box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.05);
+}
+.tabbar button {
+  flex: 1; max-width: 130px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  background: none; border: none; padding: 6px 4px;
+  color: #7b8493; font-size: 11px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s; font-family: inherit;
+}
+.tabbar button i { font-size: 19px; }
+.tabbar button.active { color: #ff6b4a; }
+.tabbar button.active i { transform: translateY(-1px); }
+
+/* ЭКРАНЫ */
+.screen { display: none; opacity: 0; transition: opacity 0.2s ease-in-out; }
+.screen.active { display: block; opacity: 1; }
+
+/* КНОПКИ И ЭЛЕМЕНТЫ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: #ff6b4a; color: white; font-weight: 700; font-size: 15px;
+  padding: 14px 20px; border-radius: 16px; border: none; cursor: pointer;
+  width: 100%; transition: all 0.15s ease; box-shadow: 0 4px 14px rgba(255,107,74,0.28);
+}
+.btn:hover { background: #ae3115; }
+.btn:active { transform: scale(0.98); }
+.btn.outline {
+  background: #ffffff; color: #ff6b4a; border: 1.5px solid #ff6b4a;
+  box-shadow: none;
+}
+.btn.outline:hover { background: #fff5f2; }
+.btn.secondary {
+  background: #e8eff7; color: #151c22; font-weight: 700; box-shadow: none;
+}
+.btn.secondary:hover { background: #dce3eb; }
+
+.hero-title {
+  font-size: 27px; line-height: 1.22; font-weight: 800; letter-spacing: -0.5px;
+}
+.section-title { font-size: 20px; font-weight: 800; margin: 0 0 6px; letter-spacing: -0.3px; }
+.section-sub { color: var(--muted); font-size: 13.5px; margin: 0 0 16px; line-height: 1.45; }
+
+.card {
+  background: #ffffff; border-radius: 20px; border: 1px solid var(--border);
+  padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+/* СКРОЛЛЫ */
+.hscroll {
+  display: flex; gap: 12px; overflow-x: auto; padding-bottom: 6px;
+  -ms-overflow-style: none; scrollbar-width: none;
+}
+.hscroll::-webkit-scrollbar { display: none; }
+
+/* ТЕГИ И ЧИПСЫ */
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #ffffff; color: #2c333a; border: 1px solid var(--border);
+  border-radius: 999px; padding: 7px 13px; font-size: 13px; font-weight: 600;
+  cursor: pointer; margin: 3px 5px 4px 0; user-select: none; transition: all 0.15s;
+}
+.tag.active {
+  background: #ff6b4a; color: white; border-color: #ff6b4a;
+}
+.chip-passport {
+  flex: 0 0 auto; background: white; border: 1px solid var(--border);
+  border-radius: 14px; padding: 10px 14px; display: flex; align-items: center;
+  gap: 8px; font-size: 13px; font-weight: 700; white-space: nowrap;
+}
+.chip-passport i { color: #ff6b4a; }
+
+/* РИЛСЫ КАРТОЧКИ (С УЛУЧШЕННЫМ КОНТРАСТНЫМ БЛОКОМ МЕСТА) */
+.reel-card {
+  border-radius: 18px; position: relative; overflow: hidden;
+  aspect-ratio: 9/15; cursor: pointer; display: flex; flex-direction: column;
+  justify-content: space-between; padding: 12px; color: white;
+  background-size: cover; background-position: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  transition: transform 0.2s;
+}
+.reel-card:active { transform: scale(0.98); }
+.reel-card::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.85) 100%);
+}
+.reel-top { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; }
+.reel-badge {
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+  padding: 4px 8px; border-radius: 20px; font-size: 10.5px; font-weight: 700;
+}
+.reel-play-btn {
+  position: absolute; top: 46%; left: 50%; transform: translate(-50%, -50%);
+  width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 18px; z-index: 2; border: 1.5px solid rgba(255,255,255,0.8);
+}
+.reel-bottom { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 4px; }
+.reel-catchy-title {
+  font-size: 13.5px; font-weight: 800; line-height: 1.25;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+/* Крупное контрастное название места с пином */
+.reel-venue-tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #ff6b4a; color: #ffffff;
+  padding: 5px 10px; border-radius: 10px;
+  font-size: 12px; font-weight: 800;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  width: fit-content; max-width: 100%;
+}
+.reel-venue-tag span {
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.reel-author {
+  font-size: 10.5px; opacity: 0.85; margin-top: 2px;
+}
+
+/* КАРТОЧКА МЕСТА */
+.venue-card {
+  background: white; border-radius: 20px; border: 1px solid var(--border);
+  overflow: hidden; cursor: pointer; margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: transform 0.15s;
+}
+.venue-card:active { transform: scale(0.99); }
+.venue-card .thumb {
+  height: 140px; position: relative; display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 32px; background-size: cover; background-position: center;
+}
+.venue-card .match-pill {
+  position: absolute; top: 12px; right: 12px;
+  background: #ff6b4a; color: white; font-size: 12px; font-weight: 800;
+  padding: 4px 10px; border-radius: 999px; box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+.venue-card .body { padding: 14px 16px; }
+
+/* ФОРМА ПОИСКА С 3 ВАРИАНТАМИ СТАРТА */
+.start-point-tabs {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+  background: #e8eff7; padding: 4px; border-radius: 14px; margin-top: 8px;
+}
+.start-tab {
+  padding: 8px 4px; border-radius: 10px; font-size: 11.5px; font-weight: 700;
+  text-align: center; cursor: pointer; background: transparent; border: none;
+  color: #556070; transition: all 0.15s;
+}
+.start-tab.active {
+  background: white; color: #151c22; box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+/* ИНТЕРАКТИВНАЯ КАРТА-СХЕМА */
+.map-canvas-box {
+  position: relative; height: 160px; border-radius: 14px;
+  background: #d8e5f2; overflow: hidden; border: 1px solid #c8d8e8;
+  margin-top: 8px; cursor: crosshair;
+}
+.map-grid-bg {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(#9cb9d8 1.5px, transparent 1.5px);
+  background-size: 18px 18px;
+}
+.map-pin {
+  position: absolute; width: 26px; height: 26px; transform: translate(-50%, -100%);
+  color: #ae3115; font-size: 26px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  pointer-events: none; transition: all 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+.map-route-line {
+  position: absolute; height: 3px; background: repeating-linear-gradient(90deg, #ff6b4a, #ff6b4a 6px, transparent 6px, transparent 10px);
+  top: 50%; left: 20%; width: 60%; transform: rotate(-8deg); pointer-events: none; opacity: 0.6;
+}
+
+/* МУЛЬТИ-ВЫБОР ДЕТЕЙ */
+.kids-multi-picker {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;
+}
+.kid-chip {
+  display: flex; align-items: center; gap: 8px;
+  background: white; border: 1.5px solid var(--border);
+  padding: 8px 14px; border-radius: 14px; cursor: pointer;
+  user-select: none; transition: all 0.15s;
+}
+.kid-chip.selected {
+  border-color: #ff6b4a; background: #fff5f2; color: #ae3115; font-weight: 700;
+}
+.kid-chip input[type="checkbox"] { display: none; }
+.kid-chip-icon {
+  width: 22px; height: 22px; border-radius: 50%; background: #e8eff7;
+  display: flex; align-items: center; justify-content: center; font-size: 11px;
+}
+.kid-chip.selected .kid-chip-icon {
+  background: #ff6b4a; color: white;
+}
+
+/* ТУМБЛЕР ИНТЕРЕСОВ РОДИТЕЛЯ */
+.toggle-switch-card {
+  background: #fff8f6; border: 1.5px solid #ffdad2; border-radius: 16px;
+  padding: 14px; display: flex; align-items: center; justify-content: space-between;
+  margin-top: 14px; cursor: pointer;
+}
+.toggle-indicator {
+  width: 44px; height: 24px; background: #cbd5e1; border-radius: 12px;
+  position: relative; transition: background 0.2s; flex-shrink: 0;
+}
+.toggle-indicator::after {
+  content: ""; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px;
+  background: white; border-radius: 50%; transition: transform 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.toggle-indicator.checked {
+  background: #ff6b4a;
+}
+.toggle-indicator.checked::after {
+  transform: translateX(20px);
+}
+
+/* ТРАНСПОРТНЫЕ ПЛАШКИ */
+.transport-selector {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 8px;
+}
+.transport-opt {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 10px 4px; background: white; border: 1.5px solid var(--border);
+  border-radius: 14px; cursor: pointer; font-size: 11px; font-weight: 700;
+  color: #4b5563; transition: all 0.15s;
+}
+.transport-opt i { font-size: 16px; }
+.transport-opt.active {
+  border-color: #ff6b4a; background: #fff5f2; color: #ae3115;
+}
+
+/* МОДАЛКА */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px); z-index: 70; display: none;
+  align-items: flex-end; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal-sheet {
+  background: white; width: 100%; max-width: 520px; max-height: 90vh;
+  overflow-y: auto; border-radius: 28px 28px 0 0; padding: 22px 20px 32px;
+  position: relative; animation: slideUp 0.25s ease-out;
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.modal-close {
+  position: absolute; top: 18px; right: 18px; width: 34px; height: 34px;
+  border-radius: 12px; background: #f1f5f9; display: flex; align-items: center;
+  justify-content: center; color: #64748b; cursor: pointer;
+}
+
+/* ПОЛЯ ВВОДА */
+input[type=text], input[type=number], input[type=tel], select {
+  width: 100%; padding: 13px 14px; border-radius: 14px; border: 1px solid var(--border);
+  font-size: 14.5px; background: white; color: var(--on-surface); outline: none; font-family: inherit;
+}
+input:focus, select:focus { border-color: #ff6b4a; }
+label.field-label {
+  display: block; font-size: 13px; font-weight: 700; margin: 12px 0 6px; color: #2c333a;
+}
+</style>
+</head>
+<body>
+<!-- ДЕСКТОПНАЯ И МОБИЛЬНАЯ ШАПКА -->
+<header class="topbar">
+<div class="brand-logo-wrap" onclick="window.navTo('home')">
+<div class="brand-icon">
+<i class="fa-solid fa-compass"></i>
+</div>
+<div style="display:flex; flex-direction:column; line-height:1;">
+<div style="display:flex; align-items:center;">
+<span class="brand-title">Идём!</span>
+<span class="brand-tag">0–17 лет</span>
+</div>
+<span style="font-size:10.5px; color:var(--muted); margin-top:2px;">навигатор для родителей</span>
+</div>
+</div>
+<div style="display:flex; gap:8px;">
+<button class="topbar-btn" onclick="window.navTo('search')" title="Поиск мест">
+<i class="fa-solid fa-magnifying-glass"></i>
+</button>
+<button class="topbar-btn" onclick="window.navTo('cabinet')" title="Личный кабинет">
+<i class="fa-solid fa-user"></i>
+</button>
+</div>
+</header>
+<!-- ======================= 1. ЭКРАН: ГЛАВНАЯ ======================= -->
+<main class="screen active" id="screen-home">
+<!-- HERO -->
+<div class="container" style="padding-top:24px;">
+<div style="display:inline-flex; align-items:center; gap:6px; background:#ffe7e1; color:#ae3115; font-size:12px; font-weight:800; padding:4px 10px; border-radius:999px; margin-bottom:12px;">
+<i class="fa-solid fa-bolt"></i> Без чатов и гугления
+    </div>
+<h1 class="hero-title" style="margin:0 0 10px;">Куда пойти с ребёнком прямо сейчас — под точный возраст и бюджет</h1>
+<p style="color:var(--muted); margin:0 0 18px; font-size:14.5px; line-height:1.5;">
+      Учитываем возраст, интересы детей и мамы, считаем вход вместе с дорогой от метро или вашей геолокации.
+    </p>
+<!-- Поисковая плашка -->
+<div style="background:white; border:1px solid var(--border); border-radius:18px; padding:6px 8px; display:flex; align-items:center; gap:10px; box-shadow:0 3px 12px rgba(0,0,0,0.04);">
+<i class="fa-solid fa-magnifying-glass" style="color:#ff6b4a; margin-left:8px; font-size:17px;"></i>
+<input onclick="window.navTo('search')" placeholder="Например: скалодром, бассейн или коворкинг с детьми" readonly="" style="border:none; padding:10px 0; font-size:14px; background:transparent;" type="text"/>
+<button class="btn" onclick="window.navTo('search')" style="width:auto; padding:10px 16px; font-size:13.5px;">Найти</button>
+</div>
+<!-- Быстрые действия -->
+<div style="display:flex; gap:10px; margin-top:12px;">
+<button class="btn outline" onclick="window.quickSearchTwoKids()" style="flex:1; font-size:13.5px; padding:11px;">
+<i class="fa-solid fa-people-roof"></i> Идём с двумя детьми
+      </button>
+<button class="btn secondary" onclick="window.navTo('reels')" style="flex:1; font-size:13.5px; padding:11px;">
+<i class="fa-solid fa-play" style="color:#ff6b4a;"></i> Смотри! видео
+      </button>
+</div>
+</div>
+<!-- БЫСТРЫЙ ПРИМЕР СОВМЕСТНОГО ПОДБОРА НА ДВОИХ ДЕТЕЙ -->
+<div class="container" style="margin-top:22px;">
+<div class="card" style="background:linear-gradient(145deg, #ffffff, #f9fbfe); border-left: 4px solid #ff6b4a;">
+<div style="display:flex; justify-content:space-between; align-items:center;">
+<div>
+<span style="font-size:11px; font-weight:800; color:#ae3115; text-transform:uppercase; letter-spacing:0.5px;">Компромисс для двух детей</span>
+<p style="font-weight:800; margin:3px 0 0; font-size:14.5px;">Алина (6 лет) + Марк (2 года)</p>
+</div>
+<span style="background:#a1f3d6; color:#00513f; font-weight:800; font-size:12px; padding:4px 9px; border-radius:999px;">96% совпадение</span>
+</div>
+<p style="font-size:13px; color:var(--muted); margin:8px 0 10px;">
+        Для Алины: мастер-класс и сухой бассейн. Для Марка: огороженная мягкая зона и пеленальная. Для мамы: свежий кофе.
+      </p>
+<div style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed var(--border); padding-top:10px;">
+<span style="font-size:13px; font-weight:700;"><i class="fa-solid fa-location-dot" style="color:#ff6b4a;"></i> Семейный центр «Облачко»</span>
+<a href="javascript:void(0)" onclick="window.openDetail('p3')" style="color:#ff6b4a; font-size:12.5px; font-weight:800;">Смотреть место →</a>
+</div>
+</div>
+</div>
+<!-- СМОТРИ, ЧТО НАШЛА! (ГОРИЗОНТАЛЬНАЯ ЛЕНТА С КОНТРАСТНЫМ НАЗВАНИЕМ) -->
+<div class="container" style="margin-top:28px;">
+<div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:10px;">
+<div>
+<p class="section-title">«Смотри, что нашла!»</p>
+<p class="section-sub" style="margin:0;">Честные ролики родителей района без рекламы</p>
+</div>
+<a href="javascript:void(0)" onclick="window.navTo('reels')" style="color:#ff6b4a; font-size:13px; font-weight:800; margin-bottom:2px;">Все видео →</a>
+</div>
+<div class="hscroll" id="homeReelsContainer" style="gap:12px; padding-bottom:8px;"></div>
+</div>
+<!-- «ПАСПОРТ КОМФОРТА» КАЖДОГО МЕСТА -->
+<div class="container" style="margin-top:28px;">
+<p class="section-title">«Паспорт комфорта» каждого места</p>
+<p class="section-sub">Знаете условия ещё до выхода из дома: коляски, еда, тишина</p>
+<div class="hscroll">
+<div class="chip-passport"><i class="fa-solid fa-wheelchair-move"></i> Пандус для колясок</div>
+<div class="chip-passport"><i class="fa-solid fa-baby"></i> Пеленальный столик</div>
+<div class="chip-passport"><i class="fa-solid fa-volume-low"></i> Тихий час без криков</div>
+<div class="chip-passport"><i class="fa-solid fa-chair"></i> Высокие стульчики</div>
+<div class="chip-passport"><i class="fa-solid fa-wifi"></i> Wi-Fi / Розетки для мамы</div>
+<div class="chip-passport"><i class="fa-solid fa-utensils"></i> Детское полезное меню</div>
+<div class="chip-passport"><i class="fa-solid fa-mug-saucer"></i> Спешелти кофе рядом</div>
+</div>
+</div>
+<!-- ПОДБОР ПО ВОЗРАСТАМ -->
+<div class="container" style="margin-top:32px;">
+<p class="section-title">Места по возрастам</p>
+<p class="section-sub">Выберите возрастную категорию для быстрой фильтрации</p>
+<div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:6px; scrollbar-width:none;">
+<span class="tag active" data-hage="all" onclick="window.filterHomeAge('all', this)">Все возрасты</span>
+<span class="tag" data-hage="0-2" onclick="window.filterHomeAge('0-2', this)">0–2 года</span>
+<span class="tag" data-hage="3-6" onclick="window.filterHomeAge('3-6', this)">3–6 лет</span>
+<span class="tag" data-hage="7-11" onclick="window.filterHomeAge('7-11', this)">7–11 лет</span>
+<span class="tag" data-hage="12-17" onclick="window.filterHomeAge('12-17', this)">12–17 лет</span>
+</div>
+<div id="homePlacesList" style="margin-top:14px;"></div>
+</div>
+<!-- КАК ЭТО РАБОТАЕТ -->
+<div class="container" style="margin-top:32px;">
+<p class="section-title">Как работает умный поиск «Идём!»</p>
+<div class="card" style="padding:16px;">
+<div style="display:flex; gap:14px; margin-bottom:14px;">
+<div style="width:36px; height:36px; border-radius:10px; background:#ffe7e1; color:#ff6b4a; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-weight:800;">1</div>
+<div>
+<p style="font-weight:700; margin:0 0 2px;">Выбираете одного или сразу двух детей</p>
+<p style="font-size:13px; color:var(--muted); margin:0;">Алгоритм находит компромисс, чтобы старшему не было скучно, а младшему было безопасно.</p>
+</div>
+</div>
+<div style="display:flex; gap:14px; margin-bottom:14px;">
+<div style="width:36px; height:36px; border-radius:10px; background:#ffe7e1; color:#ff6b4a; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-weight:800;">2</div>
+<div>
+<p style="font-weight:700; margin:0 0 2px;">Точная точка старта</p>
+<p style="font-size:13px; color:var(--muted); margin:0;">Геолокация в 1 клик, клик по карте или выбор вашей станции метро.</p>
+</div>
+</div>
+<div style="display:flex; gap:14px;">
+<div style="width:36px; height:36px; border-radius:10px; background:#ffe7e1; color:#ff6b4a; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-weight:800;">3</div>
+<div>
+<p style="font-weight:700; margin:0 0 2px;">Учёт комфорта мамы</p>
+<p style="font-size:13px; color:var(--muted); margin:0;">Включайте тумблер интересов взрослого: коворкинг, хороший кофе, тишина или Wi-Fi.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- КОПИЛКА ЗАБОТЫ -->
+<div class="container" style="margin-top:24px; margin-bottom:10px;">
+<div style="background:linear-gradient(135deg, #ff6b4a, #ae3115); border-radius:24px; padding:22px; color:white;">
+<span style="font-size:12px; font-weight:700; background:rgba(255,255,255,0.22); padding:3px 10px; border-radius:999px;">Копилка заботы</span>
+<p style="font-size:26px; font-weight:900; margin:10px 0 4px;">+60–150 баллов за отзыв</p>
+<p style="font-size:13.5px; opacity:0.95; margin:0 0 16px;">Сняли честный рилс или оставили фотоотметку? Обменивайте баллы на напитки и билеты!</p>
+<button class="btn" onclick="window.navTo('cabinet')" style="background:white; color:#ae3115; font-weight:800;">Участвовать в программе</button>
+</div>
+</div>
+</main>
+<!-- ======================= 2. ЭКРАН: ПОИСК МЕСТ (С МУЛЬТИ-ВЫБОРОМ И 3 ТОЧКАМИ СТАРТА) ======================= -->
+<main class="screen" id="screen-search">
+<div class="container" style="padding-top:16px;">
+<div class="card" style="border: 1.5px solid #ffdad2;">
+<h2 style="font-size:18px; font-weight:800; margin:0 0 4px;">Умный подбор мест</h2>
+<p style="font-size:13px; color:var(--muted); margin:0 0 14px;">Алгоритм учитывает возраст каждого ребёнка, дорогу и ваши пожелания</p>
+<!-- 1. МУЛЬТИ-ВЫБОР ДЕТЕЙ -->
+<label class="field-label" style="margin-top:0;">
+<i class="fa-solid fa-children" style="color:#ff6b4a;"></i> С кем идём? (выберите одного или двух детей):
+      </label>
+<div class="kids-multi-picker" id="searchKidsMultiBox"></div>
+<div id="searchKidsSummary" style="font-size:12px; color:#ae3115; font-weight:700; margin-top:6px;"></div>
+<!-- 2. ТОЧКА СТАРТА МАРШРУТА (3 ЯВНЫХ ВАРИАНТА) -->
+<label class="field-label" style="margin-top:16px;">
+<i class="fa-solid fa-location-crosshairs" style="color:#ff6b4a;"></i> Откуда едем (точка старта):
+      </label>
+<div class="start-point-tabs">
+<button class="start-tab active" id="btnTabGeo" onclick="window.setStartMode('geo')">
+<i class="fa-solid fa-location-arrow"></i> 📍 Геолокация
+        </button>
+<button class="start-tab" id="btnTabMap" onclick="window.setStartMode('map')">
+<i class="fa-solid fa-map-location-dot"></i> 🗺️ Точка на карте
+        </button>
+<button class="start-tab" id="btnTabMetro" onclick="window.setStartMode('metro')">
+<i class="fa-solid fa-train-subway"></i> 🚇 Метро
+        </button>
+</div>
+<!-- ВАРИАНТ А: ГЕОЛОКАЦИЯ -->
+<div id="startBoxGeo" style="margin-top:10px;">
+<div style="background:#f1f7fe; border:1px solid #cce2fc; padding:12px; border-radius:14px; display:flex; align-items:center; justify-content:space-between;">
+<div style="display:flex; align-items:center; gap:10px;">
+<i class="fa-solid fa-crosshairs" style="color:#0b6b55; font-size:18px;"></i>
+<div>
+<p id="geoStatusLabel" style="margin:0; font-size:13px; font-weight:700;">Текущая геопозиция определена</p>
+<p id="geoSubLabel" style="margin:2px 0 0; font-size:11.5px; color:var(--muted);">Москва, р-н Центральный (±250 м)</p>
+</div>
+</div>
+<button class="btn secondary" onclick="window.refreshGeo()" style="width:auto; padding:6px 10px; font-size:12px;">Обновить</button>
+</div>
+</div>
+<!-- ВАРИАНТ Б: ТОЧКА НА КАРТЕ -->
+<div id="startBoxMap" style="margin-top:10px; display:none;">
+<div class="map-canvas-box" id="interactiveMap" onclick="window.handleMapClick(event)">
+<div class="map-grid-bg"></div>
+<div class="map-route-line"></div>
+<div class="map-pin" id="mapCustomPin" style="top:52%; left:48%;">
+<i class="fa-solid fa-location-dot"></i>
+</div>
+<div style="position:absolute; bottom:8px; left:10px; background:rgba(255,255,255,0.9); padding:4px 8px; border-radius:8px; font-size:11px; font-weight:700;">
+            Кликните по схеме района для переноса старта
+          </div>
+</div>
+<p id="mapPinCoords" style="font-size:12px; color:var(--muted); margin:6px 0 0;">Выбрана точка: Координаты зоны 55.75 / 37.61 (Центр)</p>
+</div>
+<!-- ВАРИАНТ В: ВЫБОР СТАНЦИИ МЕТРО -->
+<div id="startBoxMetro" style="margin-top:10px; display:none;">
+<select id="startMetroSelect" onchange="window.handleMetroChange()">
+<option data-zone="Центр" value="Охотный Ряд">🚇 Охотный Ряд (Центр)</option>
+<option data-zone="Центр" value="Китай-город">🚇 Китай-город (Центр)</option>
+<option data-zone="Юг" value="Университет">🚇 Университет (Юго-Запад/Юг)</option>
+<option data-zone="Юг" value="Проспект Вернадского">🚇 Проспект Вернадского (Юг)</option>
+<option data-zone="Восток" value="Сокольники">🚇 Сокольники (Восток)</option>
+<option data-zone="Запад" value="Раменки">🚇 Раменки (Запад)</option>
+<option data-zone="Север" value="Динамо">🚇 Динамо (Север)</option>
+<option data-zone="Север" value="Речной Вокзал">🚇 Речной Вокзал (Север)</option>
+</select>
+</div>
+<!-- ВЫБОР СПОСОБА ПЕРЕДВИЖЕНИЯ -->
+<label class="field-label" style="margin-top:16px;">
+        Способ передвижения и расчет дороги:
+      </label>
+<div class="transport-selector">
+<div class="transport-opt active" data-tr="walk" onclick="window.pickTransport('walk', this)">
+<i class="fa-solid fa-person-walking"></i>
+<span>Пешком</span>
+<span style="font-size:10px; opacity:0.75;">0 ₽</span>
+</div>
+<div class="transport-opt" data-tr="bus" onclick="window.pickTransport('bus', this)">
+<i class="fa-solid fa-bus"></i>
+<span>Автобус</span>
+<span style="font-size:10px; opacity:0.75;">от 65 ₽</span>
+</div>
+<div class="transport-opt" data-tr="metro" onclick="window.pickTransport('metro', this)">
+<i class="fa-solid fa-train-subway"></i>
+<span>Метро</span>
+<span style="font-size:10px; opacity:0.75;">от 65 ₽</span>
+</div>
+<div class="transport-opt" data-tr="taxi" onclick="window.pickTransport('taxi', this)">
+<i class="fa-solid fa-taxi"></i>
+<span>Такси</span>
+<span style="font-size:10px; opacity:0.75;">комфорт</span>
+</div>
+</div>
+<!-- 3. ТУМБЛЕР «УЧИТЫВАТЬ МОИ ИНТЕРЕСЫ» -->
+<div class="toggle-switch-card" onclick="window.toggleMomInterests()">
+<div style="display:flex; align-items:center; gap:12px;">
+<div style="width:38px; height:38px; border-radius:12px; background:#ffe7e1; color:#ae3115; display:flex; align-items:center; justify-content:center; font-size:16px;">
+<i class="fa-solid fa-heart"></i>
+</div>
+<div>
+<p style="margin:0; font-size:13.5px; font-weight:800; color:#151c22;">Учитывать мои интересы</p>
+<p style="margin:2px 0 0; font-size:11.5px; color:var(--muted);">Кофе, тишина, Wi-Fi для работы, зона отдыха для мамы</p>
+</div>
+</div>
+<div class="toggle-indicator" id="momToggleIndicator"></div>
+</div>
+<!-- БЮДЖЕТ И КНОПКА ПОИСКА -->
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px;">
+<div>
+<label class="field-label" style="margin-top:0;">Макс. бюджет, ₽</label>
+<input id="searchBudgetInput" placeholder="Любой" type="number" value="2500"/>
+</div>
+<div>
+<label class="field-label" style="margin-top:0;">Фильтры комфорта</label>
+<button class="btn secondary" onclick="window.openComfortModal()" style="padding:13px; font-size:13px;">
+<i class="fa-solid fa-sliders"></i> <span id="comfortBtnCount">Все удобства</span>
+</button>
+</div>
+</div>
+<button class="btn" onclick="window.performSearch()" style="margin-top:16px;">
+<i class="fa-solid fa-magnifying-glass"></i> Найти подходящие места
+      </button>
+</div>
+<!-- РЕЗУЛЬТАТЫ ПОИСКА -->
+<div style="display:flex; justify-content:space-between; align-items:center; margin:22px 0 10px;">
+<h3 class="section-title" style="margin:0; font-size:18px;">Рекомендованные места</h3>
+<span id="resultsFoundCount" style="font-size:13px; color:var(--muted); font-weight:700;"></span>
+</div>
+<p id="searchStatusInfo" style="font-size:13px; color:var(--muted); margin-bottom:14px;"></p>
+<div id="searchResultsList"></div>
+</div>
+</main>
+<!-- ======================= 3. ЭКРАН: СМОТРИ, ЧТО НАШЛА! (РИЛСЫ) ======================= -->
+<main class="screen" id="screen-reels">
+<div class="container" style="padding-top:18px;">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+<div>
+<h1 style="font-size:22px; font-weight:800; margin:0 0 4px;">Смотри, что нашла!</h1>
+<p class="section-sub" style="margin:0;">Живые обзоры родителей районов. Нажмите, чтобы открыть место!</p>
+</div>
+</div>
+<div id="reelsFullGrid" style="display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;"></div>
+<div class="card" style="margin-top:20px; text-align:center; background:#f9fbfe;">
+<i class="fa-solid fa-video" style="font-size:28px; color:#ff6b4a; margin-bottom:8px;"></i>
+<p style="font-weight:800; margin:0 0 4px; font-size:15px;">Были в интересном месте с детьми?</p>
+<p style="font-size:13px; color:var(--muted); margin:0 0 14px;">Поделитесь 15-секундным видео и получите до +150 баллов в Копилку Заботы.</p>
+<button class="btn outline" onclick="alert('Форма загрузки видео откроется в следующем обновлении!')" style="width:auto; padding:10px 20px; font-size:13.5px;">
+<i class="fa-solid fa-plus"></i> Опубликовать рилс
+      </button>
+</div>
+</div>
+</main>
+<!-- ======================= 4. ЭКРАН: ДЕТАЛЬНАЯ СТРАНИЦА МЕСТА (С ПРИВЯЗАННЫМИ РИЛСАМИ) ======================= -->
+<main class="screen" id="screen-venue">
+<div class="container" style="padding-top:14px;">
+<button class="btn secondary" onclick="window.goBackToList()" style="width:auto; padding:8px 14px; font-size:13px; margin-bottom:12px;">
+<i class="fa-solid fa-arrow-left"></i> Назад к списку
+    </button>
+<div id="venueDetailContent"></div>
+</div>
+</main>
+<!-- ======================= 5. ЭКРАН: КАБИНЕТ И ПРОФИЛЬ ДЕТЕЙ ======================= -->
+<main class="screen" id="screen-cabinet">
+<div class="container" style="padding-top:18px;">
+<h1 style="font-size:22px; font-weight:800; margin:0 0 4px;">Личный кабинет</h1>
+<p class="section-sub">Настройте профиль мамы и добавьте детей для максимально точного подбора.</p>
+<!-- ПРОФИЛЬ МАМЫ -->
+<div class="card">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+<h2 style="font-size:16px; font-weight:800; margin:0;"><i class="fa-solid fa-user-gear" style="color:#ff6b4a;"></i> Профиль родителя</h2>
+<span style="font-size:12px; color:#0b6b55; font-weight:700; background:#a1f3d6; padding:3px 8px; border-radius:999px;">Активен</span>
+</div>
+<label class="field-label">Ваше имя</label>
+<input id="cabinetMomName" placeholder="Например, Анна" type="text"/>
+<label class="field-label">Домашний район (по умолчанию для старта)</label>
+<select id="cabinetMomDistrict">
+<option value="Центр">Центральный район</option>
+<option value="Север">Северный округ</option>
+<option value="Юг">Южный округ</option>
+<option value="Запад">Западный округ</option>
+<option value="Восток">Восточный округ</option>
+</select>
+<label class="field-label">Что важно для вас лично (интересы родителя):</label>
+<div id="cabinetMomInterestsBox" style="margin-top:6px;"></div>
+<button class="btn" onclick="window.saveCabinetMom()" style="margin-top:18px; padding:12px;">
+        Сохранить настройки родителя
+      </button>
+</div>
+<!-- ДЕТИ -->
+<div style="display:flex; justify-content:space-between; align-items:center; margin:22px 0 10px;">
+<h2 style="font-size:18px; font-weight:800; margin:0;"><i class="fa-solid fa-children" style="color:#ff6b4a;"></i> Профили детей</h2>
+<button class="btn outline" onclick="window.openKidEditor()" style="width:auto; padding:7px 12px; font-size:12.5px;">
+<i class="fa-solid fa-plus"></i> Добавить ребёнка
+      </button>
+</div>
+<div id="cabinetKidsList"></div>
+</div>
+</main>
+<!-- МОДАЛКА: РЕДАКТИРОВАНИЕ/ДОБАВЛЕНИЕ РЕБЁНКА -->
+<div class="modal-overlay" id="kidModal">
+<div class="modal-sheet">
+<div class="modal-close" onclick="window.closeKidModal()"><i class="fa-solid fa-xmark"></i></div>
+<h3 id="kidModalTitle" style="font-size:18px; font-weight:800; margin:0 0 6px;">Добавить ребёнка</h3>
+<p style="font-size:12.5px; color:var(--muted); margin:0 0 16px;">Укажите увлечения и возраст — алгоритм не предложит скучные или опасные локации</p>
+<label class="field-label">Имя ребёнка</label>
+<input id="kidFormName" placeholder="Например: Марк или Алина" type="text"/>
+<label class="field-label">Возраст (0–17 лет)</label>
+<input id="kidFormAge" max="17" min="0" placeholder="Например: 4" type="number"/>
+<label class="field-label">Что ребёнку интересно? (выберите несколько):</label>
+<div id="kidFormInterestsTags" style="margin-top:6px; max-height:160px; overflow-y:auto; padding:2px;"></div>
+<label class="field-label">Что категорически НЕ любит? (триггеры, шум, темнота)</label>
+<input id="kidFormDislikes" placeholder="Например: громкая музыка, толпа, резкие звуки" type="text"/>
+<input id="kidFormEditId" type="hidden"/>
+<button class="btn" onclick="window.saveKidForm()" style="margin-top:20px;">Сохранить профиль ребёнка</button>
+</div>
+</div>
+<!-- МОДАЛКА: ФИЛЬТРЫ КОМФОРТА -->
+<div class="modal-overlay" id="comfortModal">
+<div class="modal-sheet">
+<div class="modal-close" onclick="window.closeComfortModal()"><i class="fa-solid fa-xmark"></i></div>
+<h3 style="font-size:18px; font-weight:800; margin:0 0 4px;">Паспорт комфорта (фильтры)</h3>
+<p style="font-size:13px; color:var(--muted); margin:0 0 16px;">Показывать только места, в которых гарантированно есть:</p>
+<div id="comfortModalCheckboxes" style="display:flex; flex-direction:column; gap:10px;"></div>
+<div style="display:flex; gap:10px; margin-top:22px;">
+<button class="btn outline" onclick="window.resetComfortFilters()" style="flex:1;">Сбросить</button>
+<button class="btn" onclick="window.applyComfortFilters()" style="flex:1;">Применить</button>
+</div>
+</div>
+</div>
+<!-- СТРОЧНОЕ НИЖНЕЕ МЕНЮ (ТАББАР) -->
+<nav class="tabbar" id="bottomTabbar">
+<button class="active" data-tab="home" onclick="window.navTo('home')">
+<i class="fa-solid fa-house"></i>
+<span>Главная</span>
+</button>
+<button data-tab="search" onclick="window.navTo('search')">
+<i class="fa-solid fa-magnifying-glass"></i>
+<span>Поиск</span>
+</button>
+<button data-tab="reels" onclick="window.navTo('reels')">
+<i class="fa-solid fa-play"></i>
+<span>Смотри!</span>
+</button>
+<button data-tab="cabinet" onclick="window.navTo('cabinet')">
+<i class="fa-solid fa-user"></i>
+<span>Кабинет</span>
+</button>
+</nav>
+<!-- ======================= СКРИПТ ПРИЛОЖЕНИЯ ======================= -->
+<script>
+(function() {
+  /* РАСШИРЕННЫЙ ПУЛ ИНТЕРЕСОВ ДЕТЕЙ */
+  const EXTENDED_INTERESTS = [
+    "Животные", "Вода и бассейны", "Лепка и глина", "Научные опыты",
+    "Скалодромы и батуты", "Лего и робототехника", "Сенсорные зоны",
+    "Деревянные игрушки", "Театр и сказки", "Скейт и ролики",
+    "Рисование", "Кулинарные мастер-классы", "Квесты и настолки",
+    "Тихие игры", "Кофе и перекус", "Гаджеты и IT"
+  ];
+
+  /* ИНТЕРЕСЫ ВЗРОСЛОГО (МАМЫ) */
+  const MOM_INTERESTS_LIST = [
+    "Спешелти кофе", "Тишина и отдых", "Розетки и Wi-Fi", "Коворкинг",
+    "Вкусные десерты", "Удобная зона ожидания", "Парковка рядом", "Красивый интерьер"
+  ];
+
+  /* БАЗА МЕСТ (С ФОТО, ПАСПОРТОМ, ОПИСАНИЕМ И ЦЕНАМИ) */
+  const PLACES = [
+    {
+      id: "p1",
+      name: "Семейное кафе «Улитка»",
+      category: "Кафе и коворкинг",
+      catIcon: "fa-mug-saucer",
+      district: "Центр",
+      metroNear: "Китай-город",
+      ageMin: 0, ageMax: 7,
+      price: 850,
+      image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&auto=format&fit=crop&q=80",
+      descr: "Уютное тихое кафе для родителей с младенцами и дошкольниками. Мягкая ковровая зона, деревянные экологичные игрушки, тихий звук без резкой музыки и качественный фильтр-кофе.",
+      interests: ["Деревянные игрушки", "Сенсорные зоны", "Тихие игры", "Кофе и перекус", "Лепка и глина"],
+      avoidIf: ["громкая музыка", "шум", "толпа"],
+      comfort: { ramp: true, changing: true, quietHours: true, highChair: true, sockets: true, kidsMenu: true, coffeeMom: true },
+      kidsRoom: "Отдельная звукоизолированная комната: сухой мини-бассейн с шариками, диванчик для кормления, подогреватель бутылочек.",
+      nearby: [{ name: "Парк «Горка»", walk: "3 мин пешком" }, { name: "Аптека 24ч", walk: "2 мин" }]
+    },
+    {
+      id: "p2",
+      name: "Океанариум «Бухта открытий»",
+      category: "Животные и вода",
+      catIcon: "fa-fish",
+      district: "Запад",
+      metroNear: "Раменки",
+      ageMin: 1, ageMax: 16,
+      price: 1300,
+      image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&auto=format&fit=crop&q=80",
+      descr: "Огромный туннельный аквариум с акулами, скатами и контактным бассейном, где малыши могут погладить морских звезд под присмотром биолога.",
+      interests: ["Животные", "Вода и бассейны", "Научные опыты", "Тихие игры"],
+      avoidIf: ["темнота"],
+      comfort: { ramp: true, changing: true, quietHours: true, highChair: false, sockets: true, kidsMenu: true, coffeeMom: true },
+      kidsRoom: "Интерактивная песочница с подсветкой и морскими фигурками.",
+      nearby: [{ name: "Кофейня с круассанами", walk: "1 мин" }, { name: "Парковка у входа", walk: "рядом" }]
+    },
+    {
+      id: "p3",
+      name: "Игровой эко-центр «Облачко»",
+      category: "Игровой центр",
+      catIcon: "fa-shapes",
+      district: "Центр",
+      metroNear: "Охотный Ряд",
+      ageMin: 1, ageMax: 8,
+      price: 950,
+      image: "https://images.unsplash.com/photo-1596464716127-f2a8298223af?w=800&auto=format&fit=crop&q=80",
+      descr: "Пространство свободного движения Монтессори. Лабиринты из мягкого фетра, зона для малышей 0-2 года и творческая мастерская для старших детей.",
+      interests: ["Деревянные игрушки", "Сенсорные зоны", "Лего и робототехника", "Рисование", "Кулинарные мастер-классы"],
+      avoidIf: ["высота", "грубость"],
+      comfort: { ramp: true, changing: true, quietHours: true, highChair: true, sockets: true, kidsMenu: true, coffeeMom: true },
+      kidsRoom: "Зонировано: для малышей до 2 лет закрытый манеж-коврик; для старших — горка и конструктор.",
+      nearby: [{ name: "Пекарня «Тепло»", walk: "внутри здания" }, { name: "Сквер", walk: "4 мин" }]
+    },
+    {
+      id: "p4",
+      name: "Театр сказок «Бэби-сцена»",
+      category: "Театр и творчество",
+      catIcon: "fa-masks-theater",
+      district: "Центр",
+      metroNear: "Китай-город",
+      ageMin: 0, ageMax: 6,
+      price: 1100,
+      image: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=800&auto=format&fit=crop&q=80",
+      descr: "Интерактивные 40-минутные спектакли на подушках. Дети сидят прямо на ковре, трогают декорации и участвуют в добром сюжете.",
+      interests: ["Театр и сказки", "Сенсорные зоны", "Тихие игры", "Рисование"],
+      avoidIf: ["шум", "резкий свет"],
+      comfort: { ramp: true, changing: true, quietHours: true, highChair: false, sockets: false, kidsMenu: false, coffeeMom: true },
+      kidsRoom: "Уютная зона переодевания с диванами и столиком для рисования.",
+      nearby: [{ name: "Кондитерская", walk: "2 мин" }]
+    },
+    {
+      id: "p5",
+      name: "Скалодром и батуты «Вертикаль»",
+      category: "Активный спорт",
+      catIcon: "fa-person-running",
+      district: "Юг",
+      metroNear: "Университет",
+      ageMin: 4, ageMax: 17,
+      price: 1200,
+      image: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&auto=format&fit=crop&q=80",
+      descr: "Безопасные трассы с автостраховкой для новичков, поролоновая яма и мягкие батуты. Опытные детские инструкторы.",
+      interests: ["Скалодромы и батуты", "Скейт и ролики", "Квесты и настолки"],
+      avoidIf: ["боязнь высоты"],
+      comfort: { ramp: false, changing: false, quietHours: false, highChair: false, sockets: true, kidsMenu: true, coffeeMom: true },
+      kidsRoom: "Зона ожидания родителей с видом на скалодром, кофе и зарядками ноутбуков.",
+      nearby: [{ name: "Спортивное кафе", walk: "на 2 этаже" }]
+    },
+    {
+      id: "p6",
+      name: "Музей «Эксперименты & Наука»",
+      category: "Интерактивный музей",
+      catIcon: "fa-flask",
+      district: "Север",
+      metroNear: "Динамо",
+      ageMin: 5, ageMax: 15,
+      price: 800,
+      image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&auto=format&fit=crop&q=80",
+      descr: "Более 100 экспонатов, которые можно и нужно крутить и запускать. Шоу мыльных пузырей и химические опыты без запаха.",
+      interests: ["Научные опыты", "Лего и робототехника", "Квесты и настолки"],
+      avoidIf: [],
+      comfort: { ramp: true, changing: false, quietHours: false, highChair: false, sockets: true, kidsMenu: false, coffeeMom: true },
+      kidsRoom: "Лаборатория для сборки роботов из кубиков.",
+      nearby: [{ name: "Пиццерия", walk: "3 мин" }]
+    },
+    {
+      id: "p7",
+      name: "Коворкинг с няней «Лофт & Мама»",
+      category: "Коворкинг и отдых",
+      catIcon: "fa-laptop",
+      district: "Восток",
+      metroNear: "Сокольники",
+      ageMin: 1, ageMax: 12,
+      price: 700,
+      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80",
+      descr: "Пока мама работает в тихом спейсе со скоростным Wi-Fi и матчей, квалифицированная няня занимается с детьми лепкой и сказками.",
+      interests: ["Лепка и глина", "Рисование", "Тихие игры", "Кофе и перекус"],
+      avoidIf: ["толпа"],
+      comfort: { ramp: true, changing: true, quietHours: true, highChair: true, sockets: true, kidsMenu: true, coffeeMom: true },
+      kidsRoom: "Мягкая комната с книжками, пуфами и Монтессори-модулями.",
+      nearby: [{ name: "Парк «Сокольники»", walk: "5 мин" }]
+    },
+    {
+      id: "p8",
+      name: "Парк «Зеленая аллея & Скейт»",
+      category: "Парк и прогулки",
+      catIcon: "fa-tree",
+      district: "Запад",
+      metroNear: "Раменки",
+      ageMin: 0, ageMax: 17,
+      price: 0,
+      image: "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=800&auto=format&fit=crop&q=80",
+      descr: "Большой благоустроенный парк с новейшей детской эко-площадкой, памп-треком для самокатов и роликов, а также прудом с утками.",
+      interests: ["Животные", "Скейт и ролики", "Скалодромы и батуты", "Тихие игры"],
+      avoidIf: [],
+      comfort: { ramp: true, changing: true, quietHours: true, highChair: false, sockets: false, kidsMenu: false, coffeeMom: true },
+      kidsRoom: "Теплый павильон матери и ребёнка с пеленальным столиком возле центрального входа.",
+      nearby: [{ name: "Кофейный киоск", walk: "прямо в парке" }, { name: "Прокат велосипедов", walk: "1 мин" }]
+    }
+  ];
+
+  /* РАСШИРЕННЫЙ ПУЛ РИЛСОВ (С ЯРКИМИ ЦЕПЛЯЮЩИМИ ЗАГОЛОВКАМИ И ЧЕТКОЙ ПРИВЯЗКОЙ К МЕСТАМ) */
+  const REELS = [
+    {
+      id: "r1",
+      placeId: "p2",
+      title: "Крутейшее место на Земле! Скаты над головой 🦈",
+      author: "Марина, двое сыновей",
+      views: "18.4k",
+      bg: "linear-gradient(180deg, #1e3c72, #2a5298)",
+      img: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500&auto=format&fit=crop&q=80"
+    },
+    {
+      id: "r2",
+      placeId: "p3",
+      title: "Спасение, когда детям 2 и 6 лет! Идеальный компромисс 🧸",
+      author: "Света, мама Алины и Марка",
+      views: "24.1k",
+      bg: "linear-gradient(180deg, #ff7e5f, #feb47b)",
+      img: "https://images.unsplash.com/photo-1596464716127-f2a8298223af?w=500&auto=format&fit=crop&q=80"
+    },
+    {
+      id: "r3",
+      placeId: "p1",
+      title: "Наконец-то допила горячий кофе в тишине! ☕️",
+      author: "Ольга, дочке 1.5 года",
+      views: "31.9k",
+      bg: "linear-gradient(180deg, #654ea3, #eaafc8)",
+      img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=500&auto=format&fit=crop&q=80"
+    },
+    {
+      id: "r4",
+      placeId: "p5",
+      title: "Сын выплеснул всю энергию за час на скалодроме! 🧗",
+      author: "Татьяна, сын 9 лет",
+      views: "12.8k",
+      bg: "linear-gradient(180deg, #11998e, #38ef7d)",
+      img: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=500&auto=format&fit=crop&q=80"
+    },
+    {
+      id: "r5",
+      placeId: "p7",
+      title: "Я спокойно поработала 2 часа, пока няня лепила жирафа 💻",
+      author: "Екатерина, сыну 4 года",
+      views: "15.2k",
+      bg: "linear-gradient(180deg, #2b5876, #4e4376)",
+      img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=500&auto=format&fit=crop&q=80"
+    },
+    {
+      id: "r6",
+      placeId: "p4",
+      title: "Малыш сидел как завороженный все 40 минут! Сказка ✨",
+      author: "Дарья, дочке 2 года",
+      views: "9.7k",
+      bg: "linear-gradient(180deg, #f857a6, #ff5858)",
+      img: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=500&auto=format&fit=crop&q=80"
+    },
+    {
+      id: "r7",
+      placeId: "p2",
+      title: "Как покормить морских котиков? Честный лайфхак 🦭",
+      author: "Ира, мама погодок",
+      views: "21.0k",
+      bg: "linear-gradient(180deg, #00b4db, #0083b0)",
+      img: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500&auto=format&fit=crop&q=80"
+    },
+    {
+      id: "r8",
+      placeId: "p6",
+      title: "Взрывы без опасности! Химическое шоу для школьников 🔬",
+      author: "Павел, папа Дениса",
+      views: "17.3k",
+      bg: "linear-gradient(180deg, #8e2de2, #4a00e0)",
+      img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=500&auto=format&fit=crop&q=80"
+    }
+  ];
+
+  /* НАЧАЛЬНЫЕ ДАННЫЕ ПОЛЬЗОВАТЕЛЯ (2 РЕБЁНКА ПО УМОЛЧАНИЮ ДЛЯ ДЕМО МУЛЬТИ-ПОИСКА) */
+  const USER_STORE_KEY = "idom_state_v3";
+  let state = {
+    mom: {
+      name: "Анна",
+      district: "Центр",
+      interests: ["Спешелти кофе", "Тишина и отдых", "Розетки и Wi-Fi"]
+    },
+    kids: [
+      {
+        id: "k1",
+        name: "Алина",
+        age: 6,
+        interests: ["Лепка и глина", "Деревянные игрушки", "Рисование", "Кулинарные мастер-классы"],
+        dislikes: "громкий шум, темнота"
+      },
+      {
+        id: "k2",
+        name: "Марк",
+        age: 2,
+        interests: ["Сенсорные зоны", "Деревянные игрушки", "Животные", "Вода и бассейны"],
+        dislikes: "высота, резкие звуки"
+      }
+    ],
+    search: {
+      selectedKidIds: ["k1", "k2"], // Сразу 2 ребёнка выбраны!
+      startMode: "geo", // geo | map | metro
+      currentGeoName: "Центральный район",
+      mapCoordsName: "Центр (55.75 / 37.61)",
+      selectedMetro: "Охотный Ряд",
+      transport: "metro",
+      considerMomInterests: true,
+      maxBudget: 2500,
+      activeComfortKeys: []
+    }
+  };
+
+  // Загрузка сохраненного состояния
+  try {
+    const saved = localStorage.getItem(USER_STORE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.kids && parsed.kids.length > 0) state.kids = parsed.kids;
+      if (parsed.mom) state.mom = parsed.mom;
+    }
+  } catch(e) {}
+
+  function saveState() {
+    try {
+      localStorage.setItem(USER_STORE_KEY, JSON.stringify({ mom: state.mom, kids: state.kids }));
+    } catch(e) {}
+  }
+
+  let previousScreen = "home";
+
+  /* ================= НАВИГАЦИЯ ================= */
+  window.navTo = function(screenName) {
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    const target = document.getElementById("screen-" + screenName);
+    if (target) {
+      target.classList.add("active");
+    }
+    // Обновляем строчный таббар
+    document.querySelectorAll("#bottomTabbar button").forEach(b => {
+      b.classList.toggle("active", b.getAttribute("data-tab") === screenName);
+    });
+    window.scrollTo(0, 0);
+
+    if (screenName === "home") {
+      renderHomeReels();
+      renderHomePlaces();
+    } else if (screenName === "search") {
+      renderSearchKidsPicker();
+      window.performSearch();
+    } else if (screenName === "reels") {
+      renderFullReels();
+    } else if (screenName === "cabinet") {
+      renderCabinet();
+    }
+  };
+
+  window.goBackToList = function() {
+    window.navTo(previousScreen || "search");
+  };
+
+  /* ================= ГЛАВНАЯ СТРАНИЦА ================= */
+  function renderHomeReels() {
+    const container = document.getElementById("homeReelsContainer");
+    if (!container) return;
+    container.innerHTML = REELS.slice(0, 5).map(r => {
+      const place = PLACES.find(p => p.id === r.placeId);
+      const placeName = place ? place.name : "Семейная локация";
+      return `
+        <div class="reel-card" style="flex:0 0 165px; background-image:url('${r.img}');" onclick="window.openDetail('${r.placeId}', 'home')">
+          <div class="reel-top">
+            <span class="reel-badge"><i class="fa-solid fa-eye"></i> ${r.views}</span>
+          </div>
+          <div class="reel-play-btn"><i class="fa-solid fa-play"></i></div>
+          <div class="reel-bottom">
+            <div class="reel-catchy-title">${r.title}</div>
+            <div class="reel-venue-tag" title="${placeName}">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>${placeName}</span>
+            </div>
+            <div class="reel-author">${r.author}</div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  let currentHomeAgeFilter = "all";
+  window.filterHomeAge = function(ageRange, elem) {
+    currentHomeAgeFilter = ageRange;
+    document.querySelectorAll("[data-hage]").forEach(t => t.classList.remove("active"));
+    if (elem) elem.classList.add("active");
+    renderHomePlaces();
+  };
+
+  function renderHomePlaces() {
+    const box = document.getElementById("homePlacesList");
+    if (!box) return;
+
+    let filtered = PLACES;
+    if (currentHomeAgeFilter !== "all") {
+      const [min, max] = currentHomeAgeFilter.split("-").map(Number);
+      filtered = PLACES.filter(p => p.ageMin <= max && p.ageMax >= min);
+    }
+
+    box.innerHTML = filtered.map(place => {
+      return `
+        <div class="venue-card" onclick="window.openDetail('${place.id}', 'home')">
+          <div class="thumb" style="background-image:linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)), url('${place.image}');">
+            <span class="match-pill"><i class="fa-solid fa-check"></i> ${place.ageMin}–${place.ageMax} лет</span>
+          </div>
+          <div class="body">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <h3 style="font-size:16px; font-weight:800; margin:0 0 2px;">${place.name}</h3>
+                <p style="font-size:12.5px; color:var(--muted); margin:0;">
+                  <i class="fa-solid fa-location-dot" style="color:#ff6b4a;"></i> ${place.district} · м. ${place.metroNear}
+                </p>
+              </div>
+              <span style="font-size:14.5px; font-weight:800; color:#ae3115;">${place.price === 0 ? "Бесплатно" : place.price + " ₽"}</span>
+            </div>
+            <p style="font-size:13px; color:#475569; margin:8px 0 10px; line-height:1.4;">${place.descr}</p>
+            <div style="display:flex; flex-wrap:wrap; gap:5px;">
+              ${place.interests.slice(0, 3).map(tag => `<span style="background:#f1f5f9; color:#475569; font-size:11.5px; font-weight:600; padding:3px 8px; border-radius:6px;">${tag}</span>`).join("")}
+              ${place.comfort.coffeeMom ? `<span style="background:#ffe7e1; color:#ae3115; font-size:11.5px; font-weight:700; padding:3px 8px; border-radius:6px;"><i class="fa-solid fa-mug-saucer"></i> Кофе маме</span>` : ""}
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  /* ================= ПОИСК: МУЛЬТИ-ДЕТИ, 3 ТОЧКИ СТАРТА, РАСЧЕТ ДОРОГИ ================= */
+  window.quickSearchTwoKids = function() {
+    state.search.selectedKidIds = state.kids.map(k => k.id).slice(0, 2);
+    window.navTo('search');
+  };
+
+  function renderSearchKidsPicker() {
+    const box = document.getElementById("searchKidsMultiBox");
+    const summary = document.getElementById("searchKidsSummary");
+    if (!box) return;
+
+    if (state.kids.length === 0) {
+      box.innerHTML = `<div style="font-size:13px; color:var(--muted);">В кабинете ещё нет детей. <a href="javascript:void(0)" onclick="window.navTo('cabinet')" style="color:#ff6b4a; font-weight:700;">Добавить ребёнка →</a></div>`;
+      summary.textContent = "";
+      return;
+    }
+
+    box.innerHTML = state.kids.map(kid => {
+      const isSelected = state.search.selectedKidIds.includes(kid.id);
+      return `
+        <div class="kid-chip ${isSelected ? 'selected' : ''}" onclick="window.toggleSearchKid('${kid.id}')">
+          <div class="kid-chip-icon">
+            <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-child'}"></i>
+          </div>
+          <div>
+            <span style="font-size:13px; font-weight:700;">${kid.name}</span>
+            <span style="font-size:11.5px; opacity:0.8;">(${kid.age} лет)</span>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    const selectedCount = state.search.selectedKidIds.length;
+    if (selectedCount === 2) {
+      const k1 = state.kids.find(k => k.id === state.search.selectedKidIds[0]);
+      const k2 = state.kids.find(k => k.id === state.search.selectedKidIds[1]);
+      summary.innerHTML = `<i class="fa-solid fa-scale-balanced"></i> Режим компромисса: ищем места, подходящие одновременно для <b>${k1 ? k1.name : ''}</b> и <b>${k2 ? k2.name : ''}</b>!`;
+    } else if (selectedCount === 1) {
+      const k = state.kids.find(k => k.id === state.search.selectedKidIds[0]);
+      summary.innerHTML = `Поиск под возраст и интересы ребёнка: <b>${k ? k.name : ''} (${k ? k.age : ''} лет)</b>`;
+    } else {
+      summary.innerHTML = `<span style="color:#b91c1c;">Выберите хотя бы одного ребёнка для точного соответствия!</span>`;
+    }
+
+    // Состояние тумблера мамы
+    const momToggle = document.getElementById("momToggleIndicator");
+    if (momToggle) {
+      momToggle.classList.toggle("checked", !!state.search.considerMomInterests);
+    }
+  }
+
+  window.toggleSearchKid = function(kidId) {
+    const idx = state.search.selectedKidIds.indexOf(kidId);
+    if (idx > -1) {
+      // Снимаем выбор (но не даем опустошить полностью, если есть другие)
+      state.search.selectedKidIds.splice(idx, 1);
+    } else {
+      if (state.search.selectedKidIds.length >= 2) {
+        // Заменяем последнего, поддерживая максимум 2 детей одновременно
+        state.search.selectedKidIds.shift();
+      }
+      state.search.selectedKidIds.push(kidId);
+    }
+    renderSearchKidsPicker();
+    window.performSearch();
+  };
+
+  // 3 ВАРИАНТА ТОЧКИ СТАРТА
+  window.setStartMode = function(mode) {
+    state.search.startMode = mode;
+    document.querySelectorAll(".start-tab").forEach(t => t.classList.remove("active"));
+    document.getElementById("btnTabGeo").classList.toggle("active", mode === "geo");
+    document.getElementById("btnTabMap").classList.toggle("active", mode === "map");
+    document.getElementById("btnTabMetro").classList.toggle("active", mode === "metro");
+
+    document.getElementById("startBoxGeo").style.display = mode === "geo" ? "block" : "none";
+    document.getElementById("startBoxMap").style.display = mode === "map" ? "block" : "none";
+    document.getElementById("startBoxMetro").style.display = mode === "metro" ? "block" : "none";
+
+    window.performSearch();
+  };
+
+  window.refreshGeo = function() {
+    const status = document.getElementById("geoStatusLabel");
+    status.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Обновляем спутники GPS...`;
+    setTimeout(() => {
+      status.textContent = "Точная геопозиция определена";
+      alert("Геолокация подтверждена: Центральный округ, рядом с м. Охотный Ряд");
+      window.performSearch();
+    }, 600);
+  };
+
+  window.handleMapClick = function(event) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const pctX = Math.round((x / rect.width) * 100);
+    const pctY = Math.round((y / rect.height) * 100);
+
+    const pin = document.getElementById("mapCustomPin");
+    pin.style.left = pctX + "%";
+    pin.style.top = pctY + "%";
+
+    let zoneName = "Центр";
+    if (pctX < 35) zoneName = "Запад";
+    else if (pctX > 65) zoneName = "Восток";
+    else if (pctY < 35) zoneName = "Север";
+    else if (pctY > 65) zoneName = "Юг";
+
+    state.search.mapCoordsName = `${zoneName} (метка ${pctX}%, ${pctY}%)`;
+    document.getElementById("mapPinCoords").textContent = `Выбрана точка: ${state.search.mapCoordsName}`;
+    window.performSearch();
+  };
+
+  window.handleMetroChange = function() {
+    state.search.selectedMetro = document.getElementById("startMetroSelect").value;
+    window.performSearch();
+  };
+
+  window.pickTransport = function(type, elem) {
+    state.search.transport = type;
+    document.querySelectorAll(".transport-opt").forEach(t => t.classList.remove("active"));
+    if (elem) elem.classList.add("active");
+    window.performSearch();
+  };
+
+  window.toggleMomInterests = function() {
+    state.search.considerMomInterests = !state.search.considerMomInterests;
+    document.getElementById("momToggleIndicator").classList.toggle("checked", state.search.considerMomInterests);
+    window.performSearch();
+  };
+
+  /* РАСЧЕТ МАРШРУТА И ДОРОГИ */
+  function getTravelDetails(startZone, destZone, mode) {
+    const matrixDistances = {
+      "Центр":  { "Центр": 2, "Север": 7, "Юг": 8, "Запад": 7, "Восток": 6 },
+      "Север":  { "Центр": 7, "Север": 2, "Юг": 14, "Запад": 9, "Восток": 10 },
+      "Юг":     { "Центр": 8, "Север": 14, "Юг": 2, "Запад": 11, "Восток": 12 },
+      "Запад":  { "Центр": 7, "Север": 9, "Юг": 11, "Запад": 2, "Восток": 14 },
+      "Восток": { "Центр": 6, "Север": 10, "Юг": 12, "Запад": 14, "Восток": 2 }
+    };
+    const km = (matrixDistances[startZone] && matrixDistances[startZone][destZone]) || 6;
+
+    if (mode === "walk") {
+      const minutes = km * 14;
+      return { cost: 0, time: minutes + " мин пешком", km, label: "Пешком" };
+    }
+    if (mode === "bus") {
+      return { cost: 65, time: Math.round(km * 4 + 8) + " мин на автобусе", km, label: "Автобус" };
+    }
+    if (mode === "metro") {
+      return { cost: 65, time: Math.round(km * 3 + 10) + " мин на метро", km, label: "Метро" };
+    }
+    if (mode === "taxi") {
+      return { cost: Math.round(250 + km * 45), time: Math.round(km * 2.5 + 6) + " мин на такси", km, label: "Такси" };
+    }
+    return { cost: 65, time: "20 мин", km: 5, label: "Транспорт" };
+  }
+
+  /* АЛГОРИТМ ПОИСКА И СКОРИНГА (С УЧЕТОМ 2 ДЕТЕЙ И МАМЫ) */
+  window.performSearch = function() {
+    const resultsBox = document.getElementById("searchResultsList");
+    const countBox = document.getElementById("resultsFoundCount");
+    const statusBox = document.getElementById("searchStatusInfo");
+    if (!resultsBox) return;
+
+    // Определяем зону старта
+    let startZone = "Центр";
+    if (state.search.startMode === "metro") {
+      const sel = document.getElementById("startMetroSelect");
+      const opt = sel ? sel.options[sel.selectedIndex] : null;
+      startZone = (opt && opt.getAttribute("data-zone")) || "Центр";
+    } else if (state.search.startMode === "map") {
+      if (state.search.mapCoordsName.includes("Север")) startZone = "Север";
+      else if (state.search.mapCoordsName.includes("Юг")) startZone = "Юг";
+      else if (state.search.mapCoordsName.includes("Запад")) startZone = "Запад";
+      else if (state.search.mapCoordsName.includes("Восток")) startZone = "Восток";
+    }
+
+    const selectedKids = state.kids.filter(k => state.search.selectedKidIds.includes(k.id));
+    const budgetLimit = Number(document.getElementById("searchBudgetInput") ? document.getElementById("searchBudgetInput").value : 2500) || 99999;
+
+    let computed = PLACES.map(place => {
+      let matchPercent = 50;
+      let reasons = [];
+
+      // Проверка возраста
+      if (selectedKids.length === 1) {
+        const kid = selectedKids[0];
+        if (kid.age >= place.ageMin && kid.age <= place.ageMax) {
+          matchPercent += 25;
+          reasons.push(`Подходит под возраст ${kid.name} (${kid.age} л.)`);
+        } else {
+          matchPercent -= 35;
+        }
+
+        // Пересечение интересов
+        const shared = place.interests.filter(i => kid.interests.includes(i));
+        if (shared.length > 0) {
+          matchPercent += shared.length * 10;
+          reasons.push(`Любит: ${shared.slice(0,2).join(", ")}`);
+        }
+
+        // Нелюбимое
+        if (kid.dislikes) {
+          const dl = kid.dislikes.toLowerCase();
+          if ((place.avoidIf || []).some(a => dl.includes(a))) {
+            matchPercent -= 40;
+            reasons.push(`⚠️ Содержит то, что ребёнок избегает`);
+          }
+        }
+      } else if (selectedKids.length >= 2) {
+        // Сразу 2 ребёнка: поиск компромисса!
+        const [k1, k2] = selectedKids;
+        const k1Fits = k1.age >= place.ageMin && k1.age <= place.ageMax;
+        const k2Fits = k2.age >= place.ageMin && k2.age <= place.ageMax;
+
+        if (k1Fits && k2Fits) {
+          matchPercent += 30;
+          reasons.push(`100% безопасный диапазон для обоих детей (${k1.age} и ${k2.age} лет)`);
+        } else if (k1Fits || k2Fits) {
+          matchPercent += 10;
+          reasons.push(`Основная программа для ${k1Fits ? k1.name : k2.name}, есть безопасная зона для второго`);
+        } else {
+          matchPercent -= 40;
+        }
+
+        const sharedWithBoth = place.interests.filter(i => k1.interests.includes(i) || k2.interests.includes(i));
+        if (sharedWithBoth.length > 0) {
+          matchPercent += sharedWithBoth.length * 7;
+        }
+      }
+
+      // Учет интересов мамы
+      if (state.search.considerMomInterests) {
+        if (place.comfort.coffeeMom) { matchPercent += 10; reasons.push(`Зона кофе и отдыха для мамы`); }
+        if (place.comfort.sockets) { matchPercent += 5; }
+        if (place.comfort.quietHours) { matchPercent += 5; }
+      }
+
+      // Фильтры комфорта
+      if (state.search.activeComfortKeys && state.search.activeComfortKeys.length > 0) {
+        const fails = state.search.activeComfortKeys.some(k => !place.comfort[k]);
+        if (fails) return null; // исключаем
+      }
+
+      // Расчет дороги
+      const travel = getTravelDetails(startZone, place.district, state.search.transport);
+      const totalCost = place.price + travel.cost;
+
+      if (totalCost > budgetLimit) {
+        return null; // превышает бюджет
+      }
+
+      matchPercent = Math.min(99, Math.max(25, matchPercent));
+
+      return {
+        place,
+        matchPercent,
+        reasons,
+        travel,
+        totalCost
+      };
+    }).filter(Boolean);
+
+    // Сортировка от лучшего к худшему
+    computed.sort((a, b) => b.matchPercent - a.matchPercent);
+
+    countBox.textContent = `Найдено: ${computed.length}`;
+    if (computed.length === 0) {
+      statusBox.textContent = "Ничего не найдено с такими фильтрами. Попробуйте увеличить бюджет или сбросить фильтры комфорта.";
+      resultsBox.innerHTML = "";
+      return;
+    }
+
+    statusBox.textContent = `Маршрут рассчитан от: ${state.search.startMode === 'metro' ? 'м. ' + state.search.selectedMetro : (state.search.startMode === 'map' ? state.search.mapCoordsName : 'GPS Центральный округ')}`;
+
+    resultsBox.innerHTML = computed.map(item => {
+      const p = item.place;
+      const relatedReelsCount = REELS.filter(r => r.placeId === p.id).length;
+
+      return `
+        <div class="venue-card" onclick="window.openDetail('${p.id}', 'search')">
+          <div class="thumb" style="background-image:linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.5)), url('${p.image}');">
+            <span class="match-pill">${item.matchPercent}% совпадение</span>
+            ${relatedReelsCount > 0 ? `<span style="position:absolute; bottom:10px; left:12px; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px); font-size:11.5px; font-weight:700; color:white; padding:3px 8px; border-radius:6px;"><i class="fa-solid fa-play" style="color:#ff6b4a;"></i> ${relatedReelsCount} видео от мам</span>` : ''}
+          </div>
+          <div class="body">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <h4 style="font-size:16.5px; font-weight:800; margin:0 0 3px;">${p.name}</h4>
+                <p style="font-size:12.5px; color:var(--muted); margin:0;">
+                  ${p.category} · ${p.district} (м. ${p.metroNear})
+                </p>
+              </div>
+              <div style="text-align:right;">
+                <span style="font-size:15px; font-weight:800; color:#ae3115;">${p.price === 0 ? "Вход 0 ₽" : p.price + " ₽"}</span>
+                <div style="font-size:11.5px; color:var(--muted); margin-top:2px;">Билет + дорога: <b>${item.totalCost} ₽</b></div>
+              </div>
+            </div>
+
+            <!-- Время и способ дороги -->
+            <div style="display:inline-flex; align-items:center; gap:6px; background:#e8eff7; color:#151c22; font-size:12px; font-weight:700; padding:4px 10px; border-radius:8px; margin:10px 0 6px;">
+              <i class="fa-solid fa-route" style="color:#0b6b55;"></i> ${item.travel.time} (${item.travel.label}) · дорога ≈ ${item.travel.cost} ₽
+            </div>
+
+            <!-- Причины выбора -->
+            <div style="margin-top:4px;">
+              ${item.reasons.map(r => `<div style="font-size:12px; color:#2c333a; margin-top:2px;"><i class="fa-solid fa-circle-check" style="color:#ff6b4a; font-size:10px;"></i> ${r}</div>`).join("")}
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  };
+
+  /* ================= РИЛСЫ («СМОТРИ, ЧТО НАШЛА!») ================= */
+  function renderFullReels() {
+    const grid = document.getElementById("reelsFullGrid");
+    if (!grid) return;
+
+    grid.innerHTML = REELS.map(r => {
+      const place = PLACES.find(p => p.id === r.placeId);
+      const placeName = place ? place.name : "Классное место";
+      return `
+        <div class="reel-card" style="background-image:url('${r.img}');" onclick="window.openDetail('${r.placeId}', 'reels')">
+          <div class="reel-top">
+            <span class="reel-badge"><i class="fa-solid fa-eye"></i> ${r.views}</span>
+            <span style="font-size:11px; font-weight:700; background:rgba(255,107,74,0.9); padding:2px 6px; border-radius:6px;">Обзор</span>
+          </div>
+          <div class="reel-play-btn"><i class="fa-solid fa-play"></i></div>
+          <div class="reel-bottom">
+            <div class="reel-catchy-title">${r.title}</div>
+            <div class="reel-venue-tag" title="${placeName}">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>${placeName}</span>
+            </div>
+            <div class="reel-author">👤 ${r.author}</div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  /* ================= ДЕТАЛЬНАЯ СТРАНИЦА МЕСТА ================= */
+  window.openDetail = function(placeId, fromScreen) {
+    if (fromScreen) previousScreen = fromScreen;
+    const place = PLACES.find(p => p.id === placeId);
+    const box = document.getElementById("venueDetailContent");
+    if (!place || !box) return;
+
+    const relatedReels = REELS.filter(r => r.placeId === place.id);
+
+    // Паспорт комфорта
+    const comfortItems = [
+      { key: "ramp", icon: "fa-wheelchair-move", label: "Пандус и лифт для колясок" },
+      { key: "changing", icon: "fa-baby", label: "Пеленальный столик" },
+      { key: "quietHours", icon: "fa-volume-low", label: "Тихий час без громкой музыки" },
+      { key: "highChair", icon: "fa-chair", label: "Стульчики для кормления" },
+      { key: "sockets", icon: "fa-wifi", label: "Быстрый Wi-Fi и розетки" },
+      { key: "kidsMenu", icon: "fa-utensils", label: "Детское и паровое меню" },
+      { key: "coffeeMom", icon: "fa-mug-saucer", label: "Зона спешелти кофе для мамы" }
+    ];
+
+    box.innerHTML = `
+      <!-- Главное фото и шапка -->
+      <div style="position:relative; border-radius:24px; overflow:hidden; height:240px; box-shadow:0 8px 24px rgba(0,0,0,0.15);">
+        <img src="${place.image}" alt="${place.name}" style="width:100%; height:100%; object-fit:cover;">
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.85) 100%);"></div>
+        <div style="position:absolute; bottom:16px; left:16px; right:16px; color:white;">
+          <span style="background:#ff6b4a; font-size:11.5px; font-weight:800; padding:4px 10px; border-radius:999px; text-transform:uppercase;">${place.category}</span>
+          <h1 style="font-size:23px; font-weight:900; margin:6px 0 2px; text-shadow:0 2px 4px rgba(0,0,0,0.6);">${place.name}</h1>
+          <p style="font-size:13px; opacity:0.9; margin:0;"><i class="fa-solid fa-location-dot" style="color:#ff6b4a;"></i> ${place.district} · м. ${place.metroNear}</p>
+        </div>
+      </div>
+
+      <!-- Стоимость и кнопка брони/прокладки маршрута -->
+      <div class="card" style="margin-top:14px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <span style="font-size:12px; color:var(--muted); font-weight:700;">Стоимость посещения:</span>
+          <p style="font-size:20px; font-weight:900; color:#ae3115; margin:2px 0 0;">${place.price === 0 ? "Бесплатно" : place.price + " ₽"}</p>
+        </div>
+        <button class="btn" style="width:auto; padding:12px 20px; font-size:14px;" onclick="alert('Маршрут построен в Яндекс.Картах! Дорога займет около 18 минут.')">
+          <i class="fa-solid fa-diamond-turn-right"></i> Маршрут сюда
+        </button>
+      </div>
+
+      <!-- БЛОК С РИЛСАМИ ИМЕННО ОБ ЭТОМ МЕСТЕ -->
+      <div style="margin-top:24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <div>
+            <h3 style="font-size:17px; font-weight:800; margin:0;"><i class="fa-solid fa-play" style="color:#ff6b4a;"></i> Видеообзоры от родителей («Смотри!»)</h3>
+            <p style="font-size:12.5px; color:var(--muted); margin:2px 0 0;">Честные ролики мам прямо из этой локации</p>
+          </div>
+          <span style="background:#ffe7e1; color:#ae3115; font-size:11.5px; font-weight:800; padding:2px 8px; border-radius:6px;">${relatedReels.length} видео</span>
+        </div>
+
+        ${relatedReels.length > 0 ? `
+          <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;">
+            ${relatedReels.map(r => `
+              <div class="reel-card" style="aspect-ratio:9/14; background-image:url('${r.img}');" onclick="alert('Воспроизведение видео: ${r.title}')">
+                <div class="reel-top"><span class="reel-badge"><i class="fa-solid fa-eye"></i> ${r.views}</span></div>
+                <div class="reel-play-btn"><i class="fa-solid fa-play"></i></div>
+                <div class="reel-bottom">
+                  <div class="reel-catchy-title" style="font-size:12.5px;">${r.title}</div>
+                  <div class="reel-author">👤 ${r.author}</div>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        ` : `
+          <div style="background:#f1f5f9; padding:16px; border-radius:14px; text-align:center; color:var(--muted); font-size:13px;">
+            Пока никто не добавил видео к этому месту. Будьте первыми и получите +150 баллов!
+          </div>
+        `}
+      </div>
+
+      <!-- Описание -->
+      <div class="card" style="margin-top:16px;">
+        <h3 style="font-size:16px; font-weight:800; margin:0 0 8px;">О месте</h3>
+        <p style="font-size:14px; line-height:1.55; color:#334155; margin:0;">${place.descr}</p>
+        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:12px;">
+          ${place.interests.map(t => `<span class="tag" style="margin:0; font-size:12px;">${t}</span>`).join("")}
+        </div>
+      </div>
+
+      <!-- ПОЛНЫЙ ПАСПОРТ КОМФОРТА -->
+      <div class="card" style="margin-top:14px;">
+        <h3 style="font-size:16px; font-weight:800; margin:0 0 10px;">Паспорт комфорта (проверено экспертами)</h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          ${comfortItems.map(c => {
+            const has = !!place.comfort[c.key];
+            return `
+              <div style="display:flex; align-items:center; gap:8px; font-size:12.5px; opacity:${has ? '1' : '0.45'};">
+                <i class="fa-solid ${has ? 'fa-circle-check' : 'fa-circle-xmark'}" style="color:${has ? '#0b6b55' : '#94a3b8'}; font-size:16px;"></i>
+                <span style="font-weight:600;">${c.label}</span>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      </div>
+
+      <!-- Детская комната / условия -->
+      <div class="card" style="margin-top:14px;">
+        <h3 style="font-size:16px; font-weight:800; margin:0 0 6px;"><i class="fa-solid fa-shapes" style="color:#ff6b4a;"></i> Оснащение детской комнаты</h3>
+        <p style="font-size:13.5px; line-height:1.5; color:#334155; margin:0;">${place.kidsRoom}</p>
+      </div>
+
+      <!-- Что рядом -->
+      <div class="card" style="margin-top:14px;">
+        <h3 style="font-size:16px; font-weight:800; margin:0 0 10px;">Рядом с этой локацией</h3>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          ${place.nearby.map(n => `
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px; border-bottom:1px solid #f1f5f9; padding-bottom:6px;">
+              <span style="font-weight:700;"><i class="fa-solid fa-shop" style="color:#ff6b4a;"></i> ${n.name}</span>
+              <span style="color:var(--muted);">${n.walk}</span>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
+
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    document.getElementById("screen-venue").classList.add("active");
+    window.scrollTo(0, 0);
+  };
+
+  /* ================= КАБИНЕТ ================= */
+  function renderCabinet() {
+    document.getElementById("cabinetMomName").value = state.mom.name || "";
+    document.getElementById("cabinetMomDistrict").value = state.mom.district || "Центр";
+
+    const momTagsBox = document.getElementById("cabinetMomInterestsBox");
+    momTagsBox.innerHTML = MOM_INTERESTS_LIST.map(item => {
+      const active = (state.mom.interests || []).includes(item);
+      return `<span class="tag ${active ? 'active' : ''}" onclick="this.classList.toggle('active')">${item}</span>`;
+    }).join("");
+
+    renderCabinetKids();
+  }
+
+  function renderCabinetKids() {
+    const list = document.getElementById("cabinetKidsList");
+    if (!list) return;
+
+    if (state.kids.length === 0) {
+      list.innerHTML = `<div class="card" style="text-align:center; color:var(--muted); font-size:13px;">Дети пока не добавлены. Нажмите «Добавить ребёнка».</div>`;
+      return;
+    }
+
+    list.innerHTML = state.kids.map(k => {
+      return `
+        <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <h4 style="font-size:15px; font-weight:800; margin:0;">${k.name}, ${k.age} лет</h4>
+            <p style="font-size:12.5px; color:var(--muted); margin:4px 0 0;">
+              Интересы: ${(k.interests || []).slice(0, 3).join(", ") || "не выбраны"}
+            </p>
+            ${k.dislikes ? `<p style="font-size:11.5px; color:#b91c1c; margin:2px 0 0;">Не любит: ${k.dislikes}</p>` : ''}
+          </div>
+          <div style="display:flex; gap:6px;">
+            <button class="topbar-btn" style="width:36px; height:36px; font-size:13px;" onclick="window.openKidEditor('${k.id}')">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <button class="topbar-btn" style="width:36px; height:36px; font-size:13px;" onclick="window.deleteKid('${k.id}')">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  window.saveCabinetMom = function() {
+    state.mom.name = document.getElementById("cabinetMomName").value.trim() || "Мама";
+    state.mom.district = document.getElementById("cabinetMomDistrict").value;
+    const activeTags = Array.from(document.querySelectorAll("#cabinetMomInterestsBox .tag.active")).map(t => t.textContent.trim());
+    state.mom.interests = activeTags;
+    saveState();
+    alert("Настройки профиля родителя сохранены!");
+  };
+
+  /* МОДАЛКА РЕБЁНКА */
+  window.openKidEditor = function(kidId) {
+    document.getElementById("kidModal").classList.add("open");
+    const tagsBox = document.getElementById("kidFormInterestsTags");
+
+    if (kidId) {
+      const kid = state.kids.find(k => k.id === kidId);
+      document.getElementById("kidModalTitle").textContent = "Редактировать профиль ребёнка";
+      document.getElementById("kidFormName").value = kid.name;
+      document.getElementById("kidFormAge").value = kid.age;
+      document.getElementById("kidFormDislikes").value = kid.dislikes || "";
+      document.getElementById("kidFormEditId").value = kid.id;
+
+      tagsBox.innerHTML = EXTENDED_INTERESTS.map(tag => {
+        const sel = (kid.interests || []).includes(tag);
+        return `<span class="tag ${sel ? 'active' : ''}" onclick="this.classList.toggle('active')">${tag}</span>`;
+      }).join("");
+    } else {
+      document.getElementById("kidModalTitle").textContent = "Добавить ребёнка";
+      document.getElementById("kidFormName").value = "";
+      document.getElementById("kidFormAge").value = "";
+      document.getElementById("kidFormDislikes").value = "";
+      document.getElementById("kidFormEditId").value = "";
+
+      tagsBox.innerHTML = EXTENDED_INTERESTS.map(tag => {
+        return `<span class="tag" onclick="this.classList.toggle('active')">${tag}</span>`;
+      }).join("");
+    }
+  };
+
+  window.closeKidModal = function() {
+    document.getElementById("kidModal").classList.remove("open");
+  };
+
+  window.saveKidForm = function() {
+    const name = document.getElementById("kidFormName").value.trim();
+    const age = parseInt(document.getElementById("kidFormAge").value);
+    const dislikes = document.getElementById("kidFormDislikes").value.trim();
+    const editId = document.getElementById("kidFormEditId").value;
+
+    if (!name || isNaN(age)) {
+      alert("Пожалуйста, введите имя и возраст ребёнка (0-17)");
+      return;
+    }
+
+    const interests = Array.from(document.querySelectorAll("#kidFormInterestsTags .tag.active")).map(t => t.textContent.trim());
+
+    if (editId) {
+      const k = state.kids.find(k => k.id === editId);
+      if (k) {
+        k.name = name;
+        k.age = age;
+        k.interests = interests;
+        k.dislikes = dislikes;
+      }
+    } else {
+      const newKid = {
+        id: "kid_" + Date.now(),
+        name,
+        age,
+        interests,
+        dislikes
+      };
+      state.kids.push(newKid);
+      if (!state.search.selectedKidIds.includes(newKid.id)) {
+        state.search.selectedKidIds.push(newKid.id);
+      }
+    }
+
+    saveState();
+    window.closeKidModal();
+    renderCabinetKids();
+  };
+
+  window.deleteKid = function(kidId) {
+    if (!confirm("Удалить профиль этого ребёнка?")) return;
+    state.kids = state.kids.filter(k => k.id !== kidId);
+    state.search.selectedKidIds = state.search.selectedKidIds.filter(id => id !== kidId);
+    saveState();
+    renderCabinetKids();
+  };
+
+  /* МОДАЛКА ФИЛЬТРОВ КОМФОРТА */
+  const COMFORT_KEYS = [
+    { key: "ramp", label: "Пандус и лифт для детских колясок" },
+    { key: "changing", label: "Пеленальный столик в санузле" },
+    { key: "quietHours", label: "Тихий час (без фоновой громкой музыки)" },
+    { key: "highChair", label: "Стульчики для кормления малыша" },
+    { key: "sockets", label: "Wi-Fi и розетки для зарядки" },
+    { key: "kidsMenu", label: "Детское и паровое меню" },
+    { key: "coffeeMom", label: "Хороший кофе и зона ожидания для мамы" }
+  ];
+
+  window.openComfortModal = function() {
+    const box = document.getElementById("comfortModalCheckboxes");
+    box.innerHTML = COMFORT_KEYS.map(c => {
+      const chk = state.search.activeComfortKeys.includes(c.key);
+      return `
+        <label style="display:flex; align-items:center; gap:10px; font-size:13.5px; font-weight:600; cursor:pointer; background:#f8fafc; padding:10px 12px; border-radius:12px;">
+          <input type="checkbox" value="${c.key}" ${chk ? 'checked' : ''} style="width:18px; height:18px; accent-color:#ff6b4a;">
+          <span>${c.label}</span>
+        </label>
+      `;
+    }).join("");
+    document.getElementById("comfortModal").classList.add("open");
+  };
+
+  window.closeComfortModal = function() {
+    document.getElementById("comfortModal").classList.remove("open");
+  };
+
+  window.resetComfortFilters = function() {
+    state.search.activeComfortKeys = [];
+    document.getElementById("comfortBtnCount").textContent = "Все удобства";
+    window.closeComfortModal();
+    window.performSearch();
+  };
+
+  window.applyComfortFilters = function() {
+    const checked = Array.from(document.querySelectorAll("#comfortModalCheckboxes input:checked")).map(i => i.value);
+    state.search.activeComfortKeys = checked;
+    document.getElementById("comfortBtnCount").textContent = checked.length ? `Выбрано: ${checked.length}` : "Все удобства";
+    window.closeComfortModal();
+    window.performSearch();
+  };
+
+  // ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ
+  window.addEventListener("DOMContentLoaded", () => {
+    window.navTo("home");
+  });
+})();
+</script>
+</body></html>
