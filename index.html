@@ -4,306 +4,630 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Идём! — куда пойти с детьми</title>
-<script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-  body { background-color:#F6F9FF; }
-  .age-btn { background:white; color:#2E2E2E; border:2px solid #E5E7EB; }
-  .age-btn.active { background:#FF6B4A; color:white; border-color:#FF6B4A; }
-  .filter-chip { background:white; color:#2E2E2E; border:1px solid #E5E7EB; }
-  .filter-chip.active { background:#FFE7E1; color:#FF6B4A; border-color:#FF6B4A; }
+:root {
+  --coral: #FF6B4A;
+  --coral-light: #FFE7E1;
+  --bg: #F6F9FF;
+  --text: #2E2E2E;
+  --muted: #8A8F9C;
+  --border: #E9ECF5;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  padding-bottom: 84px;
+}
+a { text-decoration: none; color: inherit; }
+.container { max-width: 720px; margin: 0 auto; padding: 0 18px; }
+.screen { display: none; }
+.screen.active { display: block; }
+body.auth-mode .topbar, body.auth-mode .tabbar { display: none; }
+
+/* Экран входа */
+.auth-wrap { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 32px 24px; text-align: center; }
+.auth-wrap img { width: 80px; height: 80px; margin: 0 auto 20px; }
+.code-inputs { display: flex; gap: 10px; justify-content: center; margin-top: 18px; }
+.code-inputs input { width: 52px; height: 58px; text-align: center; font-size: 22px; font-weight: 700; padding: 0; }
+.auth-link { color: var(--coral); font-size: 13.5px; font-weight: 600; margin-top: 16px; display: inline-block; cursor: pointer; }
+
+/* Шапка */
+.topbar {
+  position: sticky; top: 0; z-index: 30;
+  background: rgba(246,249,255,0.92);
+  backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.topbar img { height: 34px; }
+.topbar-title { font-weight: 700; font-size: 15px; }
+.topbar-btn {
+  width: 40px; height: 40px; border-radius: 14px;
+  background: white; display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border); font-size: 16px; color: var(--text); cursor: pointer;
+}
+
+/* Нижнее меню */
+.tabbar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
+  background: white; border-top: 1px solid var(--border);
+  display: flex; padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
+}
+.tabbar button {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 6px 0; font-size: 11px; color: var(--muted); border-radius: 12px;
+  background: none; border: none; cursor: pointer; font-family: inherit;
+}
+.tabbar button i { font-size: 18px; }
+.tabbar button.active { color: var(--coral); }
+
+/* Карточки */
+.card { background: white; border-radius: 20px; border: 1px solid var(--border); padding: 16px; }
+.card + .card { margin-top: 12px; }
+.venue-card { background: white; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; display: block; cursor: pointer; margin-bottom: 12px; }
+.venue-card .thumb { height: 120px; background: linear-gradient(135deg, #FFDAD0, #FFB199); display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; }
+.venue-card .body { padding: 14px 16px; }
+.venue-card .title { font-weight: 700; font-size: 15px; }
+.venue-card .meta { color: var(--muted); font-size: 12.5px; margin-top: 3px; }
+.venue-card .match { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 700; color: var(--coral); background: var(--coral-light); padding: 3px 9px; border-radius: 999px; }
+.venue-card .price { float: right; font-size: 12.5px; color: var(--muted); }
+
+/* Кнопки */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--coral); color: white; font-weight: 600; font-size: 15px; padding: 14px 20px; border-radius: 16px; border: none; cursor: pointer; width: 100%; font-family: inherit; }
+.btn.outline { background: white; color: var(--coral); border: 1.5px solid var(--coral); }
+
+/* Теги */
+.tag { display: inline-block; background: white; color: var(--text); border: 1px solid var(--border); border-radius: 999px; padding: 7px 13px; font-size: 12.5px; cursor: pointer; margin: 3px 5px 3px 0; }
+.tag.active { background: var(--coral); color: white; border-color: var(--coral); }
+
+/* Инпуты */
+input[type=text], input[type=number], select {
+  width: 100%; padding: 13px 14px; border-radius: 14px; border: 1px solid var(--border);
+  font-size: 14.5px; background: white; color: var(--text); outline: none; font-family: inherit;
+}
+label.field-label { display: block; font-size: 13px; font-weight: 600; margin: 14px 0 6px; color: var(--text); }
+
+/* Паспорт комфорта */
+.comfort-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.comfort-item { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 12px; font-size: 12.5px; }
+.comfort-item i { color: var(--coral); font-size: 18px; }
+.comfort-item.off { opacity: 0.35; }
+
+/* Модалка ребёнка */
+.modal-overlay { position: fixed; inset: 0; background: rgba(20,20,25,0.45); z-index: 50; display: none; align-items: flex-end; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal-sheet { background: white; width: 100%; max-width: 480px; max-height: 88vh; overflow-y: auto; border-radius: 24px 24px 0 0; padding: 20px 20px 28px; position: relative; }
+.modal-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border-radius: 10px; background: var(--bg); display: flex; align-items: center; justify-content: center; color: var(--muted); cursor: pointer; }
+
+/* Рилсы */
+.reel { aspect-ratio: 9/16; border-radius: 18px; background: linear-gradient(160deg, #2E2E2E, #4a4a55); position: relative; overflow: hidden; display: flex; align-items: flex-end; padding: 12px; color: white; cursor: pointer; }
+.reel .play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 22px; opacity: 0.75; }
+.reel .cap { font-size: 12px; font-weight: 600; position: relative; z-index: 2; }
+
+.section-title { font-size: 19px; font-weight: 700; margin: 0 0 4px; }
+.section-sub { color: var(--muted); font-size: 13.5px; margin: 0 0 16px; }
+.empty-state { text-align: center; color: var(--muted); font-size: 13.5px; padding: 30px 10px; }
 </style>
 </head>
 <body>
 
-<!-- ЭКРАН 1: HERO -->
-<section class="min-h-screen flex flex-col items-center justify-center px-6 py-12 text-center">
-  <img src="Logo.png" alt="Идём!" class="w-28 h-28 mb-6">
-  <h1 class="text-3xl md:text-5xl font-bold leading-tight" style="color:#2E2E2E;">
-    Куда пойти с ребёнком<br>прямо сейчас?
-  </h1>
-  <p class="text-gray-500 mt-4 max-w-md text-base md:text-lg">
-    Проверенные места рядом с вами — с пандусом, тихим часом или розеткой для подростка. Без лишней тревоги и долгих поисков.
-  </p>
+<!-- ======================= ЭКРАН: ВХОД ПО SMS ======================= -->
+<main class="screen" id="screen-auth">
+  <div class="auth-wrap">
+    <img src="Logo.png" alt="Идём!">
 
-  <!-- Живой поиск -->
-  <div class="mt-8 w-full max-w-md bg-white rounded-2xl shadow-lg p-2 flex items-center">
-    <i class="fa-solid fa-magnifying-glass text-gray-400 ml-3"></i>
-    <input id="heroSearch" type="text" placeholder="Например: скалодром рядом"
-           class="flex-1 px-3 py-3 outline-none text-sm md:text-base" style="color:#2E2E2E;">
-  </div>
-  <p id="heroSearchHint" class="text-xs text-gray-400 mt-2 h-4"></p>
+    <div id="authStepPhone">
+      <h1 style="font-size:22px; font-weight:800; margin:0 0 6px;">Добро пожаловать!</h1>
+      <p style="color:var(--muted); font-size:14px; margin:0 0 22px;">Введите номер телефона — пришлём код для входа</p>
+      <input id="authPhone" type="text" inputmode="tel" placeholder="+7 (___) ___-__-__" style="text-align:center; font-size:16px;">
+      <button class="btn" style="margin-top:16px;" onclick="sendCode()">Получить код</button>
+    </div>
 
-  <button onclick="document.getElementById('betaForm').scrollIntoView({behavior:'smooth'})"
-          class="mt-6 px-8 py-4 rounded-2xl text-white font-semibold text-lg shadow-lg"
-          style="background-color:#FF6B4A;">
-    Хочу попробовать
-  </button>
+    <div id="authStepCode" style="display:none;">
+      <h1 style="font-size:22px; font-weight:800; margin:0 0 6px;">Введите код</h1>
+      <p style="color:var(--muted); font-size:14px; margin:0;">Мы отправили SMS на номер</p>
+      <p style="font-weight:700; font-size:15px; margin:2px 0 0;" id="authPhoneShown"></p>
 
-  <!-- Мокап интерфейса -->
-  <div class="mt-12 bg-white rounded-2xl shadow-xl p-4 w-72">
-    <div class="rounded-2xl p-4" style="background:#F6F9FF;">
-      <p class="text-xs text-gray-400 mb-2">Рядом с вами · 12 мин</p>
-      <div class="bg-white rounded-xl p-3 mb-2 shadow-sm text-left">
-        <p class="text-sm font-semibold" style="color:#2E2E2E;">Игровой центр «Облачко»</p>
-        <p class="text-xs mt-1" style="color:#FF6B4A;">95% совпадение</p>
+      <div class="code-inputs">
+        <input type="text" inputmode="numeric" maxlength="1" class="code-digit" onkeyup="focusNextCode(this)">
+        <input type="text" inputmode="numeric" maxlength="1" class="code-digit" onkeyup="focusNextCode(this)">
+        <input type="text" inputmode="numeric" maxlength="1" class="code-digit" onkeyup="focusNextCode(this)">
+        <input type="text" inputmode="numeric" maxlength="1" class="code-digit" onkeyup="focusNextCode(this)">
       </div>
-      <div class="bg-white rounded-xl p-3 shadow-sm text-left">
-        <p class="text-sm font-semibold" style="color:#2E2E2E;">Парк «Тихая аллея»</p>
-        <p class="text-xs mt-1" style="color:#FF6B4A;">88% совпадение</p>
-      </div>
+
+      <button class="btn" style="margin-top:20px;" onclick="verifyCode()">Войти</button>
+      <span class="auth-link" onclick="backToPhone()">Изменить номер</span>
     </div>
   </div>
-</section>
+</main>
 
-<!-- ЭКРАН 2: ПАСПОРТ КОМФОРТА -->
-<section class="px-6 py-16 max-w-3xl mx-auto text-center">
-  <h2 class="text-2xl md:text-3xl font-bold" style="color:#2E2E2E;">«Паспорт комфорта» каждого места</h2>
-  <p class="text-gray-500 mt-3 max-w-xl mx-auto">Перед тем как ехать — вы точно знаете, что вас ждёт. Никаких сюрпризов на месте.</p>
+<!-- ШАПКА -->
+<header class="topbar">
+  <img src="Logo.png" alt="Идём!">
+  <span class="topbar-title" id="topbarTitle">Идём!</span>
+  <button class="topbar-btn" onclick="showScreen('cabinet')"><i class="fa-solid fa-user"></i></button>
+</header>
 
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
-    <div class="bg-white rounded-2xl p-5 shadow-sm">
-      <i class="fa-solid fa-wheelchair-move text-2xl" style="color:#FF6B4A;"></i>
-      <p class="text-sm font-semibold mt-2" style="color:#2E2E2E;">Пандус</p>
-      <p class="text-xs text-gray-400 mt-1">и место для коляски</p>
-    </div>
-    <div class="bg-white rounded-2xl p-5 shadow-sm">
-      <i class="fa-solid fa-baby text-2xl" style="color:#FF6B4A;"></i>
-      <p class="text-sm font-semibold mt-2" style="color:#2E2E2E;">Пеленальная</p>
-      <p class="text-xs text-gray-400 mt-1">комната матери и дитя</p>
-    </div>
-    <div class="bg-white rounded-2xl p-5 shadow-sm">
-      <i class="fa-solid fa-volume-low text-2xl" style="color:#FF6B4A;"></i>
-      <p class="text-sm font-semibold mt-2" style="color:#2E2E2E;">Тихий час</p>
-      <p class="text-xs text-gray-400 mt-1">без резкой музыки</p>
-    </div>
-    <div class="bg-white rounded-2xl p-5 shadow-sm">
-      <i class="fa-solid fa-chair text-2xl" style="color:#FF6B4A;"></i>
-      <p class="text-sm font-semibold mt-2" style="color:#2E2E2E;">Стульчики</p>
-      <p class="text-xs text-gray-400 mt-1">для кормления</p>
-    </div>
-    <div class="bg-white rounded-2xl p-5 shadow-sm">
-      <i class="fa-solid fa-plug text-2xl" style="color:#FF6B4A;"></i>
-      <p class="text-sm font-semibold mt-2" style="color:#2E2E2E;">Розетки и Wi-Fi</p>
-      <p class="text-xs text-gray-400 mt-1">для учёбы подростка</p>
-    </div>
-    <div class="bg-white rounded-2xl p-5 shadow-sm">
-      <i class="fa-solid fa-utensils text-2xl" style="color:#FF6B4A;"></i>
-      <p class="text-sm font-semibold mt-2" style="color:#2E2E2E;">Детское меню</p>
-      <p class="text-xs text-gray-400 mt-1">без лишнего сахара</p>
-    </div>
-    <div class="bg-white rounded-2xl p-5 shadow-sm">
-      <i class="fa-solid fa-shield-heart text-2xl" style="color:#FF6B4A;"></i>
-      <p class="text-sm font-semibold mt-2" style="color:#2E2E2E;">Безопасность</p>
-      <p class="text-xs text-gray-400 mt-1">закрытые игровые зоны</p>
-    </div>
-    <div class="bg-white rounded-2xl p-5 shadow-sm">
-      <i class="fa-solid fa-ruble-sign text-2xl" style="color:#FF6B4A;"></i>
-      <p class="text-sm font-semibold mt-2" style="color:#2E2E2E;">Честная цена</p>
-      <p class="text-xs text-gray-400 mt-1">или бесплатно</p>
-    </div>
-  </div>
-</section>
+<!-- ======================= ЭКРАН: ГЛАВНАЯ ======================= -->
+<main class="screen active" id="screen-home">
+  <div class="container" style="padding-top:20px; text-align:center;">
+    <img src="Logo.png" alt="Идём!" style="width:90px; height:90px; margin-bottom:18px;">
+    <h1 style="font-size:26px; font-weight:800; line-height:1.25; margin:0;">Куда пойти с ребёнком<br>прямо сейчас?</h1>
+    <p style="color:var(--muted); margin-top:12px; font-size:15px;">Подбираем места под интересы вашего ребёнка, ваш бюджет и дорогу до места.</p>
 
-<!-- ЭКРАН 3: КАТАЛОГ -->
-<section class="px-6 py-16 max-w-5xl mx-auto">
-  <h2 class="text-2xl md:text-3xl font-bold text-center" style="color:#2E2E2E;">Проверенные места рядом</h2>
-  <p class="text-gray-500 mt-3 text-center max-w-xl mx-auto">Выберите возраст ребёнка — покажем места, которые подходят именно ему.</p>
-
-  <div class="flex flex-wrap justify-center gap-3 mt-8">
-    <button onclick="showAge('0-2')" id="btn-0-2" class="age-btn px-5 py-2 rounded-2xl font-semibold text-sm">0–2 года</button>
-    <button onclick="showAge('3-6')" id="btn-3-6" class="age-btn px-5 py-2 rounded-2xl font-semibold text-sm">3–6 лет</button>
-    <button onclick="showAge('7-11')" id="btn-7-11" class="age-btn px-5 py-2 rounded-2xl font-semibold text-sm">7–11 лет</button>
-    <button onclick="showAge('12-17')" id="btn-12-17" class="age-btn px-5 py-2 rounded-2xl font-semibold text-sm">12–17 лет</button>
-  </div>
-
-  <div class="flex flex-wrap justify-center gap-2 mt-5">
-    <button class="filter-chip active px-4 py-1.5 rounded-full text-xs font-medium">Сегодня</button>
-    <button class="filter-chip px-4 py-1.5 rounded-full text-xs font-medium">Бесплатно</button>
-    <button class="filter-chip px-4 py-1.5 rounded-full text-xs font-medium">С коляской / пандус</button>
-    <button class="filter-chip px-4 py-1.5 rounded-full text-xs font-medium">Тихий час</button>
-    <button class="filter-chip px-4 py-1.5 rounded-full text-xs font-medium">Для подростков</button>
-  </div>
-  <script>
-    document.querySelectorAll('.filter-chip').forEach(chip=>{
-      chip.addEventListener('click',()=>chip.classList.toggle('active'));
-    });
-  </script>
-
-  <div class="grid md:grid-cols-2 gap-5 mt-10">
-    <div class="age-group" data-age="0-2">
-      <div class="bg-white rounded-2xl p-5 shadow-sm mb-5">
-        <p class="font-bold text-lg" style="color:#2E2E2E;">Семейное кафе «Улитка»</p>
-        <p class="text-gray-500 text-sm mt-1">Тихий зал, пеленальная, разогрев питания</p>
-        <p class="text-xs mt-3" style="color:#FF6B4A;">92% совпадение</p>
-      </div>
-      <div class="bg-white rounded-2xl p-5 shadow-sm">
-        <p class="font-bold text-lg" style="color:#2E2E2E;">Парк «Тихая аллея»</p>
-        <p class="text-gray-500 text-sm mt-1">Широкие дорожки, пандусы на входах</p>
-        <p class="text-xs mt-3" style="color:#FF6B4A;">88% совпадение</p>
-      </div>
-    </div>
-    <div class="age-group hidden" data-age="3-6">
-      <div class="bg-white rounded-2xl p-5 shadow-sm mb-5">
-        <p class="font-bold text-lg" style="color:#2E2E2E;">Игровой центр «Облачко»</p>
-        <p class="text-gray-500 text-sm mt-1">Сухой бассейн, деревянные игрушки</p>
-        <p class="text-xs mt-3" style="color:#FF6B4A;">95% совпадение</p>
-      </div>
-      <div class="bg-white rounded-2xl p-5 shadow-sm">
-        <p class="font-bold text-lg" style="color:#2E2E2E;">Театр «Бэби-сцена»</p>
-        <p class="text-gray-500 text-sm mt-1">Интерактивный спектакль 40 минут</p>
-        <p class="text-xs mt-3" style="color:#FF6B4A;">90% совпадение</p>
-      </div>
-    </div>
-    <div class="age-group hidden" data-age="7-11">
-      <div class="bg-white rounded-2xl p-5 shadow-sm mb-5">
-        <p class="font-bold text-lg" style="color:#2E2E2E;">Скалодром «Вертикаль»</p>
-        <p class="text-gray-500 text-sm mt-1">Трассы для новичков, инструктор</p>
-        <p class="text-xs mt-3" style="color:#FF6B4A;">93% совпадение</p>
-      </div>
-      <div class="bg-white rounded-2xl p-5 shadow-sm">
-        <p class="font-bold text-lg" style="color:#2E2E2E;">Музей занимательных наук</p>
-        <p class="text-gray-500 text-sm mt-1">Мастер-классы по выходным</p>
-        <p class="text-xs mt-3" style="color:#FF6B4A;">89% совпадение</p>
-      </div>
-    </div>
-    <div class="age-group hidden" data-age="12-17">
-      <div class="bg-white rounded-2xl p-5 shadow-sm mb-5">
-        <p class="font-bold text-lg" style="color:#2E2E2E;">Коворкинг «Лофт 21»</p>
-        <p class="text-gray-500 text-sm mt-1">Быстрый Wi-Fi, розетки, кофе</p>
-        <p class="text-xs mt-3" style="color:#FF6B4A;">91% совпадение</p>
-      </div>
-      <div class="bg-white rounded-2xl p-5 shadow-sm">
-        <p class="font-bold text-lg" style="color:#2E2E2E;">Скейт-парк «Рэйл»</p>
-        <p class="text-gray-500 text-sm mt-1">Крытая площадка, прокат защиты</p>
-        <p class="text-xs mt-3" style="color:#FF6B4A;">87% совпадение</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ЭКРАН 4: ВИДЕОЛЕНТА -->
-<section class="px-6 py-16 max-w-5xl mx-auto text-center">
-  <h2 class="text-2xl md:text-3xl font-bold" style="color:#2E2E2E;">«Смотри, что нашла!»</h2>
-  <p class="text-gray-500 mt-3 max-w-xl mx-auto">Короткие честные видео от родителей района — без фильтров и рекламы.</p>
-
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
-    <div class="rounded-2xl overflow-hidden shadow-sm bg-gray-800 aspect-[9/16] flex items-end p-3 relative">
-      <i class="fa-solid fa-play absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-2xl opacity-70"></i>
-      <p class="text-white text-xs font-medium relative z-10">Скалодром «Вертикаль»</p>
-    </div>
-    <div class="rounded-2xl overflow-hidden shadow-sm bg-gray-800 aspect-[9/16] flex items-end p-3 relative">
-      <i class="fa-solid fa-play absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-2xl opacity-70"></i>
-      <p class="text-white text-xs font-medium relative z-10">Кафе «Улитка»</p>
-    </div>
-    <div class="rounded-2xl overflow-hidden shadow-sm bg-gray-800 aspect-[9/16] flex items-end p-3 relative">
-      <i class="fa-solid fa-play absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-2xl opacity-70"></i>
-      <p class="text-white text-xs font-medium relative z-10">Парк «Тихая аллея»</p>
-    </div>
-    <div class="rounded-2xl overflow-hidden shadow-sm bg-gray-800 aspect-[9/16] flex items-end p-3 relative">
-      <i class="fa-solid fa-play absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-2xl opacity-70"></i>
-      <p class="text-white text-xs font-medium relative z-10">Коворкинг «Лофт 21»</p>
-    </div>
-  </div>
-
-  <button class="mt-8 px-6 py-3 rounded-2xl font-semibold text-sm border-2"
-          style="color:#FF6B4A; border-color:#FF6B4A;">
-    + Добавить своё видео
-  </button>
-</section>
-
-<!-- ЭКРАН 5: КОПИЛКА ЗАБОТЫ -->
-<section class="px-6 py-16" style="background:#FFF4F1;">
-  <div class="max-w-3xl mx-auto text-center">
-    <h2 class="text-2xl md:text-3xl font-bold" style="color:#2E2E2E;">«Копилка заботы»</h2>
-    <p class="text-gray-500 mt-3 max-w-xl mx-auto">Делитесь честными отзывами с фото — получайте баллы и обменивайте на приятные бонусы.</p>
-
-    <div class="grid md:grid-cols-3 gap-5 mt-10 text-left">
-      <div class="bg-white rounded-2xl p-6 shadow-sm">
-        <i class="fa-solid fa-camera text-2xl" style="color:#FF6B4A;"></i>
-        <p class="font-semibold mt-3" style="color:#2E2E2E;">Оставьте отзыв с фото</p>
-        <p class="text-sm text-gray-500 mt-1">Расскажите, как прошёл визит с ребёнком</p>
-      </div>
-      <div class="bg-white rounded-2xl p-6 shadow-sm">
-        <i class="fa-solid fa-star text-2xl" style="color:#FF6B4A;"></i>
-        <p class="font-semibold mt-3" style="color:#2E2E2E;">Получите +60...+150 баллов</p>
-        <p class="text-sm text-gray-500 mt-1">За каждый честный и подробный отзыв</p>
-      </div>
-      <div class="bg-white rounded-2xl p-6 shadow-sm">
-        <i class="fa-solid fa-qrcode text-2xl" style="color:#FF6B4A;"></i>
-        <p class="font-semibold mt-3" style="color:#2E2E2E;">Обменяйте на QR-купон</p>
-        <p class="text-sm text-gray-500 mt-1">Бесплатный кофе, десерт или скидка на билет</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ЭКРАН 6: ФОРМА ЗАЯВКИ НА БЕТА-ТЕСТ -->
-<section id="betaForm" class="px-6 py-16 max-w-xl mx-auto text-center">
-  <h2 class="text-2xl md:text-3xl font-bold" style="color:#2E2E2E;">Попасть в закрытый бета-тест</h2>
-  <p class="text-gray-500 mt-3">Оставьте заявку и получите <span style="color:#FF6B4A; font-weight:600;">+500 стартовых баллов</span> на кофе сразу после запуска.</p>
-
-  <form id="signupForm" class="mt-8 bg-white rounded-2xl shadow-sm p-6 text-left space-y-4" onsubmit="return submitForm(event)">
-    <div>
-      <label class="text-sm font-medium" style="color:#2E2E2E;">Ваше имя</label>
-      <input required type="text" class="w-full mt-1 px-4 py-3 rounded-xl border border-gray-200 outline-none text-sm" placeholder="Как вас зовут">
-    </div>
-    <div>
-      <label class="text-sm font-medium" style="color:#2E2E2E;">Телефон или e-mail</label>
-      <input required type="text" class="w-full mt-1 px-4 py-3 rounded-xl border border-gray-200 outline-none text-sm" placeholder="Для связи">
-    </div>
-    <div>
-      <label class="text-sm font-medium" style="color:#2E2E2E;">Возраст ребёнка</label>
-      <select required class="w-full mt-1 px-4 py-3 rounded-xl border border-gray-200 outline-none text-sm bg-white">
-        <option value="">Выберите возраст</option>
-        <option>0–2 года</option>
-        <option>3–6 лет</option>
-        <option>7–11 лет</option>
-        <option>12–17 лет</option>
-      </select>
-    </div>
-    <button type="submit" class="w-full py-4 rounded-2xl text-white font-semibold text-lg shadow-lg"
-            style="background-color:#FF6B4A;">
-      Отправить заявку
+    <button class="btn" style="margin-top:22px;" onclick="showScreen('search')">
+      <i class="fa-solid fa-magnifying-glass"></i> Подобрать место
     </button>
-    <p id="formThanks" class="text-center text-sm hidden" style="color:#FF6B4A;">Спасибо! Заявка принята 🎉</p>
-  </form>
-</section>
 
-<!-- ЭКРАН 7: ДЛЯ ПАРТНЁРОВ -->
-<section class="px-6 py-16" style="background:#2E2E2E;">
-  <div class="max-w-3xl mx-auto text-center">
-    <h2 class="text-2xl md:text-3xl font-bold text-white">Вы — кафе, музей или спортивный центр?</h2>
-    <p class="text-gray-300 mt-3 max-w-xl mx-auto">Подключайтесь к «Идём!» и получайте новых гостей — родителей и детей вашего района.</p>
-    <button class="mt-6 px-8 py-4 rounded-2xl font-semibold text-lg shadow-lg"
-            style="background-color:#FF6B4A; color:white;">
-      Стать партнёром
+    <div class="card" style="margin-top:28px; text-align:left;">
+      <p style="font-weight:700; margin:0 0 10px;">Как это устроено</p>
+      <p style="color:var(--muted); font-size:13.5px; margin:0 0 8px;">1. Заполните профиль — свои интересы и профиль ребёнка (в «Кабинете»).</p>
+      <p style="color:var(--muted); font-size:13.5px; margin:0 0 8px;">2. В поиске выберите ребёнка, район и бюджет — мы посчитаем вход и дорогу вместе.</p>
+      <p style="color:var(--muted); font-size:13.5px; margin:0;">3. Получите места от лучшего совпадения к худшему.</p>
+    </div>
+
+    <div class="card" style="margin-top:14px; text-align:left;">
+      <p style="font-weight:700; margin:0 0 6px;">«Паспорт комфорта»</p>
+      <p style="color:var(--muted); font-size:13.5px; margin:0 0 10px;">У каждого места — честные отметки: пандус, пеленальная, тихий час, розетки.</p>
+      <div class="comfort-grid">
+        <div class="comfort-item"><i class="fa-solid fa-wheelchair-move"></i> Пандус</div>
+        <div class="comfort-item"><i class="fa-solid fa-baby"></i> Пеленальная</div>
+        <div class="comfort-item"><i class="fa-solid fa-volume-low"></i> Тихий час</div>
+        <div class="comfort-item"><i class="fa-solid fa-plug"></i> Розетки / Wi-Fi</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ======================= ЭКРАН: КАБИНЕТ ======================= -->
+<main class="screen" id="screen-cabinet">
+  <div class="container" style="padding-top:20px;">
+    <p class="section-title">Мой профиль</p>
+    <p class="section-sub">Это поможет точнее подбирать места — не только для ребёнка, но и для вас.</p>
+
+    <div class="card">
+      <label class="field-label">Ваше имя</label>
+      <input id="momName" type="text" placeholder="Как вас зовут">
+      <label class="field-label">Ваш район (обычно откуда вы выходите)</label>
+      <select id="momDistrict"></select>
+      <label class="field-label">Что вам нравится?</label>
+      <div id="momInterests"></div>
+      <button class="btn" style="margin-top:18px;" onclick="saveMomProfile()">Сохранить профиль</button>
+    </div>
+
+    <p class="section-title" style="margin-top:30px;">Мои дети</p>
+    <p class="section-sub">Добавьте каждого ребёнка отдельно — так подбор будет точнее.</p>
+    <div id="kidsList"></div>
+    <button class="btn outline" style="margin-top:14px;" onclick="openKidModal()"><i class="fa-solid fa-plus"></i> Добавить ребёнка</button>
+  </div>
+</main>
+
+<!-- ======================= ЭКРАН: ПОИСК ======================= -->
+<main class="screen" id="screen-search">
+  <div class="container" style="padding-top:20px;">
+    <div class="card">
+      <label class="field-label">С кем идём?</label>
+      <select id="kidSelect"></select>
+      <label class="field-label">Откуда выходим (район)</label>
+      <select id="fromDistrict"></select>
+      <label class="field-label">На чём поедем?</label>
+      <div style="display:flex; gap:10px; margin-top:2px;">
+        <span class="tag active" data-mode="bus" onclick="pickTransport(this)"><i class="fa-solid fa-bus"></i> Автобус</span>
+        <span class="tag" data-mode="taxi" onclick="pickTransport(this)"><i class="fa-solid fa-taxi"></i> Такси</span>
+      </div>
+      <label class="field-label">Бюджет на визит, ₽ (билет + дорога)</label>
+      <input id="budget" type="number" placeholder="Например, 1500">
+      <button class="btn" style="margin-top:18px;" onclick="runSearch()"><i class="fa-solid fa-magnifying-glass"></i> Найти места</button>
+    </div>
+
+    <p class="section-title" style="margin-top:26px;">Результаты</p>
+    <p class="section-sub" id="resultsHint">Сначала выберите ребёнка и нажмите «Найти места».</p>
+    <div id="results"></div>
+  </div>
+</main>
+
+<!-- ======================= ЭКРАН: МЕСТО ======================= -->
+<main class="screen" id="screen-venue">
+  <div class="container" style="padding-top:16px;">
+    <button class="btn outline" style="width:auto; padding:9px 16px; font-size:13px; margin-bottom:14px;" onclick="showScreen(lastListScreen)">
+      <i class="fa-solid fa-arrow-left"></i> Назад
+    </button>
+    <div id="venueContent"></div>
+  </div>
+</main>
+
+<!-- ======================= ЭКРАН: СМОТРИ! ======================= -->
+<main class="screen" id="screen-reels">
+  <div class="container" style="padding-top:20px;">
+    <p class="section-sub">Короткие честные видео от родителей района — без фильтров и рекламы.</p>
+    <div id="reelsGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:12px;"></div>
+    <button class="btn outline" style="margin-top:22px;" onclick="alert('Загрузка своих видео появится, когда подключим сервер для хранения файлов.')">
+      <i class="fa-solid fa-plus"></i> Добавить своё видео
     </button>
   </div>
-</section>
+</main>
 
-<footer class="text-center py-8 text-gray-400 text-xs">
-  © 2026 «Идём!» — куда пойти с детьми
-</footer>
+<!-- НИЖНЕЕ МЕНЮ -->
+<nav class="tabbar" id="tabbar">
+  <button data-s="home" onclick="showScreen('home')"><i class="fa-solid fa-house"></i><span>Главная</span></button>
+  <button data-s="search" onclick="showScreen('search')"><i class="fa-solid fa-magnifying-glass"></i><span>Поиск</span></button>
+  <button data-s="reels" onclick="showScreen('reels')"><i class="fa-solid fa-photo-film"></i><span>Смотри!</span></button>
+  <button data-s="cabinet" onclick="showScreen('cabinet')"><i class="fa-solid fa-user"></i><span>Кабинет</span></button>
+</nav>
+
+<!-- МОДАЛКА: РЕБЁНОК -->
+<div class="modal-overlay" id="kidModal">
+  <div class="modal-sheet">
+    <div class="modal-close" onclick="closeKidModal()"><i class="fa-solid fa-xmark"></i></div>
+    <p class="section-title" id="kidModalTitle">Новый ребёнок</p>
+    <label class="field-label">Имя ребёнка</label>
+    <input id="kidName" type="text" placeholder="Имя">
+    <label class="field-label">Возраст (0–17)</label>
+    <input id="kidAge" type="number" min="0" max="17" placeholder="Например, 6">
+    <label class="field-label">Что ребёнку интересно?</label>
+    <div id="kidInterests"></div>
+    <label class="field-label">Что ребёнок категорически не любит?</label>
+    <input id="kidDislikes" type="text" placeholder="Например: громкую музыку, толпу, высоту">
+    <input type="hidden" id="editingKidId">
+    <button class="btn" style="margin-top:18px;" onclick="saveKid()">Сохранить</button>
+  </div>
+</div>
 
 <script>
-  function showAge(age) {
-    document.querySelectorAll('.age-group').forEach(el => {
-      el.classList.toggle('hidden', el.dataset.age !== age);
-    });
-    document.querySelectorAll('.age-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.id === 'btn-' + age);
-    });
-  }
-  showAge('0-2');
+/* ===================== ДАННЫЕ (тестовая база) ===================== */
+const DISTRICTS = ["Центр", "Север", "Юг", "Запад", "Восток"];
+const DISTANCE_KM = {
+  "Центр":  { "Центр": 1, "Север": 6, "Юг": 7, "Запад": 6, "Восток": 6 },
+  "Север":  { "Центр": 6, "Север": 1, "Юг": 12, "Запад": 9, "Восток": 10 },
+  "Юг":     { "Центр": 7, "Север": 12, "Юг": 1, "Запад": 10, "Восток": 9 },
+  "Запад":  { "Центр": 6, "Север": 9, "Юг": 10, "Запад": 1, "Восток": 13 },
+  "Восток": { "Центр": 6, "Север": 10, "Юг": 9, "Запад": 13, "Восток": 1 }
+};
+const TRANSPORT_RATES = {
+  bus:  { perKm: 6,  label: "Автобус" },
+  taxi: { perKm: 28, label: "Такси" }
+};
+function transportCost(fromDistrict, toDistrict, mode) {
+  const km = (DISTANCE_KM[fromDistrict] && DISTANCE_KM[fromDistrict][toDistrict]) || 8;
+  return Math.round(km * TRANSPORT_RATES[mode].perKm);
+}
+const CATEGORIES = { cafe: "Кафе", park: "Парк", play: "Игровой центр", museum: "Музей / мастер-класс", theatre: "Театр", sport: "Спорт / активность", coworking: "Коворкинг" };
 
-  function submitForm(e) {
-    e.preventDefault();
-    document.getElementById('formThanks').classList.remove('hidden');
-    e.target.reset();
-    return false;
+const PLACES = [
+  { id: "p1", name: "Семейное кафе «Улитка»", category: "cafe", district: "Центр", ageMin: 0, ageMax: 6,
+    interests: ["Кофе", "Десерты", "Спокойный отдых", "Тихие игры"], avoidIf: ["толпа", "шум"], price: 800,
+    comfort: { ramp: true, changing: true, quietHours: true, highChair: true, sockets: false, kidsMenu: true },
+    hasKidsRoom: true, kidsRoomInfo: "Отдельная тихая комната: мягкий ковёр, корзина с деревянными игрушками, пеленальный столик, розетка для бутылочек.",
+    nearby: [{ name: "Кофейня «Зёрна»", type: "Кофе рядом", walk: "3 мин" }, { name: "Аптека 24/7", type: "Аптека", walk: "5 мин" }] },
+  { id: "p2", name: "Парк «Тихая аллея»", category: "park", district: "Запад", ageMin: 0, ageMax: 12,
+    interests: ["Спокойный отдых", "Активности вместе с детьми", "Активный отдых", "Животные"], avoidIf: [], price: 0,
+    comfort: { ramp: true, changing: false, quietHours: true, highChair: false, sockets: false, kidsMenu: false },
+    hasKidsRoom: false, nearby: [{ name: "Кофейня «На аллее»", type: "Кофе рядом", walk: "4 мин" }, { name: "Прокат самокатов", type: "Прокат", walk: "2 мин" }] },
+  { id: "p3", name: "Игровой центр «Облачко»", category: "play", district: "Север", ageMin: 2, ageMax: 7,
+    interests: ["Активный отдых", "Творчество", "Тихие игры"], avoidIf: ["шум", "толпа"], price: 900,
+    comfort: { ramp: true, changing: true, quietHours: false, highChair: true, sockets: true, kidsMenu: true },
+    hasKidsRoom: false, nearby: [{ name: "Кафе «Сладкий пряник»", type: "Кофе рядом", walk: "1 мин (внутри центра)" }] },
+  { id: "p4", name: "Театр «Бэби-сцена»", category: "theatre", district: "Центр", ageMin: 1, ageMax: 6,
+    interests: ["Творчество", "Интересные места", "Активности вместе с детьми"], avoidIf: ["шум"], price: 1200,
+    comfort: { ramp: true, changing: true, quietHours: true, highChair: false, sockets: false, kidsMenu: false },
+    hasKidsRoom: false, nearby: [{ name: "Кондитерская «Лакомка»", type: "Десерты рядом", walk: "3 мин" }] },
+  { id: "p5", name: "Скалодром «Вертикаль»", category: "sport", district: "Юг", ageMin: 7, ageMax: 15,
+    interests: ["Активный отдых", "Спорт"], avoidIf: ["высота"], price: 1000,
+    comfort: { ramp: true, changing: false, quietHours: false, highChair: false, sockets: true, kidsMenu: false },
+    hasKidsRoom: false, nearby: [{ name: "Кофейня «High Point»", type: "Кофе рядом", walk: "2 мин" }] },
+  { id: "p6", name: "Музей занимательных наук", category: "museum", district: "Центр", ageMin: 6, ageMax: 14,
+    interests: ["Наука", "Творчество", "Интересные места"], avoidIf: [], price: 700,
+    comfort: { ramp: true, changing: false, quietHours: false, highChair: false, sockets: true, kidsMenu: false },
+    hasKidsRoom: false, nearby: [{ name: "Кафе музея", type: "Кофе рядом", walk: "внутри здания" }] },
+  { id: "p7", name: "Коворкинг «Лофт 21»", category: "coworking", district: "Восток", ageMin: 11, ageMax: 17,
+    interests: ["Гаджеты и IT", "Спокойный отдых", "Кофе"], avoidIf: ["толпа"], price: 500,
+    comfort: { ramp: true, changing: false, quietHours: true, highChair: false, sockets: true, kidsMenu: false },
+    hasKidsRoom: false, nearby: [{ name: "Спешелти-кофейня «Гранд»", type: "Кофе рядом", walk: "1 мин" }] },
+  { id: "p8", name: "Скейт-парк «Рэйл»", category: "sport", district: "Юг", ageMin: 10, ageMax: 17,
+    interests: ["Активный отдых", "Спорт"], avoidIf: [], price: 0,
+    comfort: { ramp: true, changing: false, quietHours: false, highChair: false, sockets: false, kidsMenu: false },
+    hasKidsRoom: false, nearby: [{ name: "Стритфуд «Bun»", type: "Еда рядом", walk: "5 мин" }] }
+];
+
+const REELS = [
+  { id: "r1", placeId: "p5", author: "Оля, мама Даши", caption: "Первый раз на скалодроме — восторг!" },
+  { id: "r2", placeId: "p1", author: "Настя", caption: "Тихая комната для малыша — то что надо" },
+  { id: "r3", placeId: "p2", author: "Марина", caption: "Гуляем здесь каждые выходные" },
+  { id: "r4", placeId: "p7", author: "Лена, сын 14 лет", caption: "Сын делает уроки, я пью кофе рядом" },
+  { id: "r5", placeId: "p3", author: "Ира", caption: "Сухой бассейн — час без криков «мам, смотри!»" },
+  { id: "r6", placeId: "p6", author: "Света", caption: "Мастер-класс по химии — сын в восторге" }
+];
+
+const MOM_INTERESTS = ["Кофе", "Десерты", "Интересные места", "Активности вместе с детьми", "Спокойный отдых", "Гаджеты и IT"];
+const KID_INTERESTS = ["Активный отдых", "Творчество", "Наука", "Животные", "Спорт", "Тихие игры", "Гаджеты и IT", "Кофе"];
+
+/* ===================== ХРАНЕНИЕ ПРОФИЛЯ ===================== */
+const STORAGE_KEY = "idomUser";
+function getUserData() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (raw) return JSON.parse(raw);
+  return { mom: { name: "", district: "Центр", interests: [] }, kids: [] };
+}
+function saveUserData(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+function getKidById(id) { return getUserData().kids.find(k => k.id === id); }
+function getPlaceById(id) { return PLACES.find(p => p.id === id); }
+function reelsForPlace(id) { return REELS.filter(r => r.placeId === id); }
+function priceLabel(rub) { return rub === 0 ? "Бесплатно" : rub + " ₽"; }
+function categoryIcon(cat) {
+  return { cafe: "fa-mug-saucer", park: "fa-tree", play: "fa-shapes", museum: "fa-flask", theatre: "fa-masks-theater", sport: "fa-person-running", coworking: "fa-laptop" }[cat] || "fa-location-dot";
+}
+
+/* ===================== ПОДБОР МЕСТ ===================== */
+function matchScore(place, mom, kid) {
+  if (kid && (kid.age < place.ageMin || kid.age > place.ageMax)) return null;
+  const personInterests = [...(mom && mom.interests ? mom.interests : []), ...(kid && kid.interests ? kid.interests : [])];
+  let score = 40;
+  const overlap = place.interests.filter(i => personInterests.includes(i));
+  score += overlap.length * 15;
+  if (kid && kid.dislikes) {
+    const dislikesText = kid.dislikes.toLowerCase();
+    const hit = (place.avoidIf || []).some(word => dislikesText.includes(word));
+    if (hit) score -= 45;
   }
+  return Math.max(5, Math.min(99, score));
+}
+function searchPlaces({ kidId, momDistrict, transportMode, maxBudget }) {
+  const data = getUserData();
+  const kid = kidId ? getKidById(kidId) : null;
+  const mom = data.mom;
+  let results = PLACES.map(place => {
+    const score = matchScore(place, mom, kid);
+    if (score === null) return null;
+    const travel = transportCost(momDistrict || mom.district, place.district, transportMode || "bus");
+    return { place, score, travel, totalCost: place.price + travel };
+  }).filter(Boolean);
+  if (maxBudget) results = results.filter(r => r.totalCost <= Number(maxBudget));
+  results.sort((a, b) => b.score - a.score);
+  return results;
+}
+
+/* ===================== ПЕРЕКЛЮЧЕНИЕ ЭКРАНОВ ===================== */
+const TITLES = { auth: "Вход", home: "Идём!", cabinet: "Личный кабинет", search: "Поиск", venue: "О месте", reels: "Смотри, что нашла!" };
+let lastListScreen = "search";
+
+function showScreen(name) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById("screen-" + name).classList.add("active");
+  document.querySelectorAll(".tabbar button").forEach(b => b.classList.toggle("active", b.dataset.s === name));
+  document.getElementById("topbarTitle").textContent = TITLES[name] || "Идём!";
+  document.body.classList.toggle("auth-mode", name === "auth");
+  window.scrollTo(0, 0);
+
+  if (name === "cabinet") loadProfile();
+  if (name === "search") fillSelectors();
+  if (name === "reels") renderReels();
+}
+
+/* ===================== КАБИНЕТ ===================== */
+function renderTagPicker(containerId, options, selected) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = options.map(opt => `<span class="tag ${selected.includes(opt) ? "active" : ""}" data-val="${opt}" onclick="this.classList.toggle('active')">${opt}</span>`).join("");
+}
+function getSelectedTags(containerId) {
+  return Array.from(document.querySelectorAll("#" + containerId + " .tag.active")).map(t => t.dataset.val);
+}
+function loadProfile() {
+  const data = getUserData();
+  document.getElementById("momName").value = data.mom.name || "";
+  document.getElementById("momDistrict").innerHTML = DISTRICTS.map(d => `<option ${d === data.mom.district ? "selected" : ""}>${d}</option>`).join("");
+  renderTagPicker("momInterests", MOM_INTERESTS, data.mom.interests || []);
+  renderKidsList();
+}
+function saveMomProfile() {
+  const data = getUserData();
+  data.mom.name = document.getElementById("momName").value.trim();
+  data.mom.district = document.getElementById("momDistrict").value;
+  data.mom.interests = getSelectedTags("momInterests");
+  saveUserData(data);
+  alert("Профиль сохранён");
+}
+function renderKidsList() {
+  const data = getUserData();
+  const el = document.getElementById("kidsList");
+  if (!data.kids.length) { el.innerHTML = `<div class="empty-state">Пока нет ни одного ребёнка. Добавьте первого — это займёт минуту.</div>`; return; }
+  el.innerHTML = data.kids.map(k => `
+    <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <p style="font-weight:700; margin:0;">${k.name}, ${k.age} лет</p>
+        <p style="color:var(--muted); font-size:12.5px; margin:4px 0 0;">${(k.interests||[]).join(", ") || "Интересы не указаны"}</p>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button class="topbar-btn" onclick="openKidModal('${k.id}')"><i class="fa-solid fa-pen"></i></button>
+        <button class="topbar-btn" onclick="deleteKid('${k.id}')"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>`).join("");
+}
+function openKidModal(kidId) {
+  document.getElementById("kidModal").classList.add("open");
+  document.getElementById("editingKidId").value = kidId || "";
+  if (kidId) {
+    const kid = getKidById(kidId);
+    document.getElementById("kidModalTitle").textContent = "Редактировать ребёнка";
+    document.getElementById("kidName").value = kid.name;
+    document.getElementById("kidAge").value = kid.age;
+    document.getElementById("kidDislikes").value = kid.dislikes || "";
+    renderTagPicker("kidInterests", KID_INTERESTS, kid.interests || []);
+  } else {
+    document.getElementById("kidModalTitle").textContent = "Новый ребёнок";
+    document.getElementById("kidName").value = "";
+    document.getElementById("kidAge").value = "";
+    document.getElementById("kidDislikes").value = "";
+    renderTagPicker("kidInterests", KID_INTERESTS, []);
+  }
+}
+function closeKidModal() { document.getElementById("kidModal").classList.remove("open"); }
+function saveKid() {
+  const name = document.getElementById("kidName").value.trim();
+  const age = Number(document.getElementById("kidAge").value);
+  if (!name || Number.isNaN(age)) { alert("Укажите имя и возраст ребёнка"); return; }
+  const data = getUserData();
+  const editingId = document.getElementById("editingKidId").value;
+  const kidObj = { id: editingId || ("kid_" + Date.now()), name, age, interests: getSelectedTags("kidInterests"), dislikes: document.getElementById("kidDislikes").value.trim() };
+  if (editingId) data.kids = data.kids.map(k => k.id === editingId ? kidObj : k);
+  else data.kids.push(kidObj);
+  saveUserData(data);
+  closeKidModal();
+  renderKidsList();
+}
+function deleteKid(id) {
+  if (!confirm("Удалить этого ребёнка?")) return;
+  const data = getUserData();
+  data.kids = data.kids.filter(k => k.id !== id);
+  saveUserData(data);
+  renderKidsList();
+}
+
+/* ===================== ПОИСК ===================== */
+let transportMode = "bus";
+function pickTransport(el) {
+  document.querySelectorAll('[data-mode]').forEach(t => t.classList.remove("active"));
+  el.classList.add("active");
+  transportMode = el.dataset.mode;
+}
+function fillSelectors() {
+  const data = getUserData();
+  const kidSel = document.getElementById("kidSelect");
+  kidSel.innerHTML = data.kids.length
+    ? data.kids.map(k => `<option value="${k.id}">${k.name}, ${k.age} лет</option>`).join("")
+    : `<option value="">Сначала добавьте ребёнка в кабинете</option>`;
+  document.getElementById("fromDistrict").innerHTML = DISTRICTS.map(d => `<option ${d === data.mom.district ? "selected" : ""}>${d}</option>`).join("");
+}
+function runSearch() {
+  const data = getUserData();
+  if (!data.kids.length) {
+    document.getElementById("resultsHint").textContent = "Сначала добавьте ребёнка в личном кабинете — иначе не с кем подбирать места.";
+    document.getElementById("results").innerHTML = "";
+    return;
+  }
+  const kidId = document.getElementById("kidSelect").value;
+  const fromDistrict = document.getElementById("fromDistrict").value;
+  const maxBudget = document.getElementById("budget").value;
+  const results = searchPlaces({ kidId, momDistrict: fromDistrict, transportMode, maxBudget });
+  const hint = document.getElementById("resultsHint");
+  const box = document.getElementById("results");
+  if (!results.length) { hint.textContent = "Под такой бюджет и возраст ничего не нашлось — попробуйте увеличить бюджет."; box.innerHTML = ""; return; }
+  hint.textContent = `Найдено мест: ${results.length}. Сортировка — от лучшего совпадения к худшему.`;
+  box.innerHTML = results.map(r => `
+    <div class="venue-card" onclick="openVenue('${r.place.id}','search')">
+      <div class="thumb"><i class="fa-solid ${categoryIcon(r.place.category)}"></i></div>
+      <div class="body">
+        <span class="price">${priceLabel(r.place.price)} + дорога ${r.travel} ₽</span>
+        <p class="title">${r.place.name}</p>
+        <p class="meta">${CATEGORIES[r.place.category]} · район «${r.place.district}»</p>
+        <span class="match">${r.score}% совпадение</span>
+        <span style="float:right; color:var(--muted); font-size:12px; margin-top:6px;">Итого ≈ ${r.totalCost} ₽</span>
+      </div>
+    </div>`).join("");
+}
+
+/* ===================== СТРАНИЦА МЕСТА ===================== */
+function openVenue(id, fromScreen) {
+  lastListScreen = fromScreen || "search";
+  const place = getPlaceById(id);
+  const content = document.getElementById("venueContent");
+  if (!place) { content.innerHTML = `<div class="empty-state">Место не найдено.</div>`; showScreen("venue"); return; }
+
+  const comfortList = [
+    { key: "ramp", icon: "fa-wheelchair-move", label: "Пандус" },
+    { key: "changing", icon: "fa-baby", label: "Пеленальная" },
+    { key: "quietHours", icon: "fa-volume-low", label: "Тихий час" },
+    { key: "highChair", icon: "fa-chair", label: "Стульчики" },
+    { key: "sockets", icon: "fa-plug", label: "Розетки / Wi-Fi" },
+    { key: "kidsMenu", icon: "fa-utensils", label: "Детское меню" }
+  ];
+  const comfortHtml = comfortList.map(c => `<div class="comfort-item ${place.comfort[c.key] ? "" : "off"}"><i class="fa-solid ${c.icon}"></i> ${c.label}</div>`).join("");
+  const nearbyHtml = (place.nearby || []).map(n => `
+    <div class="card" style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px;">
+      <div><p style="font-weight:600; margin:0; font-size:14px;">${n.name}</p><p style="color:var(--muted); font-size:12px; margin:2px 0 0;">${n.type}</p></div>
+      <span style="color:var(--muted); font-size:12px;">${n.walk}</span>
+    </div>`).join("");
+  const kidsRoomHtml = place.hasKidsRoom ? `
+    <p class="section-title" style="margin-top:26px; font-size:16px;">Детская комната</p>
+    <div class="card"><p style="margin:0; font-size:13.5px;">${place.kidsRoomInfo}</p></div>` : "";
+  const reels = reelsForPlace(place.id);
+  const reelsHtml = reels.length ? `
+    <p class="section-title" style="margin-top:26px; font-size:16px;">«Смотри!» про это место</p>
+    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px;">
+      ${reels.map(r => `<div class="reel"><i class="fa-solid fa-play play"></i><div class="cap">${r.caption}<br><span style="opacity:.7; font-weight:400;">${r.author}</span></div></div>`).join("")}
+    </div>` : `<p class="section-sub" style="margin-top:26px;">Пока никто не выложил видео об этом месте.</p>`;
+
+  content.innerHTML = `
+    <div style="height:160px; border-radius:20px; display:flex; align-items:center; justify-content:center; color:white; font-size:34px; background:linear-gradient(135deg,#FFDAD0,#FFB199);">
+      <i class="fa-solid ${categoryIcon(place.category)}"></i>
+    </div>
+    <h1 style="font-size:22px; font-weight:800; margin:16px 0 2px;">${place.name}</h1>
+    <p style="color:var(--muted); font-size:13.5px; margin:0;">${CATEGORIES[place.category]} · район «${place.district}»</p>
+    <p style="margin-top:8px; font-weight:700; font-size:15px; color:var(--coral);">${priceLabel(place.price)}</p>
+    <p class="section-title" style="margin-top:22px; font-size:16px;">Паспорт комфорта</p>
+    <div class="comfort-grid">${comfortHtml}</div>
+    ${kidsRoomHtml}
+    <p class="section-title" style="margin-top:26px; font-size:16px;">Рядом с этим местом</p>
+    ${nearbyHtml || `<p class="section-sub">Ничего рядом пока не отмечено.</p>`}
+    ${reelsHtml}
+  `;
+  showScreen("venue");
+}
+
+/* ===================== СМОТРИ! ===================== */
+function renderReels() {
+  const grid = document.getElementById("reelsGrid");
+  grid.innerHTML = REELS.map(r => {
+    const place = getPlaceById(r.placeId);
+    return `<div class="reel" onclick="openVenue('${r.placeId}','reels')"><i class="fa-solid fa-play play"></i><div class="cap">${r.caption}<br><span style="opacity:.7; font-weight:400;">${place ? place.name : ""}</span></div></div>`;
+  }).join("");
+}
+
+/* ===================== ВХОД ПО SMS ===================== */
+const AUTH_KEY = "idomAuth";
+let pendingPhone = "";
+
+function isAuthed() {
+  return !!localStorage.getItem(AUTH_KEY);
+}
+
+function sendCode() {
+  const phone = document.getElementById("authPhone").value.trim();
+  if (phone.replace(/\D/g, "").length < 10) { alert("Введите номер телефона полностью"); return; }
+  pendingPhone = phone;
+  document.getElementById("authPhoneShown").textContent = phone;
+  document.getElementById("authStepPhone").style.display = "none";
+  document.getElementById("authStepCode").style.display = "block";
+  document.querySelector(".code-digit").focus();
+  // В прототипе SMS не отправляется по-настоящему — реальная отправка подключается позже через сервис вроде SMS.ru
+}
+
+function backToPhone() {
+  document.getElementById("authStepCode").style.display = "none";
+  document.getElementById("authStepPhone").style.display = "block";
+  document.querySelectorAll(".code-digit").forEach(i => i.value = "");
+}
+
+function focusNextCode(input) {
+  if (input.value && input.nextElementSibling && input.nextElementSibling.classList.contains("code-digit")) {
+    input.nextElementSibling.focus();
+  }
+}
+
+function verifyCode() {
+  const digits = Array.from(document.querySelectorAll(".code-digit")).map(i => i.value).join("");
+  if (digits.length < 4) { alert("Введите все 4 цифры кода из SMS"); return; }
+  // В прототипе принимается любой 4-значный код — проверка настоящего кода подключится вместе с реальной отправкой SMS
+  localStorage.setItem(AUTH_KEY, JSON.stringify({ phone: pendingPhone }));
+  showScreen("home");
+}
+
+/* ===================== СТАРТ ===================== */
+showScreen(isAuthed() ? "home" : "auth");
 </script>
-
 </body>
 </html>
