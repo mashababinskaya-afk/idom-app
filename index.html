@@ -1,1 +1,1611 @@
-```html <!DOCTYPE html> <html lang="ru"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> <title>Идём! — Куда пойти с детьми от 0 до 17 лет</title> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"> <style> *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; } :root { --brand: #ff6b4a; --brand-hover: #e85535; --brand-bg: #fff4f1; --brand-border: #ffd3c8; --bg: #f8faff; --surface: #ffffff; --text: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --radius-lg: 20px; --radius-md: 14px; --radius-sm: 10px; --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.07); } body { font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.5; padding-bottom: 96px; -webkit-tap-highlight-color: transparent; } .container { max-width: 1040px; margin: 0 auto; padding: 0 16px; } /* ШАПКА */ header { position: sticky; top: 0; z-index: 100; background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); } .header-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; } .brand { display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; } .brand-icon { width: 38px; height: 38px; border-radius: 12px; background: var(--brand-bg); border: 1px solid var(--brand-border); display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--brand); font-size: 18px; } .brand-title { font-size: 19px; font-weight: 800; line-height: 1; } .brand-title span { color: var(--brand); } .brand-sub { font-size: 11px; font-weight: 600; color: var(--text-muted); } .top-menu { display: none; gap: 4px; } @media(min-width: 768px) { .top-menu { display: flex; } } .top-btn { background: transparent; border: none; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: all 0.15s; } .top-btn:hover, .top-btn.active { background: var(--brand-bg); color: var(--brand); } /* ЭКРАНЫ */ .screen-view { display: none; } .screen-view.active { display: block; animation: fadeIn 0.15s ease-out; } @keyframes fadeIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } } /* БАЗОВЫЕ КАРТОЧКИ И КНОПКИ */ .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; box-shadow: var(--shadow); margin-bottom: 16px; } .btn-brand { background: var(--brand); color: #fff; border: none; padding: 10px 20px; border-radius: 12px; font-size: 13px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: background 0.15s; } .btn-brand:hover { background: var(--brand-hover); } .chip { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 1px solid var(--border); padding: 6px 12px; border-radius: 10px; font-size: 12px; font-weight: 700; color: var(--text); cursor: pointer; user-select: none; transition: all 0.15s; } .chip:hover { border-color: var(--brand); color: var(--brand); } .chip.active { background: var(--brand); border-color: var(--brand); color: #fff; } /* ================= СЛАЙДЕР МЕСТ НЕДЕЛИ ================= */ .slider-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; margin-top: 14px; } .slider-title { font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 8px; } .slider-arrows { display: flex; gap: 6px; } .arrow-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: #fff; font-size: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; } .arrow-btn:hover { background: var(--brand); color: #fff; border-color: var(--brand); } .slider-container { display: flex; gap: 14px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 8px; -ms-overflow-style: none; scrollbar-width: none; } .slider-container::-webkit-scrollbar { display: none; } .slide-card { min-width: 300px; max-width: 340px; flex-shrink: 0; background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.04); transition: transform 0.15s; } @media(min-width: 640px) { .slide-card { min-width: 330px; } } .slide-card:hover { transform: translateY(-3px); } .slide-img-wrap { height: 160px; position: relative; background: #e2e8f0; } .slide-img-wrap img { width: 100%; height: 100%; object-fit: cover; } .slide-badge { position: absolute; top: 10px; left: 10px; background: rgba(255, 107, 74, 0.95); color: #fff; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 8px; } .slide-price { position: absolute; bottom: 10px; right: 10px; background: rgba(15, 23, 42, 0.85); color: #fff; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px; } .slide-body { padding: 12px 14px; } .slide-name { font-size: 15px; font-weight: 800; margin-bottom: 4px; } .slide-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; height: 34px; overflow: hidden; } /* РИЛСЫ */ .reels-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; } @media(min-width: 600px) { .reels-grid { grid-template-columns: repeat(3, 1fr); } } @media(min-width: 900px) { .reels-grid { grid-template-columns: repeat(4, 1fr); } } .reel-card { aspect-ratio: 9/16; border-radius: 14px; overflow: hidden; position: relative; background: #0f172a; cursor: pointer; } .reel-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.88; } .reel-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.3) 100%); padding: 10px; display: flex; flex-direction: column; justify-content: space-between; color: #fff; } .reel-title { font-size: 12px; font-weight: 800; line-height: 1.3; } .reel-badge { background: rgba(255, 107, 74, 0.95); color: #fff; font-size: 10px; font-weight: 800; padding: 3px 6px; border-radius: 6px; display: inline-flex; align-items: center; gap: 3px; width: fit-content; margin-top: 4px; } /* ЛОКАЦИИ */ .places-grid { display: grid; grid-template-columns: 1fr; gap: 14px; } @media(min-width: 640px) { .places-grid { grid-template-columns: repeat(2, 1fr); } } @media(min-width: 960px) { .places-grid { grid-template-columns: repeat(3, 1fr); } } .place-item { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: transform 0.15s; } .place-item:hover { transform: translateY(-2px); } .place-thumb { height: 150px; position: relative; background: #e2e8f0; } .place-thumb img { width: 100%; height: 100%; object-fit: cover; } .place-info { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; } /* ПАСПОРТ КОМФОРТА ПЛАШКИ */ .comfort-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; } .tag-c { font-size: 10px; background: #f1f5f9; color: #334155; padding: 2px 6px; border-radius: 6px; font-weight: 700; } /* ================= ПЛАВАЮЩЕЕ НИЖНЕЕ МЕНЮ (100% КЛИКАБЕЛЬНО) ================= */ #bottomNavWrap { position: fixed; bottom: 12px; left: 0; right: 0; z-index: 9999; display: flex; justify-content: center; padding: 0 12px; } .nav-dock { width: 100%; max-width: 480px; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 20px; padding: 6px 8px; display: flex; justify-content: space-around; box-shadow: 0 8px 30px rgba(15, 23, 42, 0.15); } .dock-item { flex: 1; border: none; background: transparent; padding: 6px 2px; border-radius: 12px; color: #64748b; font-size: 11px; font-weight: 800; display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; user-select: none; } .dock-item.active { color: var(--brand); background: var(--brand-bg); } .dock-item:active { transform: scale(0.92); } </style> </head> <body> <!-- ШАПКА --> <header> <div class="container header-inner"> <div class="brand" onclick="openScreen('home')"> <div class="brand-icon">!</div> <div> <div class="brand-title">Идём<span>!</span></div> <div class="brand-sub">куда пойти с детьми</div> </div> </div> <nav class="top-menu"> <button class="top-btn active" id="topHome" onclick="openScreen('home')">Главная</button> <button class="top-btn" id="topCatalog" onclick="openScreen('catalog')">Поиск мест</button> <button class="top-btn" id="topReels" onclick="openScreen('reels')">Смотри, что нашла!</button> <button class="top-btn" id="topCabinet" onclick="openScreen('cabinet')">Кабинет</button> </nav> <button class="btn-brand" style="padding:6px 14px; font-size:12px;" onclick="openScreen('catalog')"> 🔍 Поиск </button> </div> </header> <!-- ==================== 1. ЭКРАН: ГЛАВНАЯ ==================== --> <main id="screen-home" class="screen-view active"> <div class="container" style="padding-top:16px;"> <!-- СЛАЙДЕР «САМОЕ ИНТЕРЕСНОЕ НА ЭТОЙ НЕДЕЛЕ» --> <div class="slider-header"> <div class="slider-title"> <span>🔥</span> <span>Самое интересное на этой неделе</span> </div> <div class="slider-arrows"> <button class="arrow-btn" onclick="slideWeekly(-1)">‹</button> <button class="arrow-btn" onclick="slideWeekly(1)">›</button> </div> </div> <div class="slider-container" id="weeklySlider"> <!-- Слайд 1 --> <div class="slide-card" onclick="openPlaceModal('p1')"> <div class="slide-img-wrap"> <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&auto=format&fit=crop&q=80" alt="Океанариум"> <div class="slide-badge">Хит недели #1</div> <div class="slide-price">1 300 ₽</div> </div> <div class="slide-body"> <div class="slide-name">Океанариум «Бухта открытий»</div> <div class="slide-desc">Контактный бассейн со скатами и акулами, удобный проезд с коляской.</div> <div style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;"> <span style="font-size:11px; color:var(--brand); font-weight:700;">☕ Кофе для мамы</span> <span style="font-size:11px; font-weight:800; color:var(--text);">Подробнее →</span> </div> </div> </div> <!-- Слайд 2 --> <div class="slide-card" onclick="openPlaceModal('p4')"> <div class="slide-img-wrap"> <img src="https://images.unsplash.com/photo-1566454544259-f4b94c3d758c?w=600&auto=format&fit=crop&q=80" alt="Облачко"> <div class="slide-badge" style="background:#2563eb;">Восторг детей</div> <div class="slide-price">950 ₽</div> </div> <div class="slide-body"> <div class="slide-name">Эко-центр «Облачко»</div> <div class="slide-desc">Лабиринты Монтессори, сухой бассейн и зона для малышей 0–3 лет.</div> <div style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;"> <span style="font-size:11px; color:#16a34a; font-weight:700;">♿ Пандус есть</span> <span style="font-size:11px; font-weight:800; color:var(--text);">Подробнее →</span> </div> </div> </div> <!-- Слайд 3 --> <div class="slide-card" onclick="openPlaceModal('p2')"> <div class="slide-img-wrap"> <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&auto=format&fit=crop&q=80" alt="Кафе Улитка"> <div class="slide-badge" style="background:#16a34a;">Уют & Тишина</div> <div class="slide-price">850 ₽</div> </div> <div class="slide-body"> <div class="slide-name">Семейное кафе «Улитка»</div> <div class="slide-desc">Тихий зал для сна малыша, деревянные игрушки и свежая выпечка.</div> <div style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;"> <span style="font-size:11px; color:var(--brand); font-weight:700;">👶 Пеленальная</span> <span style="font-size:11px; font-weight:800; color:var(--text);">Подробнее →</span> </div> </div> </div> <!-- Слайд 4 --> <div class="slide-card" onclick="openPlaceModal('p3')"> <div class="slide-img-wrap"> <img src="https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600&auto=format&fit=crop&q=80" alt="Скалодром"> <div class="slide-badge" style="background:#d97706;">Активный спорт</div> <div class="slide-price">1 200 ₽</div> </div> <div class="slide-body"> <div class="slide-name">Скалодром «Вертикаль»</div> <div class="slide-desc">Детская страховка, батуты и розетки для родителей, пока дети лазают.</div> <div style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;"> <span style="font-size:11px; color:#2563eb; font-weight:700;">📶 Быстрый Wi-Fi</span> <span style="font-size:11px; font-weight:800; color:var(--text);">Подробнее →</span> </div> </div> </div> </div> <!-- БЛОК ПОИСКА С 3 ВАРИАНТАМИ СТАРТА --> <div class="card" style="margin-top:20px;"> <div style="font-size:12px; font-weight:800; text-transform:uppercase; color:var(--brand); margin-bottom:4px;">Умный фильтр маршрута</div> <div style="display:flex; gap:8px; margin-bottom:10px;"> <input type="text" id="homeQuery" placeholder="Бассейн, коворкинг с няней, мастер-классы..." style="flex:1; padding:10px 14px; border-radius:10px; border:1px solid var(--border); font-size:13px; font-weight:600;"> <button class="btn-brand" onclick="openScreen('catalog')">Искать</button> </div> <div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:6px;">Откуда выезжаем (точка отсчета):</div> <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px;"> <button class="chip active" id="startBtnGeo" onclick="setHomeStartMethod('geo', this)">📍 Мое гео</button> <button class="chip" id="startBtnMap" onclick="setHomeStartMethod('map', this)">🗺️ Карта</button> <button class="chip" id="startBtnMetro" onclick="setHomeStartMethod('metro', this)">🚇 Метро</button> </div> <div id="homeMetroSelectWrap" style="display:none; margin-top:8px;"> <select id="homeMetroPick" onchange="updateStartPointText(this.value)" style="width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--border); font-size:12px; font-weight:700;"> <option value="Раменки">м. Раменки (Запад)</option> <option value="Университет">м. Университет (ЮЗАО)</option> <option value="Китай-город">м. Китай-город (Центр)</option> <option value="Охотный Ряд">м. Охотный Ряд (Центр)</option> <option value="Динамо">м. Динамо (Север)</option> <option value="Сокольники">м. Сокольники (Восток)</option> </select> </div> <div style="margin-top:10px; padding-top:10px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;"> <span style="font-size:11px; color:#16a34a; font-weight:700;" id="currentLocationStatus">✓ Геолокация: Центральный р-н (±200 м)</span> <span style="font-size:11px; color:var(--brand); font-weight:800; cursor:pointer;" onclick="openScreen('cabinet')">Изменить</span> </div> </div> <!-- РИЛСЫ («СМОТРИ, ЧТО НАШЛА!») --> <div style="margin: 24px 0 12px; display:flex; justify-content:space-between; align-items:flex-end;"> <div> <div style="font-size:10px; font-weight:800; color:var(--brand); text-transform:uppercase;">Честные видео от мам</div> <h2 style="font-size:19px; font-weight:800;">«Смотри, что нашла!»</h2> </div> <button class="chip" onclick="openScreen('reels')">Все ролики →</button> </div> <div class="reels-grid" id="homeReelsContainer"></div> <!-- ЛОКАЦИИ (КАТАЛОГ) --> <div style="margin: 28px 0 12px; display:flex; justify-content:space-between; align-items:flex-end;"> <div> <div style="font-size:10px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">Проверенные локации</div> <h2 style="font-size:19px; font-weight:800;">Куда пойти с детьми</h2> </div> <div style="display:flex; gap:4px;"> <button class="chip active" onclick="filterHomeByAge('all', this)">Все</button> <button class="chip" onclick="filterHomeByAge('0-6', this)">0–6 лет</button> <button class="chip" onclick="filterHomeByAge('7-17', this)">7–17 лет</button> </div> </div> <div class="places-grid" id="homePlacesContainer"></div> </div> </main> <!-- ==================== 2. ЭКРАН: ПОИСК МЕСТ ==================== --> <main id="screen-catalog" class="screen-view"> <div class="container" style="padding-top:16px;"> <div class="card"> <h2 style="font-size:18px; font-weight:800; margin-bottom:10px;">Поиск и расчёт маршрута</h2> <!-- СПОСОБ ПЕРЕДВИЖЕНИЯ --> <div style="margin-bottom:12px;"> <div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">Способ поездки:</div> <div style="display:flex; gap:6px;"> <button class="chip" id="tBtnWalk" onclick="setTransportMode('walk', this)">🚶 Пешком</button> <button class="chip active" id="tBtnPublic" onclick="setTransportMode('public', this)">🚌 Общественный транспорт</button> <button class="chip" id="tBtnTaxi" onclick="setTransportMode('taxi', this)">🚕 Такси</button> </div> </div> <!-- ДВОЕ ДЕТЕЙ --> <div style="margin-bottom:12px;"> <div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">Режим для двоих детей:</div> <div style="display:flex; gap:6px;"> <button class="chip active" id="child1Chip" onclick="this.classList.toggle('active'); refreshCatalog();">👧 Алина (6 лет)</button> <button class="chip active" id="child2Chip" onclick="this.classList.toggle('active'); refreshCatalog();">👶 Марк (2 года)</button> </div> </div> <!-- ИНТЕРЕСЫ МАМЫ --> <label style="display:flex; align-items:center; gap:8px; font-size:12px; font-weight:800; cursor:pointer; background:#f8fafc; padding:8px 10px; border-radius:8px;"> <input type="checkbox" id="momCheck" checked onchange="refreshCatalog()" style="accent-color:var(--brand); width:16px; height:16px;"> ☕ Учитывать комфорт мамы (тихий кофе, пеленальный, Wi-Fi) </label> </div> <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;"> <span style="font-size:13px; font-weight:800; color:var(--text-muted);" id="catalogResultsCount">Найдено мест: 6</span> <span style="font-size:11px; color:var(--brand); font-weight:700;" id="transportLabelDisplay">Время: общественный транспорт</span> </div> <div class="places-grid" id="catalogPlacesContainer"></div> </div> </main> <!-- ==================== 3. ЭКРАН: СМОТРИ, ЧТО НАШЛА! ==================== --> <main id="screen-reels" class="screen-view"> <div class="container" style="padding-top:16px;"> <div style="text-align:center; margin-bottom:16px;"> <h1 style="font-size:22px; font-weight:800;">«Смотри, что нашла!»</h1> <p style="font-size:12px; color:var(--text-muted);">Короткие честные ролики родителей с проверенными локациями</p> </div> <div class="reels-grid" id="allReelsContainer"></div> </div> </main> <!-- ==================== 4. ЭКРАН: КАБИНЕТ ==================== --> <main id="screen-cabinet" class="screen-view"> <div class="container" style="padding-top:16px; max-width:600px;"> <div class="card"> <h2 style="font-size:18px; font-weight:800; margin-bottom:4px;">Домашняя точка старта</h2> <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Отсюда автоматически считается время на дорогу</p> <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;"> <button class="chip" id="cabGeoBtn" onclick="setCabinetStart('geo', this)">📍 Местоположение</button> <button class="chip" id="cabMapBtn" onclick="setCabinetStart('map', this)">🗺️ Точка на карте</button> <button class="chip active" id="cabMetroBtn" onclick="setCabinetStart('metro', this)">🚇 Станция метро</button> </div> <div id="cabMetroBox" style="margin-bottom:12px;"> <select id="cabMetroSelect" onchange="saveCabinetMetro(this.value)" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); font-size:13px; font-weight:700; background:#f8fafc;"> <option value="м. Раменки (Запад)" selected>м. Раменки (Запад)</option> <option value="м. Университет (ЮЗАО)">м. Университет (ЮЗАО)</option> <option value="м. Китай-город (Центр)">м. Китай-город (Центр)</option> <option value="м. Охотный Ряд (Центр)">м. Охотный Ряд (Центр)</option> <option value="м. Динамо (Север)">м. Динамо (Север)</option> <option value="м. Сокольники (Восток)">м. Сокольники (Восток)</option> </select> </div> <div style="font-size:11px; color:var(--brand); background:var(--brand-bg); padding:8px 10px; border-radius:8px; font-weight:700;" id="cabStatusLabel"> ✓ Сохранено: расчёт времени ведется от м. Раменки </div> </div> <div class="card" style="background: linear-gradient(135deg, var(--brand) 0%, #ff8c42 100%); color:#fff;"> <div style="font-size:11px; font-weight:800; text-transform:uppercase; opacity:0.9;">Копилка заботы</div> <div style="font-size:26px; font-weight:800; margin:2px 0 6px;">850 баллов</div> <p style="font-size:12px; opacity:0.95; line-height:1.4; margin-bottom:12px;">Обменивайте баллы за честные видео и отзывы на кофе, десерты и билеты в музеи.</p> <button style="background:#fff; color:var(--brand); border:none; padding:8px 14px; border-radius:8px; font-size:12px; font-weight:800; cursor:pointer;" onclick="alert('Каталог наград откроется в следующем релизе!')">Потратить баллы</button> </div> </div> </main> <!-- ==================== 5. ДЕТАЛЬНЫЙ ЭКРАН МЕСТА ==================== --> <main id="screen-details" class="screen-view"> <div class="container" style="padding-top:16px; max-width:760px;"> <button class="chip" onclick="openScreen('catalog')" style="margin-bottom:12px;">← Назад к списку</button> <div id="placeDetailsBody"></div> </div> </main> <!-- ==================== НИЖНЕЕ ПЛАВАЮЩЕЕ МЕНЮ ==================== --> <div id="bottomNavWrap"> <nav class="nav-dock"> <button class="dock-item active" id="dockHome" onclick="openScreen('home')"> <span style="font-size:18px;">🏠</span> <span>Главная</span> </button> <button class="dock-item" id="dockCatalog" onclick="openScreen('catalog')"> <span style="font-size:18px;">🔍</span> <span>Поиск</span> </button> <button class="dock-item" id="dockReels" onclick="openScreen('reels')"> <span style="font-size:18px;">▶️</span> <span>Смотри</span> </button> <button class="dock-item" id="dockCabinet" onclick="openScreen('cabinet')"> <span style="font-size:18px;">👤</span> <span>Кабинет</span> </button> </nav> </div> <!-- ==================== АВТОНОМНЫЙ JAVASCRIPT ==================== --> <script> // БАЗА МЕСТ const PLACES = [ { id: "p1", name: "Океанариум «Бухта открытий»", cat: "Океанариум", age: "0–17 лет", price: 1300, match: 98, times: { walk: "45 мин (3.2 км)", public: "18 мин (метро)", taxi: "12 мин (420 ₽)" }, img: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&auto=format&fit=crop&q=80", desc: "Контактный бассейн с морскими скатами, тоннель с акулами, пандус без единой ступени и спешелти кофе.", comfort: ["Пандус и лифт", "Пеленальная", "Стульчики", "Кофе маме", "Wi-Fi"] }, { id: "p2", name: "Семейное кафе «Улитка»", cat: "Кафе", age: "0–6 лет", price: 850, match: 96, times: { walk: "12 мин (850 м)", public: "10 мин", taxi: "7 мин (260 ₽)" }, img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&auto=format&fit=crop&q=80", desc: "Тихий зал без громкой музыки, мягкая ковровая зона, Монтессори-игрушки и подогрев детского питания.", comfort: ["Пандус", "Пеленальная", "Тихий час", "Стульчики", "Детское меню"] }, { id: "p3", name: "Скалодром «Вертикаль»", cat: "Спорт", age: "4–17 лет", price: 1200, match: 92, times: { walk: "35 мин (2.5 км)", public: "15 мин", taxi: "10 мин (340 ₽)" }, img: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600&auto=format&fit=crop&q=80", desc: "Безопасные трассы с автостраховкой, поролоновая яма и коворкинг-зона для родителей с розетками.", comfort: ["Розетки и Wi-Fi", "Кофе маме", "Раздевалки"] }, { id: "p4", name: "Игровой центр «Облачко»", cat: "Игровой центр", age: "0–7 лет", price: 950, match: 94, times: { walk: "20 мин (1.4 км)", public: "12 мин", taxi: "8 мин (290 ₽)" }, img: "https://images.unsplash.com/photo-1566454544259-f4b94c3d758c?w=600&auto=format&fit=crop&q=80", desc: "Сухой бассейн, мягкие лабиринты для малышей и зона творчества для детей постарше.", comfort: ["Пандус", "Пеленальная", "Стульчики", "Кофе маме"] }, { id: "p5", name: "Музей «Эксперименты & Наука»", cat: "Музей", age: "5–16 лет", price: 800, match: 95, times: { walk: "55 мин (4.1 км)", public: "22 мин (метро)", taxi: "16 мин (480 ₽)" }, img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=600&auto=format&fit=crop&q=80", desc: "Более 100 интерактивных экспонатов, шоу мыльных пузырей и безопасные химические опыты.", comfort: ["Лифт", "Wi-Fi", "Кафе"] }, { id: "p6", name: "Парк «Зеленая аллея»", cat: "Парк", age: "0–17 лет", price: 0, match: 97, times: { walk: "8 мин (600 м)", public: "8 мин", taxi: "5 мин (180 ₽)" }, img: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&auto=format&fit=crop&q=80", desc: "Широкие тенистые аллеи для колясок, памп-трек для самокатов и пруд с утками.", comfort: ["Пандусы везде", "Тихий сон", "Бесплатно"] } ]; // БАЗА РИЛСОВ const REELS = [ { id: "r1", pId: "p1", title: "Крутейшее место на Земле! Скаты над головой 🦈", venueName: "Океанариум «Бухта открытий»", author: "Марина, двое сыновей", views: "18.4k", img: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&auto=format&fit=crop&q=80" }, { id: "r2", pId: "p2", title: "Спасение, когда детям 2 и 6 лет! Идеально 🔥", venueName: "Семейное кафе «Улитка»", author: "Света, мама Алины и Марка", views: "24.1k", img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&auto=format&fit=crop&q=80" }, { id: "r3", pId: "p2", title: "Наконец-то допила горячий кофе в тишине! ☕", venueName: "Семейное кафе «Улитка»", author: "Ольга, дочке 1.5 года", views: "31.9k", img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop&q=80" }, { id: "r4", pId: "p3", title: "Сын выплеснул всю энергию за час на скалодроме! 🧗", venueName: "Скалодром «Вертикаль»", author: "Татьяна, сын 9 лет", views: "12.8k", img: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=400&auto=format&fit=crop&q=80" } ]; let currentTransport = 'public'; // 1. НАВИГАЦИЯ МЕЖДУ СТРАНИЦАМИ function openScreen(screenId) { // Скрываем все экраны document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active')); const target = document.getElementById('screen-' + screenId); if (target) target.classList.add('active'); // Обновляем шапку const topMap = { home: 'topHome', catalog: 'topCatalog', reels: 'topReels', cabinet: 'topCabinet' }; document.querySelectorAll('.top-btn').forEach(b => b.classList.remove('active')); if (topMap[screenId]) document.getElementById(topMap[screenId]).classList.add('active'); // Обновляем нижнее меню const dockMap = { home: 'dockHome', catalog: 'dockCatalog', reels: 'dockReels', cabinet: 'dockCabinet' }; document.querySelectorAll('.dock-item').forEach(b => b.classList.remove('active')); if (dockMap[screenId]) document.getElementById(dockMap[screenId]).classList.add('active'); window.scrollTo(0, 0); } window.openScreen = openScreen; // 2. СЛАЙДЕР МЕСТ НЕДЕЛИ function slideWeekly(dir) { const container = document.getElementById('weeklySlider'); if (container) { container.scrollBy({ left: dir * 320, behavior: 'smooth' }); } } window.slideWeekly = slideWeekly; // 3. ТОЧКА СТАРТА НА ГЛАВНОЙ function setHomeStartMethod(mode, btn) { document.querySelectorAll('#startBtnGeo, #startBtnMap, #startBtnMetro').forEach(b => b.classList.remove('active')); btn.classList.add('active'); const box = document.getElementById('homeMetroSelectWrap'); const status = document.getElementById('currentLocationStatus'); if (mode === 'metro') { box.style.display = 'block'; updateStartPointText(document.getElementById('homeMetroPick').value); } else { box.style.display = 'none'; if (mode === 'geo') { status.textContent = '✓ Геолокация: Центральный р-н (±200 м)'; alert('Геолокация определена: Москва, ЮЗАО'); } if (mode === 'map') { status.textContent = '✓ Точка зафиксирована на карте'; alert('Точка установлена на карте'); } } } window.setHomeStartMethod = setHomeStartMethod; function updateStartPointText(metroName) { document.getElementById('currentLocationStatus').textContent = '✓ Точка старта: м. ' + metroName; } window.updateStartPointText = updateStartPointText; // 4. ТРАНСПОРТ В ПОИСКЕ function setTransportMode(mode, btn) { currentTransport = mode; document.querySelectorAll('#tBtnWalk, #tBtnPublic, #tBtnTaxi').forEach(b => b.classList.remove('active')); btn.classList.add('active'); const labels = { walk: 'Время: 🚶 пешком (до 2 км)', public: 'Время: 🚌 общественный транспорт', taxi: 'Время: 🚕 такси' }; document.getElementById('transportLabelDisplay').textContent = labels[mode]; refreshCatalog(); } window.setTransportMode = setTransportMode; // 5. НАСТРОЙКИ В КАБИНЕТЕ function setCabinetStart(mode, btn) { document.querySelectorAll('#cabGeoBtn, #cabMapBtn, #cabMetroBtn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); const box = document.getElementById('cabMetroBox'); const label = document.getElementById('cabStatusLabel'); if (mode === 'metro') { box.style.display = 'block'; label.textContent = '✓ Сохранено: расчёт времени ведется от ' + document.getElementById('cabMetroSelect').value; } else if (mode === 'geo') { box.style.display = 'none'; label.textContent = '✓ Сохранено: автоопределение по GPS телефона'; } else { box.style.display = 'none'; label.textContent = '✓ Сохранено: точка дома на карте'; } } window.setCabinetStart = setCabinetStart; function saveCabinetMetro(val) { document.getElementById('cabStatusLabel').textContent = '✓ Сохранено: расчёт времени ведется от ' + val; } window.saveCabinetMetro = saveCabinetMetro; // 6. РЕНДЕР КАРТОЧЕК function getPlaceCardHtml(p) { const t = p.times[currentTransport] || p.times.public; return ` <div class="place-item" onclick="openPlaceModal('${p.id}')"> <div class="place-thumb"> <img src="${p.img}" alt="${p.name}"> <div style="position:absolute; top:8px; left:8px; background:rgba(255,255,255,0.95); color:var(--brand); font-size:10px; font-weight:800; padding:3px 7px; border-radius:6px;">${p.match}% совпадение</div> <div style="position:absolute; bottom:8px; right:8px; background:rgba(15,23,42,0.85); color:#fff; font-size:11px; font-weight:800; padding:2px 7px; border-radius:6px;">${p.price === 0 ? 'Бесплатно' : p.price + ' ₽'}</div> </div> <div class="place-info"> <div> <div style="display:flex; justify-content:space-between; font-size:10px; font-weight:800; color:var(--brand); text-transform:uppercase;"> <span>${p.cat}</span> <span style="color:#0f172a; background:#f1f5f9; padding:1px 5px; border-radius:4px;">⏱️ ${t}</span> </div> <h3 style="font-size:15px; font-weight:800; margin:2px 0 4px;">${p.name}</h3> <p style="font-size:12px; color:var(--text-muted); line-height:1.35;">${p.desc}</p> </div> <div class="comfort-row"> ${p.comfort.slice(0, 3).map(c => `<span class="tag-c">✓ ${c}</span>`).join('')} </div> </div> </div> `; } function getReelCardHtml(r) { return ` <div class="reel-card" onclick="openPlaceModal('${r.pId}')"> <img src="${r.img}"> <div class="reel-overlay"> <span style="font-size:10px; font-weight:800; background:rgba(0,0,0,0.5); padding:2px 6px; border-radius:4px; width:fit-content;">▶ ${r.views}</span> <div> <div class="reel-title">${r.title}</div> <div class="reel-badge">📍 ${r.venueName}</div> </div> </div> </div> `; } // 7. ДЕТАЛЬНЫЙ ЭКРАН МЕСТА function openPlaceModal(placeId) { const p = PLACES.find(item => item.id === placeId) || PLACES[0]; const relReels = REELS.filter(r => r.pId === p.id); const t = p.times[currentTransport] || p.times.public; document.getElementById('placeDetailsBody').innerHTML = ` <div class="card" style="padding:0; overflow:hidden;"> <div style="height:220px; position:relative;"> <img src="${p.img}" style="width:100%; height:100%; object-fit:cover;"> <div style="position:absolute; bottom:10px; left:10px; background:var(--brand); color:#fff; font-size:11px; font-weight:800; padding:4px 8px; border-radius:6px;"> ${p.match}% совпадение для вашей семьи </div> </div> <div style="padding:16px;"> <div style="display:flex; justify-content:space-between; align-items:flex-start;"> <div> <div style="font-size:10px; font-weight:800; color:var(--brand); text-transform:uppercase;">${p.cat} · ${p.age}</div> <h1 style="font-size:22px; font-weight:800; margin-top:2px;">${p.name}</h1> <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">В пути: <b>${t}</b></div> </div> <div style="text-align:right;"> <div style="font-size:18px; font-weight:800;">${p.price === 0 ? 'Бесплатно' : p.price + ' ₽'}</div> <div style="font-size:10px; color:var(--text-muted);">входной билет</div> </div> </div> <p style="font-size:13px; margin:12px 0; background:#f8fafc; padding:10px; border-radius:10px; border:1px solid var(--border);"> ${p.desc} </p> <div style="margin-bottom:16px;"> <h3 style="font-size:13px; font-weight:800; margin-bottom:6px;">«Паспорт комфорта» локации:</h3> <div style="display:flex; flex-wrap:wrap; gap:4px;"> ${p.comfort.map(c => `<span class="chip active" style="font-size:11px; padding:3px 8px;">✓ ${c}</span>`).join('')} </div> </div> <div style="margin-top:20px; border-top:1px solid var(--border); padding-top:14px;"> <h3 style="font-size:15px; font-weight:800; margin-bottom:10px;">Видео-находки от мам здесь:</h3> <div class="reels-grid"> ${relReels.length > 0 ? relReels.map(getReelCardHtml).join('') : '<p style="font-size:12px; color:var(--text-muted);">Скоро появится видео!</p>'} </div> </div> <div style="margin-top:20px; display:flex; gap:8px;"> <button class="btn-brand" onclick="alert('Маршрут строится в Яндекс Навигаторе...')">📍 Маршрут</button> <button class="chip" style="padding:10px 14px;" onclick="alert('Сохранено в закладки!')">⭐ В закладки</button> </div> </div> </div> `; openScreen('details'); } window.openPlaceModal = openPlaceModal; function refreshCatalog() { document.getElementById('catalogPlacesContainer').innerHTML = PLACES.map(getPlaceCardHtml).join(''); } function filterHomeByAge(age, btn) { btn.parentElement.querySelectorAll('.chip').forEach(b => b.classList.remove('active')); btn.classList.add('active'); let list = PLACES; if (age === '0-6') list = PLACES.filter(p => p.age.includes('0') || p.age.includes('6')); if (age === '7-17') list = PLACES.filter(p => p.age.includes('17') || p.age.includes('4') || p.age.includes('5')); document.getElementById('homePlacesContainer').innerHTML = list.map(getPlaceCardHtml).join(''); } window.filterHomeByAge = filterHomeByAge; // ИНИЦИАЛИЗАЦИЯ document.getElementById('homeReelsContainer').innerHTML = REELS.slice(0, 4).map(getReelCardHtml).join(''); document.getElementById('allReelsContainer').innerHTML = REELS.map(getReelCardHtml).join(''); document.getElementById('homePlacesContainer').innerHTML = PLACES.map(getPlaceCardHtml).join(''); document.getElementById('catalogPlacesContainer').innerHTML = PLACES.map(getPlaceCardHtml).join(''); </script> </body> </html> ```
+<!DOCTYPE html>
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Идём! — куда пойти с детьми</title>
+<!-- Font Awesome & Google Fonts -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with target theme configuration -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container": "#e8eff7",
+            "on-primary-fixed-variant": "#8c1900",
+            "primary-fixed-dim": "#ffb4a3",
+            "on-surface-variant": "#59413c",
+            "primary": "#ae3115",
+            "on-primary": "#ffffff",
+            "tertiary": "#7d5800",
+            "on-secondary-fixed-variant": "#00513f",
+            "surface-tint": "#ae3115",
+            "primary-fixed": "#ffdad2",
+            "secondary": "#0b6b55",
+            "surface-bright": "#f6f9ff",
+            "surface-container-highest": "#dce3eb",
+            "on-secondary-container": "#17715b",
+            "on-secondary-fixed": "#002118",
+            "on-tertiary-fixed-variant": "#5e4200",
+            "primary-container": "#ff6b4a",
+            "error-container": "#ffdad6",
+            "on-background": "#151c22",
+            "secondary-fixed-dim": "#85d6bb",
+            "secondary-container": "#a1f3d6",
+            "outline": "#8d716a",
+            "tertiary-fixed-dim": "#f5be57",
+            "secondary-fixed": "#a1f3d6",
+            "on-tertiary-fixed": "#271900",
+            "inverse-surface": "#2a3137",
+            "on-surface": "#151c22",
+            "surface-variant": "#dce3eb",
+            "inverse-primary": "#ffb4a3",
+            "on-secondary": "#ffffff",
+            "tertiary-container": "#c3922f",
+            "surface-container-high": "#e2e9f1",
+            "inverse-on-surface": "#ebf1fa",
+            "surface-container-low": "#edf4fd",
+            "on-primary-fixed": "#3d0600",
+            "on-error-container": "#93000a",
+            "surface": "#f6f9ff",
+            "background": "#f6f9ff",
+            "on-error": "#ffffff",
+            "surface-dim": "#d4dbe3",
+            "on-tertiary-container": "#442e00",
+            "on-tertiary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "outline-variant": "#e1bfb8",
+            "error": "#ba1a1a",
+            "on-primary-container": "#661000",
+            "tertiary-fixed": "#ffdea8"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Плавная прокрутка для каруселей */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .slider-track { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-sans antialiased min-h-screen pb-24 selection:bg-primary-container selection:text-white">
+<!-- ================= ВЕРХНЯЯ ШАПКА ================= -->
+<header class="sticky top-0 z-40 bg-surface/90 backdrop-blur-md border-b border-surface-variant">
+<div class="max-w-[760px] mx-auto px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-2.5 cursor-pointer select-none" onclick="window.switchTab('home')">
+<div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center text-white shadow-md shadow-primary/20 text-lg">
+<i class="fa-solid fa-compass"></i>
+</div>
+<div>
+<div class="flex items-center gap-1.5 leading-none">
+<span class="text-xl font-extrabold tracking-tight text-on-surface">Идём!</span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-mono">0–17 лет</span>
+</div>
+<span class="text-[11px] text-gray-500 font-medium leading-none block mt-1">Куда пойти с детьми</span>
+</div>
+</div>
+<!-- Быстрые действия в шапке -->
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 rounded-xl bg-white border border-gray-200/80 shadow-sm flex items-center justify-center text-gray-600 hover:text-primary transition-colors" onclick="window.switchTab('search')" title="Поиск мест">
+<i class="fa-solid fa-magnifying-glass text-sm"></i>
+</button>
+<button class="w-10 h-10 rounded-xl bg-white border border-gray-200/80 shadow-sm flex items-center justify-center text-gray-600 hover:text-primary transition-colors" onclick="window.switchTab('cabinet')" title="Кабинет">
+<i class="fa-solid fa-user text-sm"></i>
+</button>
+</div>
+</div>
+</header>
+<!-- ================= СЕКЦИЯ 1: ГЛАВНАЯ СТРАНИЦА ================= -->
+<section class="block" id="tab-home">
+<div class="max-w-[760px] mx-auto px-4 pt-4 space-y-6">
+<!-- HERO BANNER -->
+<div class="pt-2">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-primary text-xs font-bold tracking-wide mb-3">
+<i class="fa-solid fa-bolt text-xs"></i> Без родительских чатов и гугления
+        </div>
+<h1 class="text-2xl sm:text-3xl font-black text-on-surface tracking-tight leading-tight mb-2">
+          Куда пойти с ребёнком прямо сейчас — под точный возраст и бюджет
+        </h1>
+<p class="text-sm text-gray-600 leading-relaxed">
+          Подбираем компромисс для одного или сразу двух детей с учетом отдыха мамы, времени в дороге и проверенных условий комфорта.
+        </p>
+</div>
+<!-- ================= 1. ИНТЕРАКТИВНЫЙ СЛАЙДЕР «ХИТЫ НЕДЕЛИ» ================= -->
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-lg font-black text-on-surface flex items-center gap-2">
+<i class="fa-solid fa-fire text-primary"></i> Самое интересное на этой неделе
+            </h2>
+<p class="text-xs text-gray-500">Популярно у родителей вашего района</p>
+</div>
+<!-- Стрелки управления -->
+<div class="flex items-center gap-1.5">
+<button aria-label="Предыдущий слайд" class="w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-700 hover:bg-surface-container active:scale-95 transition" onclick="window.slideHero(-1)">
+<i class="fa-solid fa-chevron-left text-xs"></i>
+</button>
+<button aria-label="Следующий слайд" class="w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-700 hover:bg-surface-container active:scale-95 transition" onclick="window.slideHero(1)">
+<i class="fa-solid fa-chevron-right text-xs"></i>
+</button>
+</div>
+</div>
+<!-- Контейнер слайдов (карусель) -->
+<div class="slider-track flex gap-3.5 overflow-x-auto no-scrollbar snap-x snap-mandatory py-1" id="heroSlider">
+<!-- Слайд 1 -->
+<div class="flex-shrink-0 w-[90%] sm:w-[350px] snap-center bg-white rounded-2xl border border-gray-200/90 overflow-hidden shadow-sm hover:shadow-md cursor-pointer group transition" onclick="window.openDetail('p3')">
+<div class="relative h-44 overflow-hidden">
+<img alt="Игровой эко-центр Облачко" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyqeqrhyuV6-tjmOn_L3cvYz4nXz_UAtTclLILyC1vzXY77DOS4mg8GbDjg8xN32iMN-x-ObFg6BBObF2_EObl0ZM7W9Lu5qef8Jfe8PK98ZwpFK9iHwlTBpsQXaqf0O-jdTzKI0sv4vm6DthAnIo89UvVQ_TDB3iS0RxJt1VWl-FTAwHVYEMuJLcqEXQPpJOXJbCBbe1cEgXRcANuMlAfPRGqIE3Y7U0v1DLryzlCURGQcsLWhZM6Pw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<span class="absolute top-3 left-3 bg-primary text-white text-[11px] font-extrabold px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
+<i class="fa-solid fa-star text-xs"></i> Хит недели #1
+              </span>
+<span class="absolute top-3 right-3 bg-black/60 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1 rounded-full">
+                950 ₽
+              </span>
+<div class="absolute bottom-3 left-3 right-3 text-white">
+<p class="text-xs text-secondary-container font-semibold">Игровой Монтессори эко-центр</p>
+<h3 class="text-base font-extrabold leading-tight">«Облачко» (Охотный Ряд)</h3>
+</div>
+</div>
+<div class="p-3.5 space-y-2">
+<p class="text-xs text-gray-600 line-clamp-2">Две изолированные зоны: для малышей 0–2 года мягкий манеж, для старших 3–8 лет творческие мастер-классы и конструкторы.</p>
+<div class="flex items-center justify-between text-xs pt-1 border-t border-gray-100">
+<span class="text-secondary font-bold flex items-center gap-1"><i class="fa-solid fa-mug-saucer"></i> Спешелти кофе маме</span>
+<span class="text-primary font-bold">Подробнее →</span>
+</div>
+</div>
+</div>
+<!-- Слайд 2 -->
+<div class="flex-shrink-0 w-[90%] sm:w-[350px] snap-center bg-white rounded-2xl border border-gray-200/90 overflow-hidden shadow-sm hover:shadow-md cursor-pointer group transition" onclick="window.openDetail('p2')">
+<div class="relative h-44 overflow-hidden">
+<img alt="Океанариум Бухта открытий" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAia2CRCe2QVXDQ4441CAMgRNAsi5ClEjF_f3hB7_fp646q-9xR_St2PDP7SoUvoBBWVoFohwWHgcoj3wPhi9PESJ9BVAMGQcuPL_YCBLSIBAuEW6uxsBc7nvePnbZQCTmVhKC6QYLtRp8qMQQx25jsLJlTsk8wG49T3GuQXVrJdd03ZAWxMp_j0YO0LZ5SRFkDBFHsF1xihuEgfXv0myddB-YDZccInvK1sTLLNSL_sNsrNixOpodsfQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<span class="absolute top-3 left-3 bg-amber-500 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
+<i class="fa-solid fa-water text-xs"></i> Восторг детей
+              </span>
+<span class="absolute top-3 right-3 bg-black/60 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1 rounded-full">
+                1 300 ₽
+              </span>
+<div class="absolute bottom-3 left-3 right-3 text-white">
+<p class="text-xs text-cyan-200 font-semibold">Огромный туннельный аквариум</p>
+<h3 class="text-base font-extrabold leading-tight">«Бухта открытий» (м. Раменки)</h3>
+</div>
+</div>
+<div class="p-3.5 space-y-2">
+<p class="text-xs text-gray-600 line-clamp-2">Контактный бассейн со скатами и звездами под присмотром биологов, прозрачные туннели и кормление акул.</p>
+<div class="flex items-center justify-between text-xs pt-1 border-t border-gray-100">
+<span class="text-secondary font-bold flex items-center gap-1"><i class="fa-solid fa-wheelchair"></i> Удобно с коляской</span>
+<span class="text-primary font-bold">Подробнее →</span>
+</div>
+</div>
+</div>
+<!-- Слайд 3 -->
+<div class="flex-shrink-0 w-[90%] sm:w-[350px] snap-center bg-white rounded-2xl border border-gray-200/90 overflow-hidden shadow-sm hover:shadow-md cursor-pointer group transition" onclick="window.openDetail('p1')">
+<div class="relative h-44 overflow-hidden">
+<img alt="Семейное кафе Улитка" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlu2yDQoQMfTh0ZBe1WlwdTVOannDYi64DxGHT3miX6XVpFhMdwZz4jJHbQRI-RChTWxoLgJ-MJCvRwWI2FBvlOh_aa_94QxLMUyn9PDzJpEM_pmUBc4tFKjHeyDO7H3PW-lnMLs5bZCIG1u7xFNXEWICcRTtjkGXvHo7fqJ2Y2DdsSNxfYNWCejCL0pKhmIdNsqRzgNkttcj4iHYidOO3t-wGGdDpweuxKLcefq3-MKrPfhZFPDgy2Q"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<span class="absolute top-3 left-3 bg-secondary text-white text-[11px] font-extrabold px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
+<i class="fa-solid fa-leaf text-xs"></i> Уют для мам
+              </span>
+<span class="absolute top-3 right-3 bg-black/60 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1 rounded-full">
+                850 ₽
+              </span>
+<div class="absolute bottom-3 left-3 right-3 text-white">
+<p class="text-xs text-emerald-200 font-semibold">Тихое кафе и сухой бассейн</p>
+<h3 class="text-base font-extrabold leading-tight">Семейное кафе «Улитка»</h3>
+</div>
+</div>
+<div class="p-3.5 space-y-2">
+<p class="text-xs text-gray-600 line-clamp-2">Деревянные развивающие игрушки, мягкое покрытие, тихий час без резкой музыки и авторский кофе для мамы.</p>
+<div class="flex items-center justify-between text-xs pt-1 border-t border-gray-100">
+<span class="text-secondary font-bold flex items-center gap-1"><i class="fa-solid fa-baby"></i> Пеленальный столик</span>
+<span class="text-primary font-bold">Подробнее →</span>
+</div>
+</div>
+</div>
+<!-- Слайд 4 -->
+<div class="flex-shrink-0 w-[90%] sm:w-[350px] snap-center bg-white rounded-2xl border border-gray-200/90 overflow-hidden shadow-sm hover:shadow-md cursor-pointer group transition" onclick="window.openDetail('p5')">
+<div class="relative h-44 overflow-hidden">
+<img alt="Скалодром и батуты Вертикаль" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsVcG5hfG9n8X-EnWmNLN8Zaq6TnJeq3JmM7Z9gBlpPGAKqMdNNMLfnJv9wUlk6yJ9X1J01ZC89pN_B2aYYZb7iE_9D9KAsDbZOflF2pE5ooFhWAvIHrj8mS8bgNdhKl0xAkHY7tMKeNeY2bnQP1XBnFidNVAT5RCM6Zlfa1XxdADybZ_7mP0TAtOLZg_5TQGx4g2NNkmuTe-TfZ1x7Qd-2jWebIxaQM39Iq8T_pZNkU6xY2j7K9mpkA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<span class="absolute top-3 left-3 bg-blue-600 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
+<i class="fa-solid fa-bolt text-xs"></i> Энергия на максимум
+              </span>
+<span class="absolute top-3 right-3 bg-black/60 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1 rounded-full">
+                1 200 ₽
+              </span>
+<div class="absolute bottom-3 left-3 right-3 text-white">
+<p class="text-xs text-blue-200 font-semibold">Батуты &amp; автостраховка 4-17 лет</p>
+<h3 class="text-base font-extrabold leading-tight">Скалодром «Вертикаль» (Юг)</h3>
+</div>
+</div>
+<div class="p-3.5 space-y-2">
+<p class="text-xs text-gray-600 line-clamp-2">Безопасный выплеск детской энергии! Опытные инструкторы, поролоновая яма и коворкинг для родителей.</p>
+<div class="flex items-center justify-between text-xs pt-1 border-t border-gray-100">
+<span class="text-secondary font-bold flex items-center gap-1"><i class="fa-solid fa-wifi"></i> Wi-Fi + розетки</span>
+<span class="text-primary font-bold">Подробнее →</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Индикаторы пагинации -->
+<div class="flex items-center justify-center gap-1.5 pt-1" id="sliderDots">
+<span class="w-6 h-1.5 rounded-full bg-primary transition-all"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-gray-300 transition-all"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-gray-300 transition-all"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-gray-300 transition-all"></span>
+</div>
+</div>
+<!-- ================= 2. ПОИСКОВЫЙ БЛОК НА ГЛАВНОЙ ================= -->
+<div class="bg-white rounded-3xl p-4 sm:p-5 border border-gray-200 shadow-sm space-y-3.5">
+<div class="flex items-center justify-between">
+<span class="text-xs font-extrabold text-primary uppercase tracking-wider">Умный фильтр маршрута</span>
+<button class="text-xs font-bold text-secondary bg-secondary-container/40 hover:bg-secondary-container px-2.5 py-1 rounded-lg transition" onclick="window.quickTwoKids()">
+<i class="fa-solid fa-people-roof mr-1"></i> Режим двух детей
+          </button>
+</div>
+<!-- Поисковая строка -->
+<div class="flex items-center gap-2 bg-surface-container/60 rounded-2xl px-3.5 py-2 border border-surface-variant focus-within:border-primary transition">
+<i class="fa-solid fa-magnifying-glass text-primary text-sm"></i>
+<input class="w-full bg-transparent border-none text-sm text-on-surface focus:ring-0 p-0 placeholder:text-gray-400 font-medium" id="mainSearchInput" placeholder="Бассейн, коворкинг с няней, мастер-классы..." type="text"/>
+<button class="bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-xl hover:bg-primary/90 transition shadow-sm flex-shrink-0" onclick="window.triggerHomeSearch()">
+            Искать
+          </button>
+</div>
+<!-- 3 варианта точки старта -->
+<div>
+<label class="block text-xs font-bold text-gray-700 mb-1.5">Откуда выезжаем (точка отсчета):</label>
+<div class="grid grid-cols-3 gap-1.5 bg-surface-container-low p-1 rounded-2xl border border-surface-variant/80">
+<button class="py-2 px-2 text-center rounded-xl text-xs font-bold transition bg-white text-primary shadow-xs" id="btnHomeGeo" onclick="window.setHomeStartMode('geo')">
+<i class="fa-solid fa-location-crosshairs mr-1"></i> Мое гео
+            </button>
+<button class="py-2 px-2 text-center rounded-xl text-xs font-semibold text-gray-600 hover:text-gray-900 transition" id="btnHomeMap" onclick="window.setHomeStartMode('map')">
+<i class="fa-solid fa-map-pin mr-1"></i> Карта
+            </button>
+<button class="py-2 px-2 text-center rounded-xl text-xs font-semibold text-gray-600 hover:text-gray-900 transition" id="btnHomeMetro" onclick="window.setHomeStartMode('metro')">
+<i class="fa-solid fa-train-subway mr-1"></i> Метро
+            </button>
+</div>
+</div>
+<!-- Вспомогательная панель старта -->
+<div class="text-xs bg-surface-bright p-2.5 rounded-xl border border-gray-100 flex items-center justify-between text-gray-600" id="homeStartMeta">
+<span id="homeStartMetaText"><i class="fa-solid fa-check text-secondary mr-1.5"></i> Геопозиция: Центральный р-н (±200 м)</span>
+<button class="text-primary font-bold hover:underline" onclick="window.switchTab('search')">Изменить</button>
+</div>
+<!-- Быстрые чипсы категорий -->
+<div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-1">
+<button class="flex-shrink-0 text-xs font-semibold bg-gray-100 hover:bg-primary/10 hover:text-primary px-3 py-1.5 rounded-xl border border-gray-200 transition" onclick="window.quickCategorySearch('Животные')">
+            🐾 Животные
+          </button>
+<button class="flex-shrink-0 text-xs font-semibold bg-gray-100 hover:bg-primary/10 hover:text-primary px-3 py-1.5 rounded-xl border border-gray-200 transition" onclick="window.quickCategorySearch('Вода и бассейны')">
+            💧 Бассейны
+          </button>
+<button class="flex-shrink-0 text-xs font-semibold bg-gray-100 hover:bg-primary/10 hover:text-primary px-3 py-1.5 rounded-xl border border-gray-200 transition" onclick="window.quickCategorySearch('Кофе и перекус')">
+            ☕ С кофе для мамы
+          </button>
+<button class="flex-shrink-0 text-xs font-semibold bg-gray-100 hover:bg-primary/10 hover:text-primary px-3 py-1.5 rounded-xl border border-gray-200 transition" onclick="window.quickCategorySearch('Скалодромы и батуты')">
+            🧗 Активный спорт
+          </button>
+</div>
+</div>
+<!-- ================= 3. «СМОТРИ, ЧТО НАШЛА!» (РИЛСЫ С ПЛАШКОЙ МЕСТА) ================= -->
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-lg font-black text-on-surface">«Смотри, что нашла!»</h2>
+<p class="text-xs text-gray-500">Живые честные обзоры родителей районов</p>
+</div>
+<button class="text-xs font-extrabold text-primary hover:underline" onclick="window.switchTab('reels')">
+            Все видео →
+          </button>
+</div>
+<div class="flex gap-3 overflow-x-auto no-scrollbar py-1" id="homeReelsTrack">
+<!-- Рилсы генерируются из JS для единой базы -->
+</div>
+</div>
+<!-- ================= ПАСПОРТ КОМФОРТА ================= -->
+<div class="space-y-2.5">
+<h2 class="text-lg font-black text-on-surface">«Паспорт комфорта» каждого места</h2>
+<p class="text-xs text-gray-500">Знаете условия ещё до выхода из дома</p>
+<div class="flex gap-2 overflow-x-auto no-scrollbar py-1">
+<div class="flex-shrink-0 bg-white border border-gray-200 rounded-xl px-3 py-2 text-xs font-bold text-gray-700 flex items-center gap-1.5 shadow-2xs">
+<i class="fa-solid fa-wheelchair text-primary"></i> Пандус для колясок
+          </div>
+<div class="flex-shrink-0 bg-white border border-gray-200 rounded-xl px-3 py-2 text-xs font-bold text-gray-700 flex items-center gap-1.5 shadow-2xs">
+<i class="fa-solid fa-baby text-primary"></i> Пеленальный стол
+          </div>
+<div class="flex-shrink-0 bg-white border border-gray-200 rounded-xl px-3 py-2 text-xs font-bold text-gray-700 flex items-center gap-1.5 shadow-2xs">
+<i class="fa-solid fa-volume-low text-primary"></i> Без шума и крика
+          </div>
+<div class="flex-shrink-0 bg-white border border-gray-200 rounded-xl px-3 py-2 text-xs font-bold text-gray-700 flex items-center gap-1.5 shadow-2xs">
+<i class="fa-solid fa-mug-saucer text-primary"></i> Спешелти кофе
+          </div>
+<div class="flex-shrink-0 bg-white border border-gray-200 rounded-xl px-3 py-2 text-xs font-bold text-gray-700 flex items-center gap-1.5 shadow-2xs">
+<i class="fa-solid fa-wifi text-primary"></i> Wi-Fi / розетки
+          </div>
+</div>
+</div>
+<!-- ================= 4. ЛОКАЦИИ (КАТАЛОГ С ФИЛЬТРОМ ВОЗРАСТА) ================= -->
+<div class="space-y-3 pt-2">
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+<div>
+<h2 class="text-lg font-black text-on-surface">Проверенные локации</h2>
+<p class="text-xs text-gray-500">Отобрано экспертами с учетом детской безопасности</p>
+</div>
+<!-- Возрастные чипсы -->
+<div class="flex items-center gap-1 overflow-x-auto no-scrollbar" id="homeAgeFilters">
+<button class="age-btn active text-xs font-bold px-3 py-1.5 rounded-full bg-primary text-white transition" onclick="window.filterHomeAge('all', this)">Все</button>
+<button class="age-btn text-xs font-bold px-3 py-1.5 rounded-full bg-white text-gray-600 border border-gray-200 hover:bg-gray-50 transition" onclick="window.filterHomeAge('0-6', this)">0–6 лет</button>
+<button class="age-btn text-xs font-bold px-3 py-1.5 rounded-full bg-white text-gray-600 border border-gray-200 hover:bg-gray-50 transition" onclick="window.filterHomeAge('7-17', this)">7–17 лет</button>
+</div>
+</div>
+<!-- Список локаций на главной -->
+<div class="space-y-3.5" id="homeLocationsList">
+<!-- Генерируется из JS -->
+</div>
+</div>
+<!-- Блок Копилка заботы -->
+<div class="rounded-3xl bg-gradient-to-r from-primary to-primary-container p-5 text-white shadow-lg shadow-primary/20 space-y-2">
+<div class="inline-block text-[11px] font-extrabold uppercase tracking-wider bg-white/20 px-2.5 py-0.5 rounded-full">Копилка заботы</div>
+<h3 class="text-xl font-black leading-tight">+60–150 баллов за честный отзыв</h3>
+<p class="text-xs text-white/90">Поделитесь 15-секундным видео из любого детского места и обменивайте баллы на билеты и кофе.</p>
+<button class="mt-2 text-xs font-extrabold bg-white text-primary px-4 py-2.5 rounded-xl shadow hover:bg-surface-container transition" onclick="window.switchTab('cabinet')">
+          Участвовать в программе
+        </button>
+</div>
+</div>
+</section>
+<!-- ================= СЕКЦИЯ 2: ПОИСК И МУЛЬТИ-ПОДБОР ================= -->
+<section class="hidden" id="tab-search">
+<div class="max-w-[760px] mx-auto px-4 pt-4 space-y-5">
+<div>
+<h1 class="text-2xl font-black text-on-surface">Умный подбор мест</h1>
+<p class="text-xs text-gray-500">Точный расчет времени и бюджета под выбранных детей</p>
+</div>
+<!-- Форма подбора -->
+<div class="bg-white rounded-3xl p-4 sm:p-5 border border-gray-200 shadow-sm space-y-4">
+<!-- 1. Выбор детей -->
+<div>
+<label class="block text-xs font-bold text-gray-800 mb-1.5 flex items-center justify-between">
+<span><i class="fa-solid fa-children text-primary mr-1"></i> С кем идем? (выберите детей):</span>
+<button class="text-primary text-[11px] font-bold hover:underline" onclick="window.switchTab('cabinet')">+ Добавить ребенка</button>
+</label>
+<div class="flex flex-wrap gap-2" id="searchKidsList">
+<!-- Дети генерируются из JS -->
+</div>
+<div class="text-xs text-secondary font-bold mt-2" id="searchKidsStatus"></div>
+</div>
+<!-- 2. Точка старта (3 режима) -->
+<div>
+<label class="block text-xs font-bold text-gray-800 mb-1.5">
+<i class="fa-solid fa-location-dot text-primary mr-1"></i> Точка выезда:
+          </label>
+<div class="grid grid-cols-3 gap-1.5 bg-surface-container-low p-1 rounded-2xl border border-surface-variant">
+<button class="py-2 text-xs font-bold rounded-xl transition bg-white text-primary shadow-xs" id="sTabGeo" onclick="window.setSearchStart('geo')">
+              📍 Геолокация
+            </button>
+<button class="py-2 text-xs font-semibold text-gray-600 hover:text-gray-900 rounded-xl transition" id="sTabMap" onclick="window.setSearchStart('map')">
+              🗺️ Точка на карте
+            </button>
+<button class="py-2 text-xs font-semibold text-gray-600 hover:text-gray-900 rounded-xl transition" id="sTabMetro" onclick="window.setSearchStart('metro')">
+              🚇 Метро
+            </button>
+</div>
+<!-- Гео блок -->
+<div class="mt-2.5 p-3 rounded-2xl bg-surface-container border border-surface-variant flex items-center justify-between" id="sBoxGeo">
+<div class="text-xs">
+<p class="font-bold text-on-surface"><i class="fa-solid fa-circle-dot text-secondary mr-1"></i> GPS точка подтверждена</p>
+<p class="text-gray-500 mt-0.5">Центральный округ (м. Охотный Ряд / Китай-город)</p>
+</div>
+<button class="text-xs font-bold text-primary bg-white px-2.5 py-1.5 rounded-xl border border-gray-200 shadow-2xs" onclick="alert('GPS спутники обновлены: радиус 150м')">
+              Обновить
+            </button>
+</div>
+<!-- Карта блок -->
+<div class="hidden mt-2.5 space-y-2" id="sBoxMap">
+<div class="relative h-32 rounded-2xl bg-blue-100 border border-blue-200 overflow-hidden cursor-crosshair" onclick="window.handleMapClick(event)">
+<div class="absolute inset-0 opacity-40 bg-[radial-gradient(#3b82f6_1.5px,transparent_1.5px)] [background-size:16px_16px]"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full text-primary text-2xl drop-shadow-md" id="mapPinEl">
+<i class="fa-solid fa-location-dot"></i>
+</div>
+<div class="absolute bottom-2 left-2 bg-white/90 text-[10px] font-bold px-2 py-0.5 rounded shadow">
+                Кликните по карте для выбора зоны
+              </div>
+</div>
+<p class="text-xs text-gray-500" id="sMapLabel">Выбрано: Центр города</p>
+</div>
+<!-- Метро блок -->
+<div class="hidden mt-2.5" id="sBoxMetro">
+<select class="w-full text-xs font-bold bg-surface-bright border border-gray-200 rounded-2xl p-2.5 focus:ring-primary focus:border-primary" id="sMetroSelect" onchange="window.executeSearch()">
+<option value="Центр:Охотный Ряд">🚇 Охотный Ряд (Центр)</option>
+<option value="Центр:Китай-город">🚇 Китай-город (Центр)</option>
+<option value="Юг:Университет">🚇 Университет (Юг)</option>
+<option value="Север:Динамо">🚇 Динамо (Север)</option>
+<option value="Запад:Раменки">🚇 Раменки (Запад)</option>
+<option value="Восток:Сокольники">🚇 Сокольники (Восток)</option>
+</select>
+</div>
+</div>
+<!-- 3. Транспорт -->
+<div>
+<label class="block text-xs font-bold text-gray-800 mb-1.5">Способ передвижения:</label>
+<div class="grid grid-cols-3 gap-2">
+<button class="transport-btn active p-2.5 rounded-2xl border-2 border-primary bg-primary/5 text-primary text-center transition" onclick="window.setTransport('metro', this)">
+<i class="fa-solid fa-train-subway block text-base mb-1"></i>
+<span class="text-xs font-bold block">Метро / Общ.</span>
+<span class="text-[10px] text-gray-500">65 ₽</span>
+</button>
+<button class="transport-btn p-2.5 rounded-2xl border-2 border-gray-200 bg-white text-gray-700 text-center transition" onclick="window.setTransport('walk', this)">
+<i class="fa-solid fa-person-walking block text-base mb-1"></i>
+<span class="text-xs font-bold block">Пешком</span>
+<span class="text-[10px] text-gray-500">0 ₽</span>
+</button>
+<button class="transport-btn p-2.5 rounded-2xl border-2 border-gray-200 bg-white text-gray-700 text-center transition" onclick="window.setTransport('taxi', this)">
+<i class="fa-solid fa-taxi block text-base mb-1"></i>
+<span class="text-xs font-bold block">Такси</span>
+<span class="text-[10px] text-gray-500">быстро</span>
+</button>
+</div>
+</div>
+<!-- 4. Тумблер мамы -->
+<div class="flex items-center justify-between p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200 cursor-pointer select-none" onclick="window.toggleMomComfort()">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-xl bg-amber-200/80 flex items-center justify-center text-tertiary">
+<i class="fa-solid fa-heart"></i>
+</div>
+<div>
+<p class="text-xs font-extrabold text-on-surface">Учитывать комфорт мамы</p>
+<p class="text-[11px] text-gray-500">Кофе, тишина, розетки для ноутбука</p>
+</div>
+</div>
+<div class="w-11 h-6 rounded-full bg-primary p-0.5 transition-colors" id="momToggle">
+<div class="w-5 h-5 rounded-full bg-white shadow-md transform translate-x-5 transition-transform"></div>
+</div>
+</div>
+<!-- Кнопка фильтров и запуска -->
+<div class="flex items-center gap-2 pt-1">
+<button class="w-1/3 py-3 rounded-2xl border border-gray-200 bg-white text-xs font-bold text-gray-700 hover:bg-gray-50 flex items-center justify-center gap-1.5 shadow-2xs" onclick="window.openFilterModal()">
+<i class="fa-solid fa-sliders"></i> <span id="comfortFilterCount">Фильтры</span>
+</button>
+<button class="w-2/3 py-3 rounded-2xl bg-primary text-white text-xs font-extrabold hover:bg-primary/95 shadow-md shadow-primary/20 flex items-center justify-center gap-2 transition" onclick="window.executeSearch()">
+<i class="fa-solid fa-magnifying-glass"></i> Найти подходящие
+          </button>
+</div>
+</div>
+<!-- Результаты поиска -->
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<h2 class="text-base font-extrabold text-on-surface">Подходящие места</h2>
+<span class="text-xs font-bold text-gray-500" id="searchResultCount"></span>
+</div>
+<div class="space-y-3.5" id="searchResultsContainer">
+<!-- Карточки результатов -->
+</div>
+</div>
+</div>
+</section>
+<!-- ================= СЕКЦИЯ 3: СМОТРИ, ЧТО НАШЛА! (РИЛСЫ) ================= -->
+<section class="hidden" id="tab-reels">
+<div class="max-w-[760px] mx-auto px-4 pt-4 space-y-4">
+<div class="flex items-center justify-between">
+<div>
+<h1 class="text-2xl font-black text-on-surface">Смотри, что нашла!</h1>
+<p class="text-xs text-gray-500">Короткие видео мам. Кликните, чтобы перейти к локации</p>
+</div>
+</div>
+<!-- Сетка рилсов 2 колонки -->
+<div class="grid grid-cols-2 gap-3 sm:gap-4" id="fullReelsGrid">
+<!-- Генерируется из JS -->
+</div>
+<div class="bg-white rounded-3xl p-5 border border-gray-200 text-center space-y-2">
+<i class="fa-solid fa-video text-2xl text-primary"></i>
+<h3 class="text-sm font-extrabold text-on-surface">Сняли ролик в интересном детском месте?</h3>
+<p class="text-xs text-gray-500">Поделитесь видео с другими родителями района и получите +150 бонусов в копилку!</p>
+<button class="text-xs font-extrabold text-primary border border-primary px-4 py-2 rounded-xl hover:bg-primary/5 transition" onclick="alert('Форма быстрой загрузки видео станет доступна в следующем обновлении!')">
+          Опубликовать обзор
+        </button>
+</div>
+</div>
+</section>
+<!-- ================= СЕКЦИЯ 4: ЛИЧНЫЙ КАБИНЕТ ================= -->
+<section class="hidden" id="tab-cabinet">
+<div class="max-w-[760px] mx-auto px-4 pt-4 space-y-5">
+<div>
+<h1 class="text-2xl font-black text-on-surface">Личный кабинет</h1>
+<p class="text-xs text-gray-500">Профиль родителя и детей для точного умного подбора</p>
+</div>
+<!-- Родитель -->
+<div class="bg-white rounded-3xl p-4 sm:p-5 border border-gray-200 shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<h2 class="text-sm font-extrabold text-on-surface flex items-center gap-2">
+<i class="fa-solid fa-user-circle text-primary text-base"></i> Профиль родителя
+          </h2>
+<span class="text-[10px] font-bold bg-secondary-container text-secondary px-2.5 py-0.5 rounded-full">Сохранено</span>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-700 mb-1">Ваше имя</label>
+<input class="w-full text-xs font-medium bg-surface-bright border border-gray-200 rounded-2xl p-2.5 focus:ring-primary focus:border-primary" id="cabName" type="text" value="Анна"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-700 mb-1">Домашний район (по умолчанию)</label>
+<select class="w-full text-xs font-medium bg-surface-bright border border-gray-200 rounded-2xl p-2.5 focus:ring-primary focus:border-primary" id="cabDistrict">
+<option value="Центр">Центральный округ</option>
+<option value="Запад">Западный округ</option>
+<option value="Юг">Южный округ</option>
+<option value="Север">Северный округ</option>
+<option value="Восток">Восточный округ</option>
+</select>
+</div>
+<button class="w-full py-2.5 rounded-xl bg-surface-container font-extrabold text-xs text-on-surface hover:bg-surface-variant transition" onclick="alert('Профиль родителя обновлен!')">
+          Сохранить изменения
+        </button>
+</div>
+<!-- Дети -->
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<h2 class="text-base font-extrabold text-on-surface flex items-center gap-2">
+<i class="fa-solid fa-children text-primary"></i> Профили детей
+          </h2>
+<button class="text-xs font-bold text-primary bg-primary-fixed px-3 py-1.5 rounded-xl hover:bg-primary/20 transition" onclick="window.openKidModal()">
+            + Добавить ребенка
+          </button>
+</div>
+<div class="space-y-2.5" id="cabKidsList">
+<!-- Карточки детей в кабинете -->
+</div>
+</div>
+</div>
+</section>
+<!-- ================= СЕКЦИЯ 5: ДЕТАЛЬНЫЙ ПРОСМОТР ЛОКАЦИИ ================= -->
+<section class="hidden" id="tab-venue-detail">
+<div class="max-w-[760px] mx-auto px-4 pt-3 space-y-4">
+<button class="text-xs font-bold text-gray-700 bg-white border border-gray-200 px-3 py-1.5 rounded-xl hover:bg-gray-50 flex items-center gap-1.5 transition" onclick="window.closeDetail()">
+<i class="fa-solid fa-arrow-left"></i> Назад
+      </button>
+<div class="space-y-4" id="venueDetailContent">
+<!-- Контент локации генерируется из JS -->
+</div>
+</div>
+</section>
+<!-- ================= ФИКСИРОВАННЫЙ НИЖНИЙ ТАББАР ================= -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 pointer-events-none pb-2 sm:pb-3">
+<div class="max-w-[500px] mx-auto px-4 pointer-events-auto">
+<div class="bg-white/95 backdrop-blur-md rounded-3xl border border-gray-200 shadow-xl shadow-black/10 flex items-center justify-around p-1.5">
+<button class="nav-tab active flex-1 py-2 px-1 text-center rounded-2xl transition-all duration-200 text-primary" data-tab="home" onclick="window.switchTab('home')">
+<i class="fa-solid fa-house block text-base mb-0.5"></i>
+<span class="text-[10px] font-extrabold block leading-tight">Главная</span>
+</button>
+<button class="nav-tab flex-1 py-2 px-1 text-center rounded-2xl transition-all duration-200 text-gray-500 hover:text-gray-900" data-tab="search" onclick="window.switchTab('search')">
+<i class="fa-solid fa-magnifying-glass block text-base mb-0.5"></i>
+<span class="text-[10px] font-extrabold block leading-tight">Поиск</span>
+</button>
+<button class="nav-tab flex-1 py-2 px-1 text-center rounded-2xl transition-all duration-200 text-gray-500 hover:text-gray-900" data-tab="reels" onclick="window.switchTab('reels')">
+<i class="fa-solid fa-play block text-base mb-0.5"></i>
+<span class="text-[10px] font-extrabold block leading-tight">Смотри!</span>
+</button>
+<button class="nav-tab flex-1 py-2 px-1 text-center rounded-2xl transition-all duration-200 text-gray-500 hover:text-gray-900" data-tab="cabinet" onclick="window.switchTab('cabinet')">
+<i class="fa-solid fa-user block text-base mb-0.5"></i>
+<span class="text-[10px] font-extrabold block leading-tight">Кабинет</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- ================= МОДАЛКА: ДОБАВИТЬ/РЕДАКТИРОВАТЬ РЕБЕНКА ================= -->
+<div class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4" id="kidModal">
+<div class="bg-white w-full max-w-[500px] rounded-t-3xl sm:rounded-3xl p-5 space-y-4 max-h-[90vh] overflow-y-auto">
+<div class="flex items-center justify-between">
+<h3 class="text-base font-extrabold text-on-surface" id="kidModalTitle">Добавить ребенка</h3>
+<button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:text-gray-800" onclick="window.closeKidModal()">
+<i class="fa-solid fa-xmark text-sm"></i>
+</button>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-700 mb-1">Имя</label>
+<input class="w-full text-xs font-medium bg-surface-bright border border-gray-200 rounded-xl p-2.5 focus:ring-primary focus:border-primary" id="kidModalName" placeholder="Например, Артём" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-700 mb-1">Возраст (0–17 лет)</label>
+<input class="w-full text-xs font-medium bg-surface-bright border border-gray-200 rounded-xl p-2.5 focus:ring-primary focus:border-primary" id="kidModalAge" max="17" min="0" placeholder="5" type="number"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-700 mb-1">Что ребенок любит (интересы):</label>
+<div class="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto pt-1" id="kidInterestsOptions">
+<!-- Интересы генерируются из JS -->
+</div>
+</div>
+<input id="kidModalEditId" type="hidden" value=""/>
+<button class="w-full py-3 rounded-2xl bg-primary text-white text-xs font-extrabold hover:bg-primary/95 transition shadow-md shadow-primary/20" onclick="window.saveKidFromModal()">
+        Сохранить ребенка
+      </button>
+</div>
+</div>
+<!-- ================= МОДАЛКА: ФИЛЬТРЫ КОМФОРТА ================= -->
+<div class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4" id="filterModal">
+<div class="bg-white w-full max-w-[480px] rounded-t-3xl sm:rounded-3xl p-5 space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-base font-extrabold text-on-surface">Паспорт комфорта (фильтры)</h3>
+<button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500" onclick="window.closeFilterModal()">
+<i class="fa-solid fa-xmark text-sm"></i>
+</button>
+</div>
+<div class="space-y-2 text-xs" id="comfortCheckboxes">
+<!-- Чекбоксы комфорта -->
+</div>
+<div class="flex items-center gap-2 pt-2">
+<button class="w-1/2 py-2.5 rounded-xl border border-gray-200 font-bold text-xs text-gray-600 hover:bg-gray-50" onclick="window.resetComfortFilters()">
+          Сбросить
+        </button>
+<button class="w-1/2 py-2.5 rounded-xl bg-primary text-white font-extrabold text-xs hover:bg-primary/95 shadow-md shadow-primary/20" onclick="window.applyComfortFilters()">
+          Применить
+        </button>
+</div>
+</div>
+</div>
+<!-- ================= JAVASCRIPT ПРИЛОЖЕНИЯ ================= -->
+<script>
+    (function() {
+      // 1. БАЗА ДАННЫХ МЕСТ
+      const PLACES = [
+        {
+          id: "p1",
+          name: "Семейное кафе «Улитка»",
+          category: "Кафе и коворкинг",
+          district: "Центр",
+          metroNear: "Китай-город",
+          ageMin: 0,
+          ageMax: 6,
+          price: 850,
+          travelTime: "12 мин",
+          image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&auto=format&fit=crop&q=80",
+          descr: "Уютное тихое кафе для родителей с малышами. Мягкая ковровая зона, деревянные эко-игрушки, сухой бассейн и первоклассный спешелти фильтр-кофе.",
+          interests: ["Деревянные игрушки", "Сенсорные зоны", "Тихие игры", "Кофе и перекус"],
+          comfort: { ramp: true, changing: true, quietHours: true, highChair: true, sockets: true, coffeeMom: true },
+          kidsRoom: "Изолированная зона с шариками, диван для кормления, подогреватель бутылочек."
+        },
+        {
+          id: "p2",
+          name: "Океанариум «Бухта открытий»",
+          category: "Животные и вода",
+          district: "Запад",
+          metroNear: "Раменки",
+          ageMin: 1,
+          ageMax: 16,
+          price: 1300,
+          travelTime: "24 мин",
+          image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&auto=format&fit=crop&q=80",
+          descr: "Огромный туннельный аквариум с акулами и контактным бассейном, где малыши трогают морских звезд под присмотром биологов.",
+          interests: ["Животные", "Вода и бассейны", "Научные опыты"],
+          comfort: { ramp: true, changing: true, quietHours: true, highChair: false, sockets: true, coffeeMom: true },
+          kidsRoom: "Интерактивная песочница с морскими фигурками и зона отдыха."
+        },
+        {
+          id: "p3",
+          name: "Игровой эко-центр «Облачко»",
+          category: "Игровой центр",
+          district: "Центр",
+          metroNear: "Охотный Ряд",
+          ageMin: 1,
+          ageMax: 8,
+          price: 950,
+          travelTime: "10 мин",
+          image: "https://images.unsplash.com/photo-1596464716127-f2a8298223af?w=800&auto=format&fit=crop&q=80",
+          descr: "Пространство свободного движения Монтессори. Лабиринты из мягкого фетра, зона для малышей 0–2 года и творческая мастерская для старших детей.",
+          interests: ["Деревянные игрушки", "Сенсорные зоны", "Лего и робототехника", "Рисование"],
+          comfort: { ramp: true, changing: true, quietHours: true, highChair: true, sockets: true, coffeeMom: true },
+          kidsRoom: "Зонировано: до 2 лет закрытый манеж, для старших горка и большой конструктор."
+        },
+        {
+          id: "p4",
+          name: "Театр сказок «Бэби-сцена»",
+          category: "Театр и сказки",
+          district: "Центр",
+          metroNear: "Китай-город",
+          ageMin: 0,
+          ageMax: 6,
+          price: 1100,
+          travelTime: "15 мин",
+          image: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=800&auto=format&fit=crop&q=80",
+          descr: "Интерактивные 40-минутные спектакли на мягких подушках. Дети сидят на ковре, трогают декорации и участвуют в добром сюжете.",
+          interests: ["Театр и сказки", "Сенсорные зоны", "Тихие игры"],
+          comfort: { ramp: true, changing: true, quietHours: true, highChair: false, sockets: false, coffeeMom: true },
+          kidsRoom: "Уютная зона с диванами и столиками для рисования до спектакля."
+        },
+        {
+          id: "p5",
+          name: "Скалодром «Вертикаль»",
+          category: "Активный спорт",
+          district: "Юг",
+          metroNear: "Университет",
+          ageMin: 4,
+          ageMax: 17,
+          price: 1200,
+          travelTime: "22 мин",
+          image: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&auto=format&fit=crop&q=80",
+          descr: "Безопасные трассы с автостраховкой для новичков, поролоновая яма и мягкие батуты. Дети выплескивают энергию под присмотром тренеров.",
+          interests: ["Скалодромы и батуты", "Скейт и ролики"],
+          comfort: { ramp: false, changing: false, quietHours: false, highChair: false, sockets: true, coffeeMom: true },
+          kidsRoom: "Родительский лаундж с видом на стенку, кофе и розетками."
+        },
+        {
+          id: "p6",
+          name: "Музей «Эксперименты & Наука»",
+          category: "Интерактивный музей",
+          district: "Север",
+          metroNear: "Динамо",
+          ageMin: 5,
+          ageMax: 15,
+          price: 800,
+          travelTime: "18 мин",
+          image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&auto=format&fit=crop&q=80",
+          descr: "Более 100 экспонатов, которые можно трогать, крутить и взрывать. Шоу мыльных пузырей и безопасная химическая лаборатория.",
+          interests: ["Научные опыты", "Лего и робототехника"],
+          comfort: { ramp: true, changing: false, quietHours: false, highChair: false, sockets: true, coffeeMom: true },
+          kidsRoom: "Зона свободной сборки механизмов из гигантских шестеренок."
+        },
+        {
+          id: "p7",
+          name: "Коворкинг с няней «Лофт & Мама»",
+          category: "Коворкинг и отдых",
+          district: "Восток",
+          metroNear: "Сокольники",
+          ageMin: 1,
+          ageMax: 10,
+          price: 700,
+          travelTime: "20 мин",
+          image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80",
+          descr: "Пока мама спокойно работает с ноутбуком и пьет кофе, сертифицированная няня занимается с детьми лепкой и сказками.",
+          interests: ["Лепка и глина", "Рисование", "Тихие игры", "Кофе и перекус"],
+          comfort: { ramp: true, changing: true, quietHours: true, highChair: true, sockets: true, coffeeMom: true },
+          kidsRoom: "Мягкая игровая комната со сказочной библиотекой и пуфами."
+        },
+        {
+          id: "p8",
+          name: "Эко-парк «Зеленая аллея»",
+          category: "Парк и прогулки",
+          district: "Запад",
+          metroNear: "Раменки",
+          ageMin: 0,
+          ageMax: 17,
+          price: 0,
+          travelTime: "25 мин",
+          image: "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=800&auto=format&fit=crop&q=80",
+          descr: "Бесплатный современный парк с безопасным памп-треком, деревянной игровой площадкой и уютными кофейнями вдоль пруда.",
+          interests: ["Животные", "Скейт и ролики", "Скалодромы и батуты"],
+          comfort: { ramp: true, changing: true, quietHours: true, highChair: false, sockets: false, coffeeMom: true },
+          kidsRoom: "Теплый павильон матери и ребенка у главного входа."
+        }
+      ];
+
+      // 2. БАЗА РИЛСОВ («СМОТРИ, ЧТО НАШЛА!»)
+      const REELS = [
+        {
+          id: "r1",
+          placeId: "p2",
+          title: "Крутейшее место! Скаты прямо над головой 🦈",
+          author: "Марина, двое сыновей",
+          views: "18.4k",
+          img: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&auto=format&fit=crop&q=80"
+        },
+        {
+          id: "r2",
+          placeId: "p3",
+          title: "Спасение, когда детям 2 и 6 лет! Идеально 🧸",
+          author: "Света, мама Алины и Марка",
+          views: "24.1k",
+          img: "https://images.unsplash.com/photo-1596464716127-f2a8298223af?w=600&auto=format&fit=crop&q=80"
+        },
+        {
+          id: "r3",
+          placeId: "p1",
+          title: "Наконец-то выпила горячий капучино в тишине ☕️",
+          author: "Ольга, дочке 1.5 года",
+          views: "31.9k",
+          img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&auto=format&fit=crop&q=80"
+        },
+        {
+          id: "r4",
+          placeId: "p5",
+          title: "Сын выплеснул всю энергию за час на батутах! 🧗",
+          author: "Татьяна, сын 9 лет",
+          views: "12.8k",
+          img: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600&auto=format&fit=crop&q=80"
+        },
+        {
+          id: "r5",
+          placeId: "p7",
+          title: "Я поработала 2 часа, пока няня лепила жирафа 💻",
+          author: "Екатерина, сыну 4 года",
+          views: "15.2k",
+          img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&auto=format&fit=crop&q=80"
+        },
+        {
+          id: "r6",
+          placeId: "p4",
+          title: "Малыш сидел как завороженный все 40 минут ✨",
+          author: "Дарья, дочке 2 года",
+          views: "9.7k",
+          img: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=600&auto=format&fit=crop&q=80"
+        }
+      ];
+
+      // 3. ДОСТУПНЫЕ ИНТЕРЕСЫ ДЛЯ ВЫБОРА
+      const ALL_INTERESTS = [
+        "Животные", "Вода и бассейны", "Лепка и глина", "Научные опыты",
+        "Скалодромы и батуты", "Лего и робототехника", "Сенсорные зоны",
+        "Деревянные игрушки", "Театр и сказки", "Скейт и ролики",
+        "Рисование", "Тихие игры", "Кофе и перекус"
+      ];
+
+      // 4. СОСТОЯНИЕ ПРИЛОЖЕНИЯ
+      let state = {
+        kids: [
+          { id: "k1", name: "Алина", age: 6, interests: ["Рисование", "Деревянные игрушки", "Лепка и глина"] },
+          { id: "k2", name: "Марк", age: 2, interests: ["Сенсорные зоны", "Вода и бассейны", "Животные"] }
+        ],
+        selectedKidIds: ["k1", "k2"],
+        startMode: "geo", // geo | map | metro
+        transport: "metro", // metro | walk | taxi
+        momComfort: true,
+        activeComfortKeys: [],
+        currentTab: "home",
+        previousTab: "home",
+        homeAgeFilter: "all"
+      };
+
+      // ================= 100% НАДЕЖНОЕ ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =================
+      window.switchTab = function(tabName) {
+        if (state.currentTab !== "venue-detail") {
+          state.previousTab = state.currentTab;
+        }
+        state.currentTab = tabName;
+
+        const tabs = ["home", "search", "reels", "cabinet", "venue-detail"];
+        tabs.forEach(t => {
+          const el = document.getElementById("tab-" + t);
+          if (el) {
+            if (t === tabName) {
+              el.classList.remove("hidden");
+              el.classList.add("block");
+            } else {
+              el.classList.remove("block");
+              el.classList.add("hidden");
+            }
+          }
+        });
+
+        // Обновляем визуальное состояние нижнего таббара
+        document.querySelectorAll(".nav-tab").forEach(btn => {
+          const target = btn.getAttribute("data-tab");
+          if (target === tabName) {
+            btn.classList.remove("text-gray-500");
+            btn.classList.add("text-primary");
+          } else {
+            btn.classList.remove("text-primary");
+            btn.classList.add("text-gray-500");
+          }
+        });
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+
+        if (tabName === "search") {
+          window.executeSearch();
+        }
+      };
+
+      // ================= СЛАЙДЕР «ХИТЫ НЕДЕЛИ» =================
+      window.slideHero = function(direction) {
+        const slider = document.getElementById("heroSlider");
+        if (!slider) return;
+        const scrollAmount = 340 * direction;
+        slider.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        setTimeout(updateSliderDots, 300);
+      };
+
+      function updateSliderDots() {
+        const slider = document.getElementById("heroSlider");
+        const dots = document.getElementById("sliderDots");
+        if (!slider || !dots) return;
+        const index = Math.round(slider.scrollLeft / 320);
+        const children = dots.children;
+        for (let i = 0; i < children.length; i++) {
+          if (i === index) {
+            children[i].className = "w-6 h-1.5 rounded-full bg-primary transition-all";
+          } else {
+            children[i].className = "w-1.5 h-1.5 rounded-full bg-gray-300 transition-all";
+          }
+        }
+      }
+
+      // ================= ГЛАВНАЯ СТРАНИЦА: РЕНДЕР =================
+      function renderHomeReels() {
+        const track = document.getElementById("homeReelsTrack");
+        if (!track) return;
+        track.innerHTML = REELS.map(r => {
+          const place = PLACES.find(p => p.id === r.placeId);
+          const placeName = place ? place.name : "Детская локация";
+          return `
+            <div onclick="window.openDetail('${r.placeId}')" class="flex-shrink-0 w-40 sm:w-44 aspect-[9/15] rounded-2xl relative overflow-hidden shadow-sm group cursor-pointer select-none">
+              <img src="${r.img}" alt="${r.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/20"></div>
+              
+              <div class="absolute top-2.5 left-2.5 bg-black/50 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                <i class="fa-solid fa-eye text-[9px]"></i> ${r.views}
+              </div>
+
+              <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/30 backdrop-blur-md border border-white/60 flex items-center justify-center text-white text-sm shadow group-hover:scale-110 transition">
+                <i class="fa-solid fa-play ml-0.5"></i>
+              </div>
+
+              <div class="absolute bottom-2.5 left-2.5 right-2.5 text-white space-y-1">
+                <p class="text-xs font-black leading-tight line-clamp-2 drop-shadow">${r.title}</p>
+                <div class="inline-flex items-center gap-1 bg-primary text-white text-[10px] font-extrabold px-2 py-0.5 rounded-lg shadow-sm max-w-full">
+                  <i class="fa-solid fa-location-dot text-[9px]"></i>
+                  <span class="truncate">${placeName}</span>
+                </div>
+                <p class="text-[10px] text-gray-300 truncate">${r.author}</p>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      window.filterHomeAge = function(range, btn) {
+        state.homeAgeFilter = range;
+        document.querySelectorAll("#homeAgeFilters .age-btn").forEach(b => {
+          b.className = "age-btn text-xs font-bold px-3 py-1.5 rounded-full bg-white text-gray-600 border border-gray-200 hover:bg-gray-50 transition";
+        });
+        if (btn) {
+          btn.className = "age-btn active text-xs font-bold px-3 py-1.5 rounded-full bg-primary text-white transition";
+        }
+        renderHomeLocations();
+      };
+
+      function renderHomeLocations() {
+        const container = document.getElementById("homeLocationsList");
+        if (!container) return;
+
+        let list = PLACES;
+        if (state.homeAgeFilter === "0-6") {
+          list = PLACES.filter(p => p.ageMin <= 6);
+        } else if (state.homeAgeFilter === "7-17") {
+          list = PLACES.filter(p => p.ageMax >= 7);
+        }
+
+        container.innerHTML = list.map(place => {
+          const comfortBadges = [];
+          if (place.comfort.ramp) comfortBadges.push("Пандус");
+          if (place.comfort.changing) comfortBadges.push("Пеленальная");
+          if (place.comfort.coffeeMom) comfortBadges.push("Кофе маме");
+
+          return `
+            <div onclick="window.openDetail('${place.id}')" class="bg-white rounded-3xl border border-gray-200/90 overflow-hidden shadow-xs hover:shadow-md transition cursor-pointer group">
+              <div class="relative h-44 sm:h-48 overflow-hidden">
+                <img src="${place.image}" alt="${place.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-gray-800 text-[11px] font-black px-2.5 py-1 rounded-full shadow-xs flex items-center gap-1">
+                  <i class="fa-solid fa-child text-primary"></i> ${place.ageMin}–${place.ageMax} лет
+                </span>
+                <span class="absolute top-3 right-3 bg-primary text-white text-xs font-black px-3 py-1 rounded-full shadow-xs">
+                  ${place.price === 0 ? "Бесплатно" : place.price + " ₽"}
+                </span>
+                <div class="absolute bottom-3 left-3 right-3 text-white">
+                  <p class="text-[11px] text-gray-200 font-semibold uppercase tracking-wider">${place.category}</p>
+                  <h3 class="text-base sm:text-lg font-black leading-tight">${place.name}</h3>
+                </div>
+              </div>
+              <div class="p-3.5 space-y-2.5">
+                <div class="flex items-center justify-between text-xs text-gray-600">
+                  <span class="flex items-center gap-1 font-semibold"><i class="fa-solid fa-location-dot text-primary"></i> ${place.district} · м. ${place.metroNear}</span>
+                  <span class="text-secondary font-bold bg-secondary-container/40 px-2 py-0.5 rounded-md"><i class="fa-solid fa-route mr-1"></i> ${place.travelTime} в пути</span>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed">${place.descr}</p>
+                
+                <!-- Паспорт комфорта в карточке -->
+                <div class="flex flex-wrap items-center gap-1.5 pt-1 border-t border-gray-100">
+                  ${comfortBadges.map(b => `
+                    <span class="text-[10px] font-bold bg-surface-container text-gray-700 px-2 py-0.5 rounded-md flex items-center gap-1">
+                      <i class="fa-solid fa-check text-secondary text-[9px]"></i> ${b}
+                    </span>
+                  `).join("")}
+                  <span class="text-[10px] font-extrabold text-primary ml-auto group-hover:underline">Смотреть паспорт →</span>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      // ================= СТАРТЫ И ПОИСК НА ГЛАВНОЙ =================
+      window.setHomeStartMode = function(mode) {
+        state.startMode = mode;
+        const bGeo = document.getElementById("btnHomeGeo");
+        const bMap = document.getElementById("btnHomeMap");
+        const bMet = document.getElementById("btnHomeMetro");
+        const meta = document.getElementById("homeStartMetaText");
+
+        [bGeo, bMap, bMet].forEach(b => {
+          b.className = "py-2 px-2 text-center rounded-xl text-xs font-semibold text-gray-600 hover:text-gray-900 transition";
+        });
+
+        if (mode === "geo") {
+          bGeo.className = "py-2 px-2 text-center rounded-xl text-xs font-bold transition bg-white text-primary shadow-xs";
+          meta.innerHTML = `<i class="fa-solid fa-check text-secondary mr-1.5"></i> Геопозиция: Центральный р-н (±200 м)`;
+        } else if (mode === "map") {
+          bMap.className = "py-2 px-2 text-center rounded-xl text-xs font-bold transition bg-white text-primary shadow-xs";
+          meta.innerHTML = `<i class="fa-solid fa-map-pin text-primary mr-1.5"></i> Точка на карте: Центр Москвы`;
+        } else if (mode === "metro") {
+          bMet.className = "py-2 px-2 text-center rounded-xl text-xs font-bold transition bg-white text-primary shadow-xs";
+          meta.innerHTML = `<i class="fa-solid fa-train-subway text-primary mr-1.5"></i> Метро: Охотный Ряд`;
+        }
+      };
+
+      window.quickCategorySearch = function(categoryQuery) {
+        document.getElementById("mainSearchInput").value = categoryQuery;
+        window.switchTab("search");
+        window.executeSearch(categoryQuery);
+      };
+
+      window.triggerHomeSearch = function() {
+        const val = document.getElementById("mainSearchInput").value.trim();
+        window.switchTab("search");
+        window.executeSearch(val);
+      };
+
+      window.quickTwoKids = function() {
+        state.selectedKidIds = state.kids.map(k => k.id);
+        window.switchTab("search");
+        window.executeSearch();
+      };
+
+      // ================= ПОИСК И МУЛЬТИ-ПОДБОР =================
+      function renderSearchKids() {
+        const container = document.getElementById("searchKidsList");
+        const status = document.getElementById("searchKidsStatus");
+        if (!container) return;
+
+        container.innerHTML = state.kids.map(kid => {
+          const isSelected = state.selectedKidIds.includes(kid.id);
+          return `
+            <button onclick="window.toggleKidSelection('${kid.id}')" class="px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition ${isSelected ? 'border-primary bg-primary-fixed text-primary' : 'border-gray-200 bg-white text-gray-600'}">
+              <i class="fa-solid ${isSelected ? 'fa-circle-check text-primary' : 'fa-child'}"></i>
+              <span>${kid.name} (${kid.age} лет)</span>
+            </button>
+          `;
+        }).join("");
+
+        if (state.selectedKidIds.length === 2) {
+          status.innerHTML = `<i class="fa-solid fa-scale-balanced mr-1"></i> Режим компромисса: ищем места, интересные обоим детям без скуки и риска!`;
+        } else if (state.selectedKidIds.length === 1) {
+          const k = state.kids.find(x => x.id === state.selectedKidIds[0]);
+          status.innerHTML = `Поиск под возраст и интересы: <b>${k ? k.name : ''}</b>`;
+        } else {
+          status.innerHTML = `<span class="text-error font-medium">Выберите хотя бы одного ребенка!</span>`;
+        }
+      }
+
+      window.toggleKidSelection = function(kidId) {
+        if (state.selectedKidIds.includes(kidId)) {
+          state.selectedKidIds = state.selectedKidIds.filter(id => id !== kidId);
+        } else {
+          state.selectedKidIds.push(kidId);
+        }
+        renderSearchKids();
+        window.executeSearch();
+      };
+
+      window.setSearchStart = function(mode) {
+        state.startMode = mode;
+        const tGeo = document.getElementById("sTabGeo");
+        const tMap = document.getElementById("sTabMap");
+        const tMet = document.getElementById("sTabMetro");
+        const bGeo = document.getElementById("sBoxGeo");
+        const bMap = document.getElementById("sBoxMap");
+        const bMet = document.getElementById("sBoxMetro");
+
+        [tGeo, tMap, tMet].forEach(t => t.className = "py-2 text-xs font-semibold text-gray-600 hover:text-gray-900 rounded-xl transition");
+        [bGeo, bMap, bMet].forEach(b => b.classList.add("hidden"));
+
+        if (mode === "geo") {
+          tGeo.className = "py-2 text-xs font-bold rounded-xl transition bg-white text-primary shadow-xs";
+          bGeo.classList.remove("hidden");
+        } else if (mode === "map") {
+          tMap.className = "py-2 text-xs font-bold rounded-xl transition bg-white text-primary shadow-xs";
+          bMap.classList.remove("hidden");
+        } else if (mode === "metro") {
+          tMet.className = "py-2 text-xs font-bold rounded-xl transition bg-white text-primary shadow-xs";
+          bMet.classList.remove("hidden");
+        }
+        window.executeSearch();
+      };
+
+      window.handleMapClick = function(e) {
+        const pin = document.getElementById("mapPinEl");
+        const label = document.getElementById("sMapLabel");
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        pin.style.left = x + "px";
+        pin.style.top = y + "px";
+        label.textContent = `Выбрана точка старта: координаты зоны (${Math.round(x)}, ${Math.round(y)})`;
+        window.executeSearch();
+      };
+
+      window.setTransport = function(mode, btn) {
+        state.transport = mode;
+        document.querySelectorAll(".transport-btn").forEach(b => {
+          b.className = "transport-btn p-2.5 rounded-2xl border-2 border-gray-200 bg-white text-gray-700 text-center transition";
+        });
+        if (btn) {
+          btn.className = "transport-btn active p-2.5 rounded-2xl border-2 border-primary bg-primary/5 text-primary text-center transition";
+        }
+        window.executeSearch();
+      };
+
+      window.toggleMomComfort = function() {
+        state.momComfort = !state.momComfort;
+        const toggle = document.getElementById("momToggle");
+        const knob = toggle.firstElementChild;
+        if (state.momComfort) {
+          toggle.classList.remove("bg-gray-300");
+          toggle.classList.add("bg-primary");
+          knob.classList.add("translate-x-5");
+        } else {
+          toggle.classList.remove("bg-primary");
+          toggle.classList.add("bg-gray-300");
+          knob.classList.remove("translate-x-5");
+        }
+        window.executeSearch();
+      };
+
+      window.executeSearch = function(customQuery) {
+        const resultsContainer = document.getElementById("searchResultsContainer");
+        const countBox = document.getElementById("searchResultCount");
+        if (!resultsContainer) return;
+
+        const query = (customQuery !== undefined ? customQuery : (document.getElementById("mainSearchInput") ? document.getElementById("mainSearchInput").value : "")).toLowerCase();
+        const selectedKids = state.kids.filter(k => state.selectedKidIds.includes(k.id));
+
+        let scored = PLACES.map(place => {
+          let score = 50;
+          let reasons = [];
+
+          if (query) {
+            const inName = place.name.toLowerCase().includes(query);
+            const inDescr = place.descr.toLowerCase().includes(query);
+            const inCat = place.category.toLowerCase().includes(query);
+            const inInterests = place.interests.some(i => i.toLowerCase().includes(query));
+            if (!inName && !inDescr && !inCat && !inInterests) {
+              return null; // не найдено по запросу
+            }
+            score += 20;
+          }
+
+          // Проверка детей
+          if (selectedKids.length > 0) {
+            let fitsAll = selectedKids.every(k => k.age >= place.ageMin && k.age <= place.ageMax);
+            if (fitsAll) {
+              score += 30;
+              reasons.push(selectedKids.length > 1 ? "100% безопасный компромисс для обоих возрастов" : `Подходит под возраст ${selectedKids[0].name}`);
+            } else {
+              let fitsOne = selectedKids.some(k => k.age >= place.ageMin && k.age <= place.ageMax);
+              if (fitsOne) {
+                score += 10;
+                reasons.push("Основная программа подходит старшему ребенку, есть зона отдыха");
+              } else {
+                score -= 30;
+              }
+            }
+
+            // Пересечение увлечений
+            const sharedInterests = place.interests.filter(pi => selectedKids.some(k => k.interests.includes(pi)));
+            if (sharedInterests.length > 0) {
+              score += 15;
+              reasons.push(`Любит: ${sharedInterests.slice(0, 2).join(", ")}`);
+            }
+          }
+
+          // Комфорт мамы
+          if (state.momComfort) {
+            if (place.comfort.coffeeMom) { score += 10; reasons.push("Спешелти кофе и зона отдыха для мамы"); }
+            if (place.comfort.sockets) score += 5;
+          }
+
+          // Фильтры чекбоксов
+          if (state.activeComfortKeys.length > 0) {
+            const hasAll = state.activeComfortKeys.every(k => place.comfort[k]);
+            if (!hasAll) return null;
+          }
+
+          score = Math.min(99, Math.max(30, score));
+
+          return { place, score, reasons };
+        }).filter(Boolean);
+
+        scored.sort((a, b) => b.score - a.score);
+
+        countBox.textContent = `Найдено: ${scored.length}`;
+
+        if (scored.length === 0) {
+          resultsContainer.innerHTML = `
+            <div class="bg-white rounded-3xl p-6 text-center text-gray-500 border border-gray-200 space-y-2">
+              <i class="fa-solid fa-magnifying-glass text-2xl text-gray-400"></i>
+              <p class="text-sm font-bold">Ничего не найдено с такими фильтрами</p>
+              <p class="text-xs">Попробуйте убрать некоторые фильтры комфорта или выбрать другого ребенка.</p>
+            </div>
+          `;
+          return;
+        }
+
+        resultsContainer.innerHTML = scored.map(item => {
+          const p = item.place;
+          const reelsCount = REELS.filter(r => r.placeId === p.id).length;
+
+          return `
+            <div onclick="window.openDetail('${p.id}')" class="bg-white rounded-3xl border border-gray-200/90 overflow-hidden shadow-xs hover:shadow-md transition cursor-pointer">
+              <div class="relative h-40 overflow-hidden">
+                <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+                <span class="absolute top-3 left-3 bg-primary text-white text-[11px] font-extrabold px-2.5 py-1 rounded-full shadow-xs">
+                  ${item.score}% совпадение
+                </span>
+                ${reelsCount > 0 ? `
+                  <span class="absolute top-3 right-3 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                    <i class="fa-solid fa-play text-primary"></i> ${reelsCount} видео
+                  </span>
+                ` : ''}
+                <div class="absolute bottom-3 left-3 right-3 text-white">
+                  <h3 class="text-base font-black leading-tight">${p.name}</h3>
+                  <p class="text-xs text-gray-200">${p.category} · м. ${p.metroNear}</p>
+                </div>
+              </div>
+              <div class="p-3.5 space-y-2">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-extrabold text-primary">${p.price === 0 ? "Вход бесплатный" : p.price + " ₽ вход"}</span>
+                  <span class="font-bold text-gray-500"><i class="fa-solid fa-route text-secondary"></i> ${p.travelTime} в пути</span>
+                </div>
+                <div class="space-y-1 pt-1">
+                  ${item.reasons.map(r => `
+                    <div class="text-[11px] text-gray-700 flex items-center gap-1.5 font-medium">
+                      <i class="fa-solid fa-circle-check text-secondary text-[10px]"></i> ${r}
+                    </div>
+                  `).join("")}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      // ================= ПОЛНЫЙ ЭКРАН РИЛСОВ =================
+      function renderFullReelsScreen() {
+        const grid = document.getElementById("fullReelsGrid");
+        if (!grid) return;
+        grid.innerHTML = REELS.map(r => {
+          const place = PLACES.find(p => p.id === r.placeId);
+          const placeName = place ? place.name : "Локация";
+          return `
+            <div onclick="window.openDetail('${r.placeId}')" class="aspect-[9/15] rounded-3xl relative overflow-hidden shadow-sm group cursor-pointer select-none">
+              <img src="${r.img}" alt="${r.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/20"></div>
+              
+              <div class="absolute top-3 left-3 bg-black/50 backdrop-blur-xs text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                <i class="fa-solid fa-eye text-[9px]"></i> ${r.views}
+              </div>
+
+              <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/30 backdrop-blur-md border border-white/60 flex items-center justify-center text-white text-base shadow group-hover:scale-110 transition">
+                <i class="fa-solid fa-play ml-0.5"></i>
+              </div>
+
+              <div class="absolute bottom-3 left-3 right-3 text-white space-y-1.5">
+                <p class="text-xs sm:text-sm font-black leading-tight line-clamp-2 drop-shadow">${r.title}</p>
+                <div class="inline-flex items-center gap-1 bg-primary text-white text-[11px] font-extrabold px-2.5 py-1 rounded-xl shadow max-w-full">
+                  <i class="fa-solid fa-location-dot text-[10px]"></i>
+                  <span class="truncate">${placeName}</span>
+                </div>
+                <p class="text-[10px] text-gray-300 truncate font-medium">${r.author}</p>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      // ================= ДЕТАЛЬНЫЙ ПРОСМОТР ЛОКАЦИИ =================
+      window.openDetail = function(placeId) {
+        const place = PLACES.find(p => p.id === placeId);
+        const container = document.getElementById("venueDetailContent");
+        if (!place || !container) return;
+
+        const venueReels = REELS.filter(r => r.placeId === place.id);
+
+        const comfortList = [
+          { key: "ramp", name: "Пандус и лифт для колясок", icon: "fa-wheelchair" },
+          { key: "changing", name: "Пеленальный стол в санузле", icon: "fa-baby" },
+          { key: "quietHours", name: "Тихий час (без фоновой громкой музыки)", icon: "fa-volume-low" },
+          { key: "highChair", name: "Стульчики для кормления", icon: "fa-chair" },
+          { key: "sockets", name: "Быстрый Wi-Fi и розетки", icon: "fa-wifi" },
+          { key: "coffeeMom", name: "Зона спешелти кофе для мамы", icon: "fa-mug-saucer" }
+        ];
+
+        container.innerHTML = `
+          <!-- Главный баннер -->
+          <div class="relative h-56 sm:h-64 rounded-3xl overflow-hidden shadow-md">
+            <img src="${place.image}" alt="${place.name}" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <span class="bg-primary text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">${place.category}</span>
+              <h1 class="text-xl sm:text-2xl font-black mt-2 leading-tight">${place.name}</h1>
+              <p class="text-xs text-gray-200 mt-1"><i class="fa-solid fa-location-dot text-primary"></i> ${place.district} · м. ${place.metroNear}</p>
+            </div>
+          </div>
+
+          <!-- Панель цены и кнопки маршрута -->
+          <div class="bg-white rounded-3xl p-4 border border-gray-200 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-[11px] text-gray-500 font-bold block">Стоимость посещения</span>
+              <span class="text-xl font-black text-primary">${place.price === 0 ? "Бесплатно" : place.price + " ₽"}</span>
+            </div>
+            <button onclick="alert('Маршрут построен в Яндекс.Картах! Время в пути: ${place.travelTime}')" class="bg-primary text-white text-xs font-extrabold px-5 py-3 rounded-2xl shadow-md shadow-primary/20 hover:bg-primary/95 transition flex items-center gap-1.5">
+              <i class="fa-solid fa-diamond-turn-right"></i> Маршрут сюда (${place.travelTime})
+            </button>
+          </div>
+
+          <!-- Блок рилсов именно об этом месте -->
+          <div class="space-y-2.5">
+            <div class="flex items-center justify-between">
+              <h2 class="text-base font-black text-on-surface flex items-center gap-2">
+                <i class="fa-solid fa-play text-primary"></i> Видео мам об этом месте
+              </h2>
+              <span class="text-xs font-bold text-gray-500">${venueReels.length} видео</span>
+            </div>
+
+            ${venueReels.length > 0 ? `
+              <div class="grid grid-cols-2 gap-3">
+                ${venueReels.map(r => `
+                  <div onclick="alert('Воспроизведение обзора: ${r.title}')" class="aspect-[9/13] rounded-2xl relative overflow-hidden shadow-xs cursor-pointer group">
+                    <img src="${r.img}" alt="${r.title}" class="w-full h-full object-cover group-hover:scale-105 transition">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center text-white text-xs">
+                      <i class="fa-solid fa-play ml-0.5"></i>
+                    </div>
+                    <div class="absolute bottom-2 left-2 right-2 text-white">
+                      <p class="text-xs font-black leading-tight line-clamp-2">${r.title}</p>
+                      <p class="text-[10px] text-gray-300 mt-0.5">${r.author}</p>
+                    </div>
+                  </div>
+                `).join("")}
+              </div>
+            ` : `
+              <div class="bg-white rounded-2xl p-4 text-center text-xs text-gray-500 border border-gray-200">
+                Пока нет видеоотзывов к этой локации. Снимите первый ролик и получите +150 баллов!
+              </div>
+            `}
+          </div>
+
+          <!-- Описание -->
+          <div class="bg-white rounded-3xl p-4 border border-gray-200 shadow-sm space-y-2">
+            <h3 class="text-sm font-black text-on-surface">О локации</h3>
+            <p class="text-xs text-gray-600 leading-relaxed">${place.descr}</p>
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              ${place.interests.map(t => `<span class="text-[11px] font-bold bg-surface-container text-gray-700 px-2.5 py-1 rounded-xl">${t}</span>`).join("")}
+            </div>
+          </div>
+
+          <!-- ПАСПОРТ КОМФОРТА -->
+          <div class="bg-white rounded-3xl p-4 border border-gray-200 shadow-sm space-y-3">
+            <h3 class="text-sm font-black text-on-surface">Паспорт комфорта (проверено экспертами)</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              ${comfortList.map(item => {
+                const has = place.comfort[item.key];
+                return `
+                  <div class="flex items-center gap-2 text-xs ${has ? 'text-gray-800 font-semibold' : 'text-gray-400 opacity-60'}">
+                    <i class="fa-solid ${has ? 'fa-circle-check text-secondary' : 'fa-circle-xmark text-gray-300'} text-base"></i>
+                    <span>${item.name}</span>
+                  </div>
+                `;
+              }).join("")}
+            </div>
+          </div>
+
+          <!-- Детская комната -->
+          <div class="bg-white rounded-3xl p-4 border border-gray-200 shadow-sm space-y-1.5">
+            <h3 class="text-sm font-black text-on-surface flex items-center gap-1.5">
+              <i class="fa-solid fa-shapes text-primary"></i> Оснащение детской комнаты
+            </h3>
+            <p class="text-xs text-gray-600 leading-relaxed">${place.kidsRoom}</p>
+          </div>
+        `;
+
+        window.switchTab("venue-detail");
+      };
+
+      window.closeDetail = function() {
+        window.switchTab(state.previousTab || "home");
+      };
+
+      // ================= КАБИНЕТ И ДЕТИ =================
+      function renderCabinetKids() {
+        const list = document.getElementById("cabKidsList");
+        if (!list) return;
+
+        if (state.kids.length === 0) {
+          list.innerHTML = `<div class="bg-white rounded-2xl p-4 text-center text-xs text-gray-500 border border-gray-200">Дети пока не добавлены.</div>`;
+          return;
+        }
+
+        list.innerHTML = state.kids.map(kid => {
+          return `
+            <div class="bg-white rounded-2xl p-3.5 border border-gray-200 shadow-xs flex items-center justify-between">
+              <div>
+                <h4 class="text-sm font-black text-on-surface">${kid.name}, ${kid.age} лет</h4>
+                <p class="text-xs text-gray-500 mt-0.5">Увлечения: ${kid.interests.slice(0, 3).join(", ") || "не указаны"}</p>
+              </div>
+              <div class="flex items-center gap-1">
+                <button onclick="window.editKid('${kid.id}')" class="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-gray-600 hover:text-primary transition" title="Редактировать">
+                  <i class="fa-solid fa-pen text-xs"></i>
+                </button>
+                <button onclick="window.deleteKid('${kid.id}')" class="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-gray-600 hover:text-error transition" title="Удалить">
+                  <i class="fa-solid fa-trash text-xs"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      window.openKidModal = function() {
+        document.getElementById("kidModalTitle").textContent = "Добавить ребенка";
+        document.getElementById("kidModalName").value = "";
+        document.getElementById("kidModalAge").value = "";
+        document.getElementById("kidModalEditId").value = "";
+        renderKidInterestsCheckboxes([]);
+        document.getElementById("kidModal").classList.remove("hidden");
+      };
+
+      window.editKid = function(kidId) {
+        const kid = state.kids.find(k => k.id === kidId);
+        if (!kid) return;
+        document.getElementById("kidModalTitle").textContent = "Редактировать ребенка";
+        document.getElementById("kidModalName").value = kid.name;
+        document.getElementById("kidModalAge").value = kid.age;
+        document.getElementById("kidModalEditId").value = kid.id;
+        renderKidInterestsCheckboxes(kid.interests);
+        document.getElementById("kidModal").classList.remove("hidden");
+      };
+
+      window.closeKidModal = function() {
+        document.getElementById("kidModal").classList.add("hidden");
+      };
+
+      function renderKidInterestsCheckboxes(activeList) {
+        const box = document.getElementById("kidInterestsOptions");
+        if (!box) return;
+        box.innerHTML = ALL_INTERESTS.map(item => {
+          const isSel = activeList.includes(item);
+          return `
+            <button type="button" onclick="this.classList.toggle('bg-primary-fixed'); this.classList.toggle('text-primary'); this.classList.toggle('border-primary');" class="kid-interest-tag text-xs font-semibold px-2.5 py-1 rounded-xl border border-gray-200 transition ${isSel ? 'bg-primary-fixed text-primary border-primary' : 'bg-gray-50 text-gray-700'}">
+              ${item}
+            </button>
+          `;
+        }).join("");
+      }
+
+      window.saveKidFromModal = function() {
+        const name = document.getElementById("kidModalName").value.trim();
+        const age = parseInt(document.getElementById("kidModalAge").value);
+        const editId = document.getElementById("kidModalEditId").value;
+
+        if (!name || isNaN(age)) {
+          alert("Пожалуйста, введите имя и возраст ребенка");
+          return;
+        }
+
+        const tags = Array.from(document.querySelectorAll(".kid-interest-tag.bg-primary-fixed")).map(t => t.textContent.trim());
+
+        if (editId) {
+          const k = state.kids.find(x => x.id === editId);
+          if (k) {
+            k.name = name;
+            k.age = age;
+            k.interests = tags;
+          }
+        } else {
+          const newKid = {
+            id: "kid_" + Date.now(),
+            name,
+            age,
+            interests: tags
+          };
+          state.kids.push(newKid);
+          state.selectedKidIds.push(newKid.id);
+        }
+
+        window.closeKidModal();
+        renderCabinetKids();
+        renderSearchKids();
+        window.executeSearch();
+      };
+
+      window.deleteKid = function(kidId) {
+        if (!confirm("Удалить профиль ребенка?")) return;
+        state.kids = state.kids.filter(k => k.id !== kidId);
+        state.selectedKidIds = state.selectedKidIds.filter(id => id !== kidId);
+        renderCabinetKids();
+        renderSearchKids();
+        window.executeSearch();
+      };
+
+      // ================= МОДАЛКА ФИЛЬТРОВ КОМФОРТА =================
+      const COMFORT_OPTIONS = [
+        { key: "ramp", name: "Пандус / лифт для колясок" },
+        { key: "changing", name: "Пеленальный столик" },
+        { key: "quietHours", name: "Тихий час (без фоновой громкой музыки)" },
+        { key: "highChair", name: "Высокие стульчики для малышей" },
+        { key: "sockets", name: "Wi-Fi и розетки" },
+        { key: "coffeeMom", name: "Спешелти кофе маме" }
+      ];
+
+      window.openFilterModal = function() {
+        const box = document.getElementById("comfortCheckboxes");
+        box.innerHTML = COMFORT_OPTIONS.map(opt => {
+          const checked = state.activeComfortKeys.includes(opt.key);
+          return `
+            <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-gray-50 border border-gray-200 cursor-pointer">
+              <input type="checkbox" value="${opt.key}" ${checked ? 'checked' : ''} class="w-4 h-4 rounded text-primary focus:ring-primary">
+              <span class="font-bold text-gray-800">${opt.name}</span>
+            </label>
+          `;
+        }).join("");
+        document.getElementById("filterModal").classList.remove("hidden");
+      };
+
+      window.closeFilterModal = function() {
+        document.getElementById("filterModal").classList.add("hidden");
+      };
+
+      window.resetComfortFilters = function() {
+        state.activeComfortKeys = [];
+        document.getElementById("comfortFilterCount").textContent = "Фильтры";
+        window.closeFilterModal();
+        window.executeSearch();
+      };
+
+      window.applyComfortFilters = function() {
+        const checked = Array.from(document.querySelectorAll("#comfortCheckboxes input:checked")).map(c => c.value);
+        state.activeComfortKeys = checked;
+        document.getElementById("comfortFilterCount").textContent = checked.length ? `Фильтры (${checked.length})` : "Фильтры";
+        window.closeFilterModal();
+        window.executeSearch();
+      };
+
+      // ================= СТАРТ ПРИЛОЖЕНИЯ =================
+      window.addEventListener("DOMContentLoaded", () => {
+        renderHomeReels();
+        renderHomeLocations();
+        renderSearchKids();
+        renderFullReelsScreen();
+        renderCabinetKids();
+        window.switchTab("home");
+
+        // Слушатель скролла карусели для обновления точек
+        const slider = document.getElementById("heroSlider");
+        if (slider) {
+          slider.addEventListener("scroll", () => {
+            clearTimeout(slider._scrollTimeout);
+            slider._scrollTimeout = setTimeout(updateSliderDots, 100);
+          });
+        }
+      });
+    })();
+  </script>
+</body></html>
