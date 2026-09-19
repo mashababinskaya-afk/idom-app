@@ -338,7 +338,12 @@ label.field-label { display: block; font-size: 13px; font-weight: 600; margin: 1
       </div>
       <label class="field-label">Бюджет на визит, ₽ (билет + дорога)</label>
       <input id="budget" type="number" placeholder="Например, 1500">
-      <button class="btn" style="margin-top:18px;" onclick="runSearch()"><i class="fa-solid fa-magnifying-glass"></i> Найти места</button>
+
+      <button class="topbar-btn" id="comfortFilterBtn" style="width:auto; height:auto; padding:10px 16px; margin-top:16px; gap:8px; font-size:13px; font-weight:700;" onclick="openComfortFilters()">
+        <i class="fa-solid fa-sliders"></i> Фильтры комфорта <span id="comfortFilterCount"></span>
+      </button>
+
+      <button class="btn" style="margin-top:14px;" onclick="runSearch()"><i class="fa-solid fa-magnifying-glass"></i> Найти места</button>
     </div>
 
     <p class="section-title" style="margin-top:26px;">Результаты</p>
@@ -346,6 +351,20 @@ label.field-label { display: block; font-size: 13px; font-weight: 600; margin: 1
     <div id="results"></div>
   </div>
 </main>
+
+<!-- МОДАЛКА: УМНЫЕ ФИЛЬТРЫ КОМФОРТА -->
+<div class="modal-overlay" id="comfortModal">
+  <div class="modal-sheet">
+    <div class="modal-close" onclick="closeComfortFilters()"><i class="fa-solid fa-xmark"></i></div>
+    <p class="section-title">Фильтры комфорта</p>
+    <p class="section-sub">Покажем только места, где точно есть выбранное.</p>
+    <div id="comfortFilterTags" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
+    <div style="display:flex; gap:10px; margin-top:20px;">
+      <button class="btn outline" style="flex:1;" onclick="resetComfortFilters()">Сбросить</button>
+      <button class="btn" style="flex:1;" onclick="applyComfortFilters()">Показать</button>
+    </div>
+  </div>
+</div>
 
 <!-- ======================= ЭКРАН: МЕСТО ======================= -->
 <main class="screen" id="screen-venue">
@@ -492,7 +511,7 @@ function matchScore(place, mom, kid) {
   }
   return Math.max(5, Math.min(99, score));
 }
-function searchPlaces({ kidId, momDistrict, transportMode, maxBudget }) {
+function searchPlaces({ kidId, momDistrict, transportMode, maxBudget, comfortFilters }) {
   const data = getUserData();
   const kid = kidId ? getKidById(kidId) : null;
   const mom = data.mom;
@@ -503,6 +522,9 @@ function searchPlaces({ kidId, momDistrict, transportMode, maxBudget }) {
     return { place, score, travel, totalCost: place.price + travel };
   }).filter(Boolean);
   if (maxBudget) results = results.filter(r => r.totalCost <= Number(maxBudget));
+  if (comfortFilters && comfortFilters.length) {
+    results = results.filter(r => comfortFilters.every(key => r.place.comfort[key]));
+  }
   results.sort((a, b) => b.score - a.score);
   return results;
 }
@@ -617,6 +639,42 @@ function deleteKid(id) {
 
 /* ===================== ПОИСК ===================== */
 let transportMode = "bus";
+let activeComfortFilters = [];
+const COMFORT_OPTIONS = [
+  { key: "ramp", icon: "fa-wheelchair-move", label: "Пандус" },
+  { key: "changing", icon: "fa-baby", label: "Пеленальная" },
+  { key: "quietHours", icon: "fa-volume-low", label: "Тихий час" },
+  { key: "highChair", icon: "fa-chair", label: "Стульчики" },
+  { key: "sockets", icon: "fa-plug", label: "Розетки / Wi-Fi" },
+  { key: "kidsMenu", icon: "fa-utensils", label: "Детское меню" }
+];
+
+function openComfortFilters() {
+  const box = document.getElementById("comfortFilterTags");
+  box.innerHTML = COMFORT_OPTIONS.map(c => `
+    <span class="tag ${activeComfortFilters.includes(c.key) ? "active" : ""}" data-ckey="${c.key}" onclick="this.classList.toggle('active')">
+      <i class="fa-solid ${c.icon}"></i> ${c.label}
+    </span>`).join("");
+  document.getElementById("comfortModal").classList.add("open");
+}
+function closeComfortFilters() {
+  document.getElementById("comfortModal").classList.remove("open");
+}
+function resetComfortFilters() {
+  activeComfortFilters = [];
+  updateComfortFilterBadge();
+  closeComfortFilters();
+}
+function applyComfortFilters() {
+  activeComfortFilters = Array.from(document.querySelectorAll("#comfortFilterTags .tag.active")).map(t => t.dataset.ckey);
+  updateComfortFilterBadge();
+  closeComfortFilters();
+}
+function updateComfortFilterBadge() {
+  const badge = document.getElementById("comfortFilterCount");
+  badge.textContent = activeComfortFilters.length ? `(${activeComfortFilters.length})` : "";
+}
+
 function pickTransport(el) {
   document.querySelectorAll('[data-mode]').forEach(t => t.classList.remove("active"));
   el.classList.add("active");
@@ -640,10 +698,10 @@ function runSearch() {
   const kidId = document.getElementById("kidSelect").value;
   const fromDistrict = document.getElementById("fromDistrict").value;
   const maxBudget = document.getElementById("budget").value;
-  const results = searchPlaces({ kidId, momDistrict: fromDistrict, transportMode, maxBudget });
+  const results = searchPlaces({ kidId, momDistrict: fromDistrict, transportMode, maxBudget, comfortFilters: activeComfortFilters });
   const hint = document.getElementById("resultsHint");
   const box = document.getElementById("results");
-  if (!results.length) { hint.textContent = "Под такой бюджет и возраст ничего не нашлось — попробуйте увеличить бюджет."; box.innerHTML = ""; return; }
+  if (!results.length) { hint.textContent = "Ничего не нашлось под такие условия — попробуйте увеличить бюджет или снять часть фильтров комфорта."; box.innerHTML = ""; return; }
   hint.textContent = `Найдено мест: ${results.length}. Сортировка — от лучшего совпадения к худшему.`;
   box.innerHTML = results.map(r => `
     <div class="venue-card" onclick="openVenue('${r.place.id}','search')">
